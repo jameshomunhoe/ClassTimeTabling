@@ -4,7 +4,7 @@
 
 
 /************************************************************************
- *	The 3 dimensions of the TimeTable will be venue, day, and time
+ *  The 3 dimensions of the TimeTable will be venue, day, and time
  *
  *  Example: class[venue][time][day]
  *  
@@ -82,7 +82,7 @@ struct Venue
  ************************************************************************/
 struct Lecturer
 {
-	char *lecturerName;
+  char *lecturerName;
   char *department;
 };
 
@@ -92,7 +92,7 @@ struct Lecturer
 struct Group
 {
   char *groupName;
-	int groupSize;
+  int groupSize;
 };
 
 /************************************************************************
@@ -109,8 +109,8 @@ struct Programme
  ************************************************************************/
 struct Course
 {
-	char *courseCode;
-	char *courseName;
+  char *courseCode;
+  char *courseName;
   int hoursOfLecture;
   int hoursOfTutorial;
   int hoursOfPractical;
