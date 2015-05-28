@@ -6,21 +6,21 @@
 /************************************************************************
  *	The 3 dimensions of the TimeTable will be venue, day, and time
  *
- *	Example: class[venue][time][day]
- *	
- *	(venue 1)
- *	Day/Time Time Time Time Time Time
- *	Day
- *	Day
- *	Day
- *	Day
+ *  Example: class[venue][time][day]
+ *  
+ *  (venue 1)
+ *  Day/Time Time Time Time Time Time
+ *  Day
+ *  Day
+ *  Day
+ *  Day
  *
- *	(venue 2)
- *	Day/Time Time Time Time Time Time
- *	Day
- *	Day
- *	Day
- *	Day
+ *  (venue 2)
+ *  Day/Time Time Time Time Time Time
+ *  Day
+ *  Day
+ *  Day
+ *  Day
  *
  ************************************************************************/
 
@@ -31,13 +31,13 @@
  ************************************************************************/
 typedef enum
 {
-	SUNDAY,
-	MONDAY,
-	TUESDAY,
-	WEDNESDAY,
-	THURSDAY,
-	FRIDAY,
-	SATURDAY
+  SUNDAY,
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+  THURSDAY,
+  FRIDAY,
+  SATURDAY
 } Days;
 
 
@@ -46,15 +46,15 @@ typedef enum
  ************************************************************************/
 typedef enum
 {
-	_8_to_9am,
-	_9_to_10am,
-	_10_to_11am,
-	_11_to_12pm,
-	_12_to_1pm,
-	_1_to_2pm,
-	_2_to_3pm,
-	_3_to_4pm,
-	_4_to_5pm
+  _8_to_9am,
+  _9_to_10am,
+  _10_to_11am,
+  _11_to_12pm,
+  _12_to_1pm,
+  _1_to_2pm,
+  _2_to_3pm,
+  _3_to_4pm,
+  _4_to_5pm
 } Time;
 
 /************************************************************************
@@ -72,9 +72,9 @@ typedef struct Class Class;
  ************************************************************************/
 struct Venue
 {
-	char *nameOfVenue;
-	int sizeOfVenue;
-	char venueType;
+  char *nameOfVenue;
+  int sizeOfVenue;
+  char venueType;
 };
 
 /************************************************************************
@@ -83,7 +83,7 @@ struct Venue
 struct Lecturer
 {
 	char *lecturerName;
-	char *department;
+  char *department;
 };
 
 /************************************************************************
@@ -91,7 +91,7 @@ struct Lecturer
  ************************************************************************/
 struct Group
 {
-	char *groupName;
+  char *groupName;
 	int groupSize;
 };
 
@@ -100,8 +100,8 @@ struct Group
  ************************************************************************/
 struct Programme
 {
-	char *programmeName;
-	Group *group[5];
+  char *programmeName;
+  Group *group[5];
 };
 
 /************************************************************************
@@ -111,11 +111,12 @@ struct Course
 {
 	char *courseCode;
 	char *courseName;
-	int hoursOfLecture;
-	int hoursOfTutorial;
-	int hoursOfPractical;
-	Programme *programme[5];
-	int sizeOfProgramme;
+  int hoursOfLecture;
+  int hoursOfTutorial;
+  int hoursOfPractical;
+  Programme *programme[5];
+  int sizeOfProgramme;
+
 };
 
 /************************************************************************
@@ -123,8 +124,8 @@ struct Course
  ************************************************************************/
 struct Class 
 {
-	Course *course;
-	Lecturer *lecturer;
+  Course *course;
+  Lecturer *lecturer;
 	char typeOfClass;
 	Group *group[5];
 };
