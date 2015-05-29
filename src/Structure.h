@@ -1,6 +1,15 @@
 #ifndef Structure_H
 #define Structure_H
 
+#ifdef FOR_TEST
+  #define MAX_DAY       3
+  #define MAX_TIME_SLOT 6
+
+#else
+  #define MAX_DAY       6
+  #define MAX_TIME_SLOT 8
+
+#endif //TEST
 
 
 /************************************************************************
@@ -130,4 +139,13 @@ struct Class
   Group *group[5];
 };
 
+// typedef struct Venue Venue;
+// typedef struct Lecturer Lecturer;
+// typedef struct Group Group;
+// typedef struct Programme Programme;
+// typedef struct Course Course;
+// typedef struct Class Class;
+/************************************************************************
+ *	List of 
+ ************************************************************************/
 #endif // Structure_H
