@@ -139,13 +139,9 @@ struct Class
   Group *group[5];
 };
 
-// typedef struct Venue Venue;
-// typedef struct Lecturer Lecturer;
-// typedef struct Group Group;
-// typedef struct Programme Programme;
-// typedef struct Course Course;
-// typedef struct Class Class;
-/************************************************************************
- *	List of 
- ************************************************************************/
+extern Venue venueList[];
+extern Lecturer lecturerList[];
+extern Group groupList[];
+
+
 #endif // Structure_H
