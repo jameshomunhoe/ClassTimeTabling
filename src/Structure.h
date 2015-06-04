@@ -4,11 +4,12 @@
 #ifdef FOR_TEST
   #define MAX_DAY       3
   #define MAX_TIME_SLOT 6
+  #define MAX_VENUE     2
 
 #else
   #define MAX_DAY       6
   #define MAX_TIME_SLOT 8
-
+  #define MAX_VENUE     5
 #endif //TEST
 
 
@@ -141,6 +142,9 @@ struct Class
 extern Venue venueList[];
 extern Lecturer lecturerList[];
 extern Group groupList[];
-
+extern Programme programmeList[];
+extern Course courseList[];
+extern Class clazzList[];
+extern int getGroupSize();
 
 #endif // Structure_H

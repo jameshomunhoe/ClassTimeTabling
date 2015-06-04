@@ -1,12 +1,6 @@
 #include <stdio.h>
 #include "Structure.h"
 
-// typedef struct Venue Venue;
-// typedef struct Lecturer Lecturer;
-// typedef struct Group Group;
-// typedef struct Programme Programme;
-// typedef struct Course Course;
-// typedef struct Class Class;
 
 /************************************************************************
  *	List of Venue
@@ -108,7 +102,7 @@
 /************************************************************************
  *	List of Class
  ************************************************************************/
- Class claszzList[] = {{ .course = &courseList[0],
+ Class clazzList[] = {{ .course = &courseList[0],
                          .lecturer = &lecturerList[0],
                          .typeOfClass = 'l',
                          .group[0] = &groupList[0],
@@ -207,5 +201,12 @@
                           .group[3] = &groupList[5],
                           .group[4] = NULL
                         }};
- 
- // Pending course and class to add
+                        
+                        
+int getGroupSize(){
+  int i, counter = 0;
+  for(i = 0; groupList[i].groupName != NULL; i++){
+    counter++;
+  }
+  return counter;
+}

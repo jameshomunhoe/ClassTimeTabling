@@ -1,6 +1,7 @@
 #ifndef Constraints_H
 #define Constraints_H
 
+#define FOR_TEST
 #include "Structure.h"
 
 //function prototype
