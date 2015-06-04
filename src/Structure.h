@@ -124,7 +124,6 @@ struct Course
   int hoursOfTutorial;
   int hoursOfPractical;
   Programme *programme[5];
-  int sizeOfProgramme;
 
 };
 
