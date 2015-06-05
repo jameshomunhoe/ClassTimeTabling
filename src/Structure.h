@@ -146,5 +146,6 @@ extern Programme programmeList[];
 extern Course courseList[];
 extern Class clazzList[];
 extern int getGroupSize();
+extern int getLecturerSize();
 
 #endif // Structure_H

@@ -210,3 +210,11 @@ int getGroupSize(){
   }
   return counter;
 }
+
+int getLecturerSize(){
+  int i, counter = 0;
+  for(i = 0; lecturerList[i].lecturerName != NULL; i++){
+    counter++;
+  }
+  return counter;
+}

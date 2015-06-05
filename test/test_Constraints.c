@@ -16,7 +16,7 @@ void tearDown(void){}
 * MAX_TIME_SLOT = 6
 **/
 
-void xtest_studyHourOverloaded_should_return_0_with_empty_Class(void)
+void test_studyHourOverloaded_should_return_0_with_empty_Class(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
   
@@ -127,4 +127,11 @@ void test_studyHourOverloaded_should_return_20(void)
   //a total of       20
   
   TEST_ASSERT_EQUAL(20,studyHourOverloaded(exampleClass, 2, MAX_VENUE));
+}
+
+void test_studyHourOverloaded_should_return_negative_1_when_exceeding_MAX_DAY(void)
+{
+  Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+ 
+  TEST_ASSERT_EQUAL(-1,studyHourOverloaded(exampleClass, 3, MAX_VENUE));
 }
