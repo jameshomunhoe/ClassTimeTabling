@@ -47,7 +47,7 @@ return violation;
 }
 
 int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
-                        int timeToCheck, int dayToCheck, \
+                        int dayToCheck, int timeToCheck, \
                         int totalVenue)
 {
 

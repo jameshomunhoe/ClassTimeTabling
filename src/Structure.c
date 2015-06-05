@@ -204,17 +204,9 @@
                         
                         
 int getGroupSize(){
-  int i, counter = 0;
-  for(i = 0; groupList[i].groupName != NULL; i++){
-    counter++;
-  }
-  return counter;
+  return (sizeof(groupList)/sizeof(Group));
 }
 
 int getLecturerSize(){
-  int i, counter = 0;
-  for(i = 0; lecturerList[i].lecturerName != NULL; i++){
-    counter++;
-  }
-  return counter;
+  return (sizeof(lecturerList)/sizeof(Lecturer));
 }

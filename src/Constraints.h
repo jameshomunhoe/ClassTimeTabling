@@ -10,6 +10,6 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int totalVenue);
                         
 int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
-                        int timeToCheck, int dayToCheck, \
+                        int dayToCheck, int timeToCheck, \
                         int totalVenue);
 #endif // Constraints_H
