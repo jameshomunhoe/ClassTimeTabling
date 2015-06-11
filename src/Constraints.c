@@ -8,7 +8,15 @@
 //  (sizeof(exampleClass)/sizeof(Class))/(sizeof(exampleClass[0])/sizeof(Class)));
 
 
-
+/****************************************************************************
+ *	Function name	:	studyHourOverloaded
+ *	Inputs				: Class sourceClass[][][], dayToCheck, totalVenue
+ *	Output/return	: number of violation
+ *	Destroy				:	NONE
+ *	Description		:	The purpose of this function is to calculate the
+ *                  violation of same group of student study more than 4 hours
+ *                  a day
+ *****************************************************************************/
 int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, \
                         int totalVenue)
@@ -46,6 +54,15 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
 return violation;
 }
 
+/****************************************************************************
+ *	Function name	:	lecturerInMultipleVenue
+ *	Inputs				: Class sourceClass[][][], dayToCheck, timeToCheck, totalVenue
+ *	Output/return	: number of violation
+ *	Destroy				:	NONE
+ *	Description		:	The purpose of this function is to calculate the
+ *                  violation of same lecturer appeared in same class during
+ *                  particular day and hour.
+ *****************************************************************************/
 int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, int timeToCheck, \
                         int totalVenue)
