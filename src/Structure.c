@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "Structure.h"
+#include "CException.h"
+#include "ErrorCode.h"
 
+#define FOR_TEST
 
 /************************************************************************
  *  List of Venue
@@ -202,7 +205,11 @@
                           .group[4] = NULL
                         }};
                         
-         
+                        
+/****************************************************************************
+ * Functions
+ *****************************************************************************/
+ 
 /****************************************************************************
  *  Function name : getGroupSize
  *  Inputs        : NONE
@@ -296,4 +303,46 @@ int checkEqualClass(Class newClass, Class newClass2){
     return 0;
     
   return 1;
+}
+
+void indexForward(int *venue, int *day, int *time){
+
+  if(*venue < 0 || *day < 0 || *time < 0)
+    Throw(ERR_EXCEEDED_INDEX);
+  if(*venue >= MAX_VENUE || *day >= MAX_DAY || *time >= MAX_TIME_SLOT)
+    Throw(ERR_EXCEEDED_INDEX);
+
+  (*time)++;
+  
+  if(*time >= MAX_TIME_SLOT){
+    *time = 0;
+    (*day)++;
+  }
+  if(*day >= MAX_DAY){
+    *day = 0;
+    (*venue)++;
+  }
+  if(*venue >= MAX_VENUE)
+    *venue = 0;
+}
+
+void indexBackward(int *venue, int *day, int *time){
+  
+  if(*venue < 0 || *day < 0 || *time < 0)
+    Throw(ERR_EXCEEDED_INDEX);
+  if(*venue >= MAX_VENUE || *day >= MAX_DAY || *time >= MAX_TIME_SLOT)
+    Throw(ERR_EXCEEDED_INDEX);
+  
+  (*time)--;
+  
+  if(*time < 0){
+    *time = MAX_TIME_SLOT - 1;
+    (*day)--;
+  }
+  if(*day < 0){
+    *day = MAX_DAY - 1;
+    (*venue)--;
+  }
+  if(*venue < 0)
+    *venue = MAX_VENUE - 1;
 }

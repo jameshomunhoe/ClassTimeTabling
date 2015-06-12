@@ -4,4 +4,6 @@
 #define FOR_TEST
 #include "Structure.h"
 
+int compareTimeTableWithClassList();
+
 #endif // Crossover_H

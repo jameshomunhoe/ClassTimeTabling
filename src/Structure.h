@@ -1,15 +1,17 @@
 #ifndef Structure_H
 #define Structure_H
 
+#define FOR_TEST
+
 #ifdef FOR_TEST
+  #define MAX_VENUE     2
   #define MAX_DAY       3
   #define MAX_TIME_SLOT 6
-  #define MAX_VENUE     2
 
 #else
+  #define MAX_VENUE     5
   #define MAX_DAY       6
   #define MAX_TIME_SLOT 8
-  #define MAX_VENUE     5
 #endif //TEST
 
 
@@ -150,5 +152,6 @@ extern int getLecturerSize();
 extern Class clearClass(Class sourceClass);
 extern void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
 extern int checkEqualClass(Class newClass, Class newClass2);
-
+extern void indexForward(int *venue, int *day, int *time);
+extern void indexBackward(int *venue, int *day, int *time);
 #endif // Structure_H
