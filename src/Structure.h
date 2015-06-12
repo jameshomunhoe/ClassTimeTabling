@@ -149,6 +149,7 @@ extern Course courseList[];
 extern Class clazzList[];
 extern int getGroupSize();
 extern int getLecturerSize();
+extern int getCourseSize();
 extern Class clearClass(Class sourceClass);
 extern void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
 extern int checkEqualClass(Class newClass, Class newClass2);

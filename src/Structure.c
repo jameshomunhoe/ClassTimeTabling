@@ -233,6 +233,17 @@ int getLecturerSize(){
 }
 
 /****************************************************************************
+ *  Function name : getCourseSIze
+ *  Inputs        : NONE
+ *  Output/return : array size of courseList[]
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function return the array size of courseList
+ *****************************************************************************/
+int getCourseSize(){
+  return (sizeof(courseList)/sizeof(Course));
+}
+
+/****************************************************************************
  *  Function name : clearClass
  *  Inputs        : Class sourceClass
  *  Output/return : NONE
