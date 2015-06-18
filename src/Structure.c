@@ -244,6 +244,17 @@ int getCourseSize(){
 }
 
 /****************************************************************************
+ *  Function name : getClazzListSize
+ *  Inputs        : NONE
+ *  Output/return : array size of clazzList[]
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function return the array size of clazzList
+ *****************************************************************************/
+int getClazzListSize(){
+  return (sizeof(clazzList)/sizeof(Class));
+}
+
+/****************************************************************************
  *  Function name : clearClass
  *  Inputs        : Class sourceClass
  *  Output/return : NONE

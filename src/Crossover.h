@@ -11,9 +11,14 @@ struct ClassCounter
   int lectureCounter;
   int tutorialCounter;
   int practicalCounter;
+  int forEmptyClasses;
 };
 
-extern ClassCounter classCount[12];
+extern ClassCounter classCount[4];
 int updateCounter(Class classToCheck);
+int performCrossover(Class Father[][MAX_DAY][MAX_TIME_SLOT], \
+                     Class Mother[][MAX_DAY][MAX_TIME_SLOT], \
+                     Class Offspring[][MAX_DAY][MAX_TIME_SLOT],\
+                     int totalVenue);
 
 #endif // Crossover_H
