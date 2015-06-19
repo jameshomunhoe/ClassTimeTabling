@@ -305,3 +305,13 @@ void test_indexBackward_should_throw_when_exceeded_index(){
     TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
   }
 }
+
+void test_copyClassSlot_should_copy_everything_in_class(){
+  Class sourceClass = clazzList[0];
+  Class newClass;
+  
+  newClass = copyClassSlot(sourceClass);
+  
+  TEST_ASSERT_EQUAL(1,checkEqualClass(sourceClass, newClass) );
+  
+}

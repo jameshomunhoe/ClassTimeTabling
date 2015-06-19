@@ -1,3 +1,5 @@
+#define TEST
+
 #include "unity.h"
 #include <stdio.h>
 #include "Crossover.h"
@@ -126,4 +128,17 @@ void test_updateCounter_should_able_to_run_with_different_class(){
   TEST_ASSERT_EQUAL(1, updateCounter(newClass));
   TEST_ASSERT_EQUAL(1, updateCounter(newClass2));
   TEST_ASSERT_EQUAL(0, updateCounter(newClass2));
+}
+
+void test_ddly(){
+  
+ Class Father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+ Class Mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+ Class Offspring[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+ 
+ clearTimeTable(Father);
+ clearTimeTable(Mother);
+ clearTimeTable(Offspring);
+ 
+ 
 }

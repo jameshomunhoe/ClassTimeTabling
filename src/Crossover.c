@@ -67,25 +67,39 @@ int performCrossover(Class Father[][MAX_DAY][MAX_TIME_SLOT], \
                      Class Mother[][MAX_DAY][MAX_TIME_SLOT], \
                      Class Offspring[][MAX_DAY][MAX_TIME_SLOT],\
                      int totalVenue){
-int stopIndex = 0, i = 0;
+int stopIndexLeft = 0, stopIndexRight = 0, i = 0;
 int venueToRight = 0, dayToRight = 0, timeToRight = 0;
 int venueToLeft = 0, dayToLeft = 0, timeToLeft = 0;
 int venueOffspring = 0, dayOffspring = 0, timeOffspring = 0;
 
 
-for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT && stopIndex == 0) ; i++){
+for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
+  if(stopIndexLeft != 1){
 		if(updateCounter(Father[venueToLeft][dayToLeft][timeToLeft])){
 			//copy to offspring
+      //offSpring indexBackward
     }
-    else
-      indexBackward(&venueToLeft,&dayToLeft,&timeToLeft);	
-	}
-	for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
-		if(updateCounter(Mother[venueToRight][dayToRight][timeToRight])){
+    else{
+      printf("%d, %d, %d\n", venueToLeft, dayToLeft, timeToLeft);
+      if(stopIndexRight = 0)
+        stopIndexLeft = 1;
+    }
+    
+    indexBackward(&venueToLeft,&dayToLeft,&timeToLeft);	
+  }
+  if(stopIndexRight != 1){
+    if(updateCounter(Mother[venueToRight][dayToRight][timeToRight])){
       //copy to offspring
+      //offSpring indexForward
 		}
-    else
-      indexForward(&venueToRight,&dayToRight,&timeToRight);
-	}
+    else{
+      printf("%d, %d, %d\n", venueToRight, dayToRight, timeToRight);
+      if(stopIndexLeft = 0)
+        stopIndexRight = 1;
+    }
+    
+    indexForward(&venueToRight,&dayToRight,&timeToRight);
+  }
+}
                      
 }

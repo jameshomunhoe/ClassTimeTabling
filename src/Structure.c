@@ -368,3 +368,16 @@ void indexBackward(int *venue, int *day, int *time){
   if(*venue < 0)
     *venue = MAX_VENUE - 1;
 }
+
+Class copyClassSlot(Class sourceClass){
+  int i;
+	Class targetClass;
+	
+	targetClass.course = sourceClass.course;
+	targetClass.lecturer = sourceClass.lecturer;
+	targetClass.typeOfClass = sourceClass.typeOfClass;
+	for(i = 0 ; i < 5 ; i++){
+		targetClass.group[i] = sourceClass.group[i];
+	}
+	return targetClass;
+}

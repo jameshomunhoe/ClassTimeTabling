@@ -153,6 +153,7 @@ extern int getCourseSize();
 extern int getClazzListSize();
 extern Class clearClass(Class sourceClass);
 extern void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
+extern Class copyClassSlot(Class sourceClass);
 extern int checkEqualClass(Class newClass, Class newClass2);
 extern void indexForward(int *venue, int *day, int *time);
 extern void indexBackward(int *venue, int *day, int *time);
