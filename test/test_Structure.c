@@ -313,5 +313,14 @@ void test_copyClassSlot_should_copy_everything_in_class(){
   newClass = copyClassSlot(sourceClass);
   
   TEST_ASSERT_EQUAL(1,checkEqualClass(sourceClass, newClass) );
+}
+
+void test_copyClassSlot_should_return_0_when_copy_wrong_class(){
+  Class sourceClass = clazzList[0];
+  Class fakeClass = clazzList[2];
+  Class newClass;
   
+  newClass = copyClassSlot(fakeClass);
+  
+  TEST_ASSERT_EQUAL(0,checkEqualClass(sourceClass, newClass) );
 }

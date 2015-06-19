@@ -1,4 +1,4 @@
-#define TEST
+#define FOR_TEST
 
 #include "unity.h"
 #include <stdio.h>
@@ -140,5 +140,62 @@ void test_ddly(){
  clearTimeTable(Mother);
  clearTimeTable(Offspring);
  
+ int i;
+ int a = 0, b = 0 , c = 0;
+ int d = MAX_VENUE-1, e = MAX_DAY-1, f = MAX_TIME_SLOT - 1;
  
+ for( i = 0 ; i < 11 ; i++){
+   Father[a][b][c] = copyClassSlot(clazzList[i]);
+   Mother[d][e][f] = copyClassSlot(clazzList[i]);
+   indexForward(&a,&b,&c);
+   indexBackward(&d,&e,&f);
+ }
+ 
+  // a = 0;
+  // b = 0;
+  // c = 0;
+
+  // for(i = 0 ; i < 36 ; i++){
+   // if(Father[a][b][c].course == NULL)
+     // printf("Father %d. Empty\n",i);
+   // else
+     // printf("Father %d. %s\n",i,Father[a][b][c].course->courseName);
+   // indexForward(&a,&b,&c);
+ // }
+ 
+  // a = 0;
+  // b = 0;
+  // c = 0;
+   // for(i = 0 ; i < 36 ; i++){
+   // if(Mother[a][b][c].course == NULL)
+     // printf("Mother %d. Empty\n",i);
+   // else
+     // printf("Mother %d. %s\n",i,Mother[a][b][c].course->courseName);
+   // indexForward(&a,&b,&c);
+ // }
+ 
+ 
+ performCrossover(Father,Mother,Offspring,2);
+ 
+  a = 0;
+  b = 0;
+  c = 0;
+  
+ // for(i = 0 ; i < 36 ; i++){
+   // if(Offspring[a][b][c].course == NULL)
+     // printf("%d. Empty\n",i);
+   // else
+     // printf("%d. %s\n",i,Offspring[a][b][c].course->courseName);
+   // indexForward(&a,&b,&c);
+ // }
+ 
+ setUp();
+  a = 0;
+  b = 0;
+  c = 0;
+  for(i = 0 ; i < 36 ; i++){
+   TEST_ASSERT_EQUAL(1, updateCounter(Offspring[a][b][c]));
+   indexForward(&a,&b,&c);
+ }
+   TEST_ASSERT_EQUAL(0, updateCounter(Offspring[0][0][0]));
 }
