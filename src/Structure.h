@@ -123,6 +123,7 @@ struct Course
 {
   char *courseCode;
   char *courseName;
+  int courseIndex;
   int hoursOfLecture;
   int hoursOfTutorial;
   int hoursOfPractical;
@@ -157,4 +158,5 @@ extern Class copyClassSlot(Class sourceClass);
 extern int checkEqualClass(Class newClass, Class newClass2);
 extern void indexForward(int *venue, int *day, int *time);
 extern void indexBackward(int *venue, int *day, int *time);
+extern int classIsNull(Class sourceClass);
 #endif // Structure_H

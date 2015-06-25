@@ -306,21 +306,50 @@ void test_indexBackward_should_throw_when_exceeded_index(){
   }
 }
 
-void test_copyClassSlot_should_copy_everything_in_class(){
-  Class sourceClass = clazzList[0];
+void test_classIsNull_will_return_0_when_course_available(){
   Class newClass;
   
-  newClass = copyClassSlot(sourceClass);
+  newClass = clearClass(newClass);
   
-  TEST_ASSERT_EQUAL(1,checkEqualClass(sourceClass, newClass) );
+  newClass.course = &courseList[0];
+  
+  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
 }
 
-void test_copyClassSlot_should_return_0_when_copy_wrong_class(){
-  Class sourceClass = clazzList[0];
-  Class fakeClass = clazzList[2];
+void test_classIsNull_will_return_0_when_lecturer_available(){
   Class newClass;
   
-  newClass = copyClassSlot(fakeClass);
+   newClass = clearClass(newClass);
   
-  TEST_ASSERT_EQUAL(0,checkEqualClass(sourceClass, newClass) );
+  newClass.lecturer = &lecturerList[0];
+  
+  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
+}
+
+void test_classIsNull_will_return_0_when_typeOfClass_available(){
+  Class newClass;
+  
+   newClass = clearClass(newClass);
+  
+  newClass.typeOfClass = 'l';
+  
+  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
+}
+
+void test_classIsNull_will_return_0_when_group_available(){
+  Class newClass;
+  
+   newClass = clearClass(newClass);
+  
+  newClass.group[0] = &groupList[0];
+  
+  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
+}
+
+void test_classIsNull_will_return_1_when_empty_class(){
+  Class newClass;
+  
+   newClass = clearClass(newClass);
+  
+  TEST_ASSERT_EQUAL(1, classIsNull(newClass));
 }

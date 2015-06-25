@@ -15,10 +15,16 @@ struct ClassCounter
 };
 
 extern ClassCounter classCount[4];
+
 int updateCounter(Class classToCheck);
 int performCrossover(Class Father[][MAX_DAY][MAX_TIME_SLOT], \
                      Class Mother[][MAX_DAY][MAX_TIME_SLOT], \
                      Class Offspring[][MAX_DAY][MAX_TIME_SLOT],\
                      int totalVenue);
-
+void randomIndex(int *venue, int *day, int *time);
+void updateStopFlag(int *currentSide, int *oppositeSide);
+int updateEmptyCounter(Class classToCheck, int emptyIndex, int totalEmptySlots);
+int updateLectureCounter(Class classToCheck);
+int updateTutorialCounter(Class classToCheck);
+int updatePracticalCounter(Class classToCheck);
 #endif // Crossover_H

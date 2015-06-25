@@ -76,6 +76,7 @@
  ************************************************************************/
  Course courseList[] = {{ .courseCode = "AAMP1234",
                           .courseName = "ENGLISH",
+                          .courseIndex = 0,
                           .hoursOfLecture = 2,
                           .hoursOfTutorial = 1,
                           .hoursOfPractical = 0,
@@ -85,6 +86,7 @@
                         },
                         { .courseCode = "AAMP4321",
                           .courseName = "Mathematics",
+                          .courseIndex = 1,
                           .hoursOfLecture = 2,
                           .hoursOfTutorial = 2,
                           .hoursOfPractical = 0,
@@ -94,6 +96,7 @@
                         },
                         { .courseCode = "MDFK9413",
                           .courseName = "ControlSystem",
+                          .courseIndex = 2,
                           .hoursOfLecture = 2,
                           .hoursOfTutorial = 1,
                           .hoursOfPractical = 1,
@@ -327,6 +330,15 @@ int checkEqualClass(Class newClass, Class newClass2){
   return 1;
 }
 
+/****************************************************************************
+ *  Function name : indexForward
+ *  Inputs        : int *venue, int *day, int *time
+ *  Output/return : NONE
+ *  Destroy       : venue, day, time
+ *  Description   : The purpose of this function is to perform 
+ *                  3-Dimensional array index incremental. index will
+ *                  reset to 0,0,0 when overload
+ *****************************************************************************/
 void indexForward(int *venue, int *day, int *time){
 
   if(*venue < 0 || *day < 0 || *time < 0)
@@ -348,6 +360,16 @@ void indexForward(int *venue, int *day, int *time){
     *venue = 0;
 }
 
+
+/****************************************************************************
+ *  Function name : indexBackward
+ *  Inputs        : int *venue, int *day, int *time
+ *  Output/return : NONE
+ *  Destroy       : venue, day, time
+ *  Description   : The purpose of this function is to perform 
+ *                  3-Dimensional array index decremental. index will
+ *                  reset to max value of each index when less than 0,0,0
+ *****************************************************************************/
 void indexBackward(int *venue, int *day, int *time){
   
   if(*venue < 0 || *day < 0 || *time < 0)
@@ -369,15 +391,24 @@ void indexBackward(int *venue, int *day, int *time){
     *venue = MAX_VENUE - 1;
 }
 
-Class copyClassSlot(Class sourceClass){
-  int i;
-	Class targetClass;
-	
-	targetClass.course = sourceClass.course;
-	targetClass.lecturer = sourceClass.lecturer;
-	targetClass.typeOfClass = sourceClass.typeOfClass;
-	for(i = 0 ; i < 5 ; i++){
-		targetClass.group[i] = sourceClass.group[i];
-	}
-	return targetClass;
+/****************************************************************************
+ *  Function name : classIsNull
+ *  Inputs        : Class sourceClass
+ *  Output/return : 1 if class is NULL, 0 otherwise
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to perform 
+ *                  class checking to make sure it is NULL or contains data
+ *****************************************************************************/
+int classIsNull(Class sourceClass){
+  
+  if(sourceClass.course != NULL)
+    return 0;
+  if(sourceClass.lecturer != NULL)
+    return 0;
+  if(sourceClass.typeOfClass != 0)
+    return 0;
+  if(sourceClass.group[0] != NULL)
+    return 0;
+  
+  return 1;
 }

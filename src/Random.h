@@ -1,6 +1,8 @@
 #ifndef Random_H
 #define Random_H
 
-int random();
+int randomVenue();
+int randomDay();
+int randomTime();
 
 #endif // Random_H
