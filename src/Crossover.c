@@ -135,33 +135,34 @@ int updateCounter(Class classToCheck){
  *                  elements from the parents in certain order and sort
  *                  nicely according to the order to create an offspring
  *****************************************************************************/
-int performCrossover(Class Father[][MAX_DAY][MAX_TIME_SLOT], \
-                     Class Mother[][MAX_DAY][MAX_TIME_SLOT], \
-                     Class Offspring[][MAX_DAY][MAX_TIME_SLOT],\
+int performCrossover(Class father[][MAX_DAY][MAX_TIME_SLOT], \
+                     Class mother[][MAX_DAY][MAX_TIME_SLOT], \
+                     Class offspring[][MAX_DAY][MAX_TIME_SLOT],\
                      int totalVenue){
 int stopIndexLeft = 0, stopIndexRight = 0, i = 0;
 int venueToLeft, dayToLeft, timeToLeft;
 int venueToRight, dayToRight, timeToRight;
-int venueOSLeft = totalVenue - 1, dayOSLeft = MAX_DAY - 1, timeOSLeft = MAX_TIME_SLOT -1;
-int venueOSRight = 0, dayOSRight = 0, timeOSRight = 0;
+int venueOSLeft, dayOSLeft, timeOSLeft;
+int venueOSRight, dayOSRight, timeOSRight;
 
 randomIndex(backwardIndexParam);
 randomIndex(forwardIndexParam);
+getMidPoint(backwardOSParam,forwardOSParam,totalVenue);
 
 for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
   if(stopIndexLeft != 1){
-    if(updateCounter(Father[backwardIndex])){
-      Offspring[backwardOSIndex] = Father[backwardIndex];
+    if(updateCounter(father[backwardIndex])){
+      offspring[backwardOSIndex] = father[backwardIndex];
       indexBackward(backwardOSParam);
     }
     else
       updateStopFlag(&stopIndexLeft, &stopIndexRight);
     
-    indexBackward(backwardIndexParam);	
+    indexBackward(backwardIndexParam);
   }
   if(stopIndexRight != 1){
-    if(updateCounter(Mother[forwardIndex])){
-      Offspring[forwardOSIndex] = Mother[forwardIndex];
+    if(updateCounter(mother[forwardIndex])){
+      offspring[forwardOSIndex] = mother[forwardIndex];
       indexForward(forwardOSParam);
 		}
     else
@@ -170,9 +171,9 @@ for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
     indexForward(forwardIndexParam);
   }
 }
-                     
-}
 
+             
+}
 
 /****************************************************************************
  *  Function name : randomIndex
@@ -187,6 +188,36 @@ void randomIndex(int *venue, int *day, int *time){
   *venue = randomVenue();
   *day = randomDay();
   *time = randomTime();
+}
+
+/****************************************************************************
+ *  Function name : getMidPoint
+ *  Inputs        : int *venueLeft, int *dayLeft, int *timeLeft,
+ *                  int *venueRight, int *dayRight, int *timeRight
+ *                  int totalVenue
+ *  Output/return : NONE
+ *  Destroy       : int *venueLeft, int *dayLeft, int *timeLeft,
+ *                  int *venueRight, int *dayRight, int *timeRight
+ *  Description   : The purpose of this function is to get the midpoint
+ *                  of the 3D timetable array for offSpring offset
+ *****************************************************************************/
+void getMidPoint(int *venueLeft, int *dayLeft, int *timeLeft,\
+                 int *venueRight, int *dayRight, int *timeRight,\
+                 int totalVenue){
+  int mid = (totalVenue*MAX_DAY*MAX_TIME_SLOT) / 2;
+  int i;
+  *venueLeft = 0;
+  *dayLeft = 0;
+  *timeLeft = 0;
+  *venueRight = 0;
+  *dayRight = 0;
+  *timeRight = 0;
+  
+  for(i = 0 ; i < mid ; i++){
+    indexForward(venueLeft,dayLeft,timeLeft);
+    indexForward(venueRight,dayRight,timeRight);
+  }
+  indexForward(venueRight,dayRight,timeRight);
 }
 
 /****************************************************************************

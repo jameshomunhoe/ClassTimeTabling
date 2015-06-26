@@ -17,11 +17,14 @@ struct ClassCounter
 extern ClassCounter classCount[4];
 
 int updateCounter(Class classToCheck);
-int performCrossover(Class Father[][MAX_DAY][MAX_TIME_SLOT], \
-                     Class Mother[][MAX_DAY][MAX_TIME_SLOT], \
-                     Class Offspring[][MAX_DAY][MAX_TIME_SLOT],\
+int performCrossover(Class father[][MAX_DAY][MAX_TIME_SLOT], \
+                     Class mother[][MAX_DAY][MAX_TIME_SLOT], \
+                     Class offspring[][MAX_DAY][MAX_TIME_SLOT],\
                      int totalVenue);
 void randomIndex(int *venue, int *day, int *time);
+void getMidPoint(int *venueLeft, int *dayLeft, int *timeLeft,\
+                 int *venueRight, int *dayRight, int *timeRight,\
+                 int totalVenue);
 void updateStopFlag(int *currentSide, int *oppositeSide);
 int updateEmptyCounter(Class classToCheck, int emptyIndex, int totalEmptySlots);
 int updateLectureCounter(Class classToCheck);

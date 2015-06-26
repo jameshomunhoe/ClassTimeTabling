@@ -6,6 +6,9 @@
 #include "Structure.h"
 #include "mock_Random.h"
 
+
+ 
+
 void setUp(void){
   int i;
   
@@ -277,49 +280,57 @@ void test_updateStopFlag_should_remain_1_even_initially_1(){
   TEST_ASSERT_EQUAL(0,oppositeSide);
 }
 
-void test_ddly(){
+void test_getMidPoint_should_set_parents_index_to_middle(){
+  int venueLeft, dayLeft, timeLeft;
+  int venueRight, dayRight, timeRight;
   
- Class Father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
- Class Mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
- Class Offspring[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+ getMidPoint(&venueLeft,&dayLeft,&timeLeft,&venueRight,&dayRight,&timeRight,2);
  
- clearTimeTable(Father);
- clearTimeTable(Mother);
- clearTimeTable(Offspring);
+ TEST_ASSERT_EQUAL(1,venueLeft);
+ TEST_ASSERT_EQUAL(0,dayLeft);
+ TEST_ASSERT_EQUAL(0,timeLeft);
+ TEST_ASSERT_EQUAL(1,venueRight);
+ TEST_ASSERT_EQUAL(0,dayRight);
+ TEST_ASSERT_EQUAL(1,timeRight);
  
+}
+
+void test_getMidPoint_should_set_parents_index_to_middle_even_invalid_initial_value(){
+  int venueLeft = 1000, dayLeft = 9999, timeLeft = 0;
+  int venueRight = 1000, dayRight = 9999, timeRight = 0;
+  
+ getMidPoint(&venueLeft,&dayLeft,&timeLeft,&venueRight,&dayRight,&timeRight,2);
+ 
+ TEST_ASSERT_EQUAL(1,venueLeft);
+ TEST_ASSERT_EQUAL(0,dayLeft);
+ TEST_ASSERT_EQUAL(0,timeLeft);
+ TEST_ASSERT_EQUAL(1,venueRight);
+ TEST_ASSERT_EQUAL(0,dayRight);
+ TEST_ASSERT_EQUAL(1,timeRight);
+ 
+}
+
+void test_performCrossover_mother_ascending_order_father_reversed(){
+  Class father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  Class mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  Class offspring[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  // Class emptyClass;
+  
+  clearTimeTable(father);
+  clearTimeTable(mother);
+  clearTimeTable(offspring);
+  // emptyClass = clearClass(emptyClass);
+  
  int i;
  int a = 0, b = 0 , c = 0;
  int d = MAX_VENUE-1, e = MAX_DAY-1, f = MAX_TIME_SLOT - 1;
  
  for( i = 0 ; i < 11 ; i++){
-   Father[a][b][c] = clazzList[i];
-   Mother[d][e][f] = clazzList[i];
+   mother[a][b][c] = clazzList[i];
+   father[d][e][f] = clazzList[i];
    indexForward(&a,&b,&c);
    indexBackward(&d,&e,&f);
  }
- 
-  // a = 0;
-  // b = 0;
-  // c = 0;
-
-  // for(i = 0 ; i < 36 ; i++){
-   // if(Father[a][b][c].course == NULL)
-     // printf("Father %d. Empty\n",i);
-   // else
-     // printf("Father %d. %s\n",i,Father[a][b][c].course->courseName);
-   // indexForward(&a,&b,&c);
- // }
- 
-  // a = 0;
-  // b = 0;
-  // c = 0;
-   // for(i = 0 ; i < 36 ; i++){
-   // if(Mother[a][b][c].course == NULL)
-     // printf("Mother %d. Empty\n",i);
-   // else
-     // printf("Mother %d. %s\n",i,Mother[a][b][c].course->courseName);
-   // indexForward(&a,&b,&c);
- // }
  
  randomVenue_ExpectAndReturn(1);
  randomDay_ExpectAndReturn(2);
@@ -327,27 +338,159 @@ void test_ddly(){
  randomVenue_ExpectAndReturn(0);
  randomDay_ExpectAndReturn(0);
  randomTime_ExpectAndReturn(0);
- performCrossover(Father,Mother,Offspring,2);
+ performCrossover(father,mother,offspring,2);
  
-  a = 0;
-  b = 0;
-  c = 0;
-  
- for(i = 0 ; i < 36 ; i++){
-   if(Offspring[a][b][c].course == NULL)
-     printf("%d. Empty\n",i);
-   else
-     printf("%d. %s\n",i,Offspring[a][b][c].course->courseName);
-   indexForward(&a,&b,&c);
- }
+ 
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][0],father[1][2][5]));
+ //starting point for father ^, mother v
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][1],mother[0][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][2],mother[0][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][3],mother[0][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][4],mother[0][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][5],mother[0][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][0],mother[0][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][1],mother[0][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][2],mother[0][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][3],mother[0][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][4],mother[0][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][5],mother[0][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][0],mother[0][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][1],mother[0][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][2],mother[0][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][3],mother[0][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][4],mother[0][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][5],mother[0][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][0],mother[1][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][1],mother[1][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][2],mother[1][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][3],mother[1][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][4],mother[1][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][5],mother[1][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][0],mother[1][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][1],mother[1][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][2],mother[1][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][3],mother[1][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][4],mother[1][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][5],mother[1][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][0],mother[1][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][1],mother[1][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][2],mother[1][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][3],mother[1][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][4],mother[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][5],mother[1][2][5]));
+
+ 
+ 
+ 
  
  setUp();
   a = 0;
   b = 0;
   c = 0;
   for(i = 0 ; i < 36 ; i++){
-   TEST_ASSERT_EQUAL(1, updateCounter(Offspring[a][b][c]));
+   TEST_ASSERT_EQUAL(1, updateCounter(offspring[a][b][c]));
    indexForward(&a,&b,&c);
  }
-   TEST_ASSERT_EQUAL(0, updateCounter(Offspring[0][0][0]));
+   TEST_ASSERT_EQUAL(0, updateCounter(offspring[0][0][0]));
+   
+ // a=0;
+ // b=0;
+ // c=0;
+ // for(i = 0 ; i < 36 ; i++){
+   // if(offspring[a][b][c].course == NULL)
+     // printf("%d. Empty\n",i);
+   // else
+     // printf("%d. %s\n",i,offspring[a][b][c].course->courseName);
+   // indexForward(&a,&b,&c);
+ // }
+ 
+}
+
+void test_performCrossover_both_parents_are_identical(){
+  Class father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  Class mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  Class offspring[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  
+  clearTimeTable(father);
+  clearTimeTable(mother);
+  clearTimeTable(offspring);
+  
+ int i;
+ int a = 0, b = 0 , c = 0;
+ 
+ for( i = 0 ; i < 11 ; i++){
+   mother[a][b][c] = clazzList[i];
+   father[a][b][c] = clazzList[i];
+   indexForward(&a,&b,&c);
+
+ }
+ 
+ randomVenue_ExpectAndReturn(1);
+ randomDay_ExpectAndReturn(2);
+ randomTime_ExpectAndReturn(5);
+ randomVenue_ExpectAndReturn(0);
+ randomDay_ExpectAndReturn(0);
+ randomTime_ExpectAndReturn(0);
+ performCrossover(father,mother,offspring,2);
+ 
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][1],father[1][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][1],father[1][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][2],father[1][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][3],father[1][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][4],father[1][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][5],father[1][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][0],father[1][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][1],father[1][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][2],father[1][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][3],father[1][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][4],father[1][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][5],father[1][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][0],father[1][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][1],father[1][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][2],father[1][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][3],father[1][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][4],father[1][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][5],father[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][0],father[1][2][5]));
+ //starting point for father ^, mother v
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][1],mother[0][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][2],mother[0][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][3],mother[0][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][4],mother[0][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][5],mother[0][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][0],mother[0][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][1],mother[0][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][2],mother[0][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][3],mother[0][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][4],mother[0][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][5],mother[0][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][0],mother[0][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][1],mother[0][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][2],mother[0][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][3],mother[0][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][4],mother[0][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][5],mother[0][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][0],mother[0][2][5]));
+
+ 
+ // a=0;
+ // b=0;
+ // c=0;
+ // for(i = 0 ; i < 36 ; i++){
+   // if(offspring[a][b][c].course == NULL)
+     // printf("%d. Empty\n",i);
+   // else
+     // printf("%d. %s\n",i,offspring[a][b][c].course->courseName);
+   // indexForward(&a,&b,&c);
+ // }
+ 
+ setUp();
+  a = 0;
+  b = 0;
+  c = 0;
+  for(i = 0 ; i < 36 ; i++){
+   TEST_ASSERT_EQUAL(1, updateCounter(offspring[a][b][c]));
+   indexForward(&a,&b,&c);
+ }
+   TEST_ASSERT_EQUAL(0, updateCounter(offspring[0][0][0]));
 }

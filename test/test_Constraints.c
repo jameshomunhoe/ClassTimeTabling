@@ -6,7 +6,6 @@
 #include "Constraints.h"
 #include "Structure.h"
 
-
 void setUp(void){}
 void tearDown(void){}
 
