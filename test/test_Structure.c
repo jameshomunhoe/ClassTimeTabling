@@ -170,57 +170,57 @@ void test_checkEqualClass_should_return_1_when_compare_empty_class(){
   
   TEST_ASSERT_EQUAL(1, checkEqualClass(class1, class2));
 }
+
 void test_indexForward_should_increase_time_from_0_to_1(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 0, time = 0;
+  ClassIndex newIndex = {0,0,0};
   
-  indexForward(&venue, &day, &time);
+  indexForward(&newIndex);
   
-  TEST_ASSERT_EQUAL(0, venue);
-  TEST_ASSERT_EQUAL(0, day);
-  TEST_ASSERT_EQUAL(1, time);
+  TEST_ASSERT_EQUAL(0, newIndex.venue);
+  TEST_ASSERT_EQUAL(0, newIndex.day);
+  TEST_ASSERT_EQUAL(1, newIndex.time);
 }
-
 void test_indexForward_should_increase_day_when_time_maxed(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 0, time = 5;
+  ClassIndex newIndex = {0,0,5};
   
-  indexForward(&venue, &day, &time);
+  indexForward(&newIndex);
   
-  TEST_ASSERT_EQUAL(0, venue);
-  TEST_ASSERT_EQUAL(1, day);
-  TEST_ASSERT_EQUAL(0, time);
+  TEST_ASSERT_EQUAL(0, newIndex.venue);
+  TEST_ASSERT_EQUAL(1, newIndex.day);
+  TEST_ASSERT_EQUAL(0, newIndex.time);
 }
 
 void test_indexForward_should_increase_venue_when_time_and_day_maxed(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 2, time = 5;
+  ClassIndex newIndex = {0,2,5};
   
-  indexForward(&venue, &day, &time);
+  indexForward(&newIndex);
   
-  TEST_ASSERT_EQUAL(1, venue);
-  TEST_ASSERT_EQUAL(0, day);
-  TEST_ASSERT_EQUAL(0, time);
+  TEST_ASSERT_EQUAL(1, newIndex.venue);
+  TEST_ASSERT_EQUAL(0, newIndex.day);
+  TEST_ASSERT_EQUAL(0, newIndex.time);
 }
 
 void test_indexForward_should_reset_index_when_maxed(){
   //max venue = 2, day = 3, time = 6
-  int venue = 1, day = 2, time = 5;
+  ClassIndex newIndex = {1,2,5};
   
-  indexForward(&venue, &day, &time);
+  indexForward(&newIndex);
   
-  TEST_ASSERT_EQUAL(0, venue);
-  TEST_ASSERT_EQUAL(0, day);
-  TEST_ASSERT_EQUAL(0, time);
+  TEST_ASSERT_EQUAL(0, newIndex.venue);
+  TEST_ASSERT_EQUAL(0, newIndex.day);
+  TEST_ASSERT_EQUAL(0, newIndex.time);
 }
 
 void test_indexForward_should_throw_error_when_invalid_value(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 0, time = -1;
+  ClassIndex newIndex = {0,0,-1};
   ErrorCode e;
   
   Try{
-  indexForward(&venue, &day, &time);}
+  indexForward(&newIndex);}
   Catch(e){
     TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
   }
@@ -228,11 +228,11 @@ void test_indexForward_should_throw_error_when_invalid_value(){
 
 void test_indexForward_should_throw_error_when_exceeding_value(){
   //max venue = 2, day = 3, time = 6
-  int venue = 200, day = 0, time = 0;
+  ClassIndex newIndex = {200,0,0};
   ErrorCode e;
   
   Try{
-  indexForward(&venue, &day, &time);}
+  indexForward(&newIndex);}
   Catch(e){
     TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
   }
@@ -240,55 +240,55 @@ void test_indexForward_should_throw_error_when_exceeding_value(){
 
 void test_indexBackward_should_reduce_time_to_0(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 0, time = 1;
+  ClassIndex newIndex = {0,0,1};
  
-  indexBackward(&venue, &day, &time);
+  indexBackward(&newIndex);
   
-  TEST_ASSERT_EQUAL(0, venue);
-  TEST_ASSERT_EQUAL(0, day);
-  TEST_ASSERT_EQUAL(0, time);
+  TEST_ASSERT_EQUAL(0, newIndex.venue);
+  TEST_ASSERT_EQUAL(0, newIndex.day);
+  TEST_ASSERT_EQUAL(0, newIndex.time);
 }
 
 void test_indexBackward_should_reduce_day_when_time_reaches_0(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 2, time = 0;
+  ClassIndex newIndex = {0,2,0};
  
-  indexBackward(&venue, &day, &time);
+  indexBackward(&newIndex);
   
-  TEST_ASSERT_EQUAL(0, venue);
-  TEST_ASSERT_EQUAL(1, day);
-  TEST_ASSERT_EQUAL(5, time);
+  TEST_ASSERT_EQUAL(0, newIndex.venue);
+  TEST_ASSERT_EQUAL(1, newIndex.day);
+  TEST_ASSERT_EQUAL(5, newIndex.time);
 }
 
 void test_indexBackward_should_reduce_venue_when_day_and_time_reaches_0(){
   //max venue = 2, day = 3, time = 6
-  int venue = 1, day = 0, time = 0;
+  ClassIndex newIndex = {1,0,0};
  
-  indexBackward(&venue, &day, &time);
+  indexBackward(&newIndex);
   
-  TEST_ASSERT_EQUAL(0, venue);
-  TEST_ASSERT_EQUAL(2, day);
-  TEST_ASSERT_EQUAL(5, time);
+  TEST_ASSERT_EQUAL(0, newIndex.venue);
+  TEST_ASSERT_EQUAL(2, newIndex.day);
+  TEST_ASSERT_EQUAL(5, newIndex.time);
 }
 
 void test_indexBackward_should_reset_index_when_all_0(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 0, time = 0;
+  ClassIndex newIndex = {0,0,0};
  
-  indexBackward(&venue, &day, &time);
+  indexBackward(&newIndex);
   
-  TEST_ASSERT_EQUAL(1, venue);
-  TEST_ASSERT_EQUAL(2, day);
-  TEST_ASSERT_EQUAL(5, time);
+  TEST_ASSERT_EQUAL(1, newIndex.venue);
+  TEST_ASSERT_EQUAL(2, newIndex.day);
+  TEST_ASSERT_EQUAL(5, newIndex.time);
 }
 
 void test_indexBackward_should_throw_when_invalid_index(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 0, time = -1;
+  ClassIndex newIndex = {0,0,-1};
   ErrorCode e;
   
   Try{
-  indexBackward(&venue, &day, &time);}
+  indexBackward(&newIndex);}
   Catch(e){
     TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
   }
@@ -296,11 +296,11 @@ void test_indexBackward_should_throw_when_invalid_index(){
 
 void test_indexBackward_should_throw_when_exceeded_index(){
   //max venue = 2, day = 3, time = 6
-  int venue = 0, day = 0, time = 100;
+  ClassIndex newIndex = {0,0,100};
   ErrorCode e;
   
   Try{
-  indexBackward(&venue, &day, &time);}
+  indexBackward(&newIndex);}
   Catch(e){
     TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
   }

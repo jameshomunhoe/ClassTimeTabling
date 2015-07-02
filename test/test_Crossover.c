@@ -238,16 +238,16 @@ void test_updateCounter_should_able_to_run_with_different_class(){
 }
 
 void test_randomIndex_should_update_values(){
-  int venue, day, time;
+  ClassIndex newClassIndex;
   
   randomVenue_ExpectAndReturn(1);
   randomDay_ExpectAndReturn(2);
   randomTime_ExpectAndReturn(3);
-  randomIndex(&venue,&day,&time);
+  randomIndex(&newClassIndex);
   
-  TEST_ASSERT_EQUAL(1, venue);
-  TEST_ASSERT_EQUAL(2, day);
-  TEST_ASSERT_EQUAL(3, time);
+  TEST_ASSERT_EQUAL(1, newClassIndex.venue);
+  TEST_ASSERT_EQUAL(2, newClassIndex.day);
+  TEST_ASSERT_EQUAL(3, newClassIndex.time);
 }
 
 void test_updateStopFlag_should_update_when_opposite_direction_not_stop_yet(){
@@ -281,55 +281,53 @@ void test_updateStopFlag_should_remain_1_even_initially_1(){
 }
 
 void test_getMidPoint_should_set_parents_index_to_middle(){
-  int venueLeft, dayLeft, timeLeft;
-  int venueRight, dayRight, timeRight;
+  ClassIndex indexLeft;
+  ClassIndex indexRight;
   
- getMidPoint(&venueLeft,&dayLeft,&timeLeft,&venueRight,&dayRight,&timeRight,2);
+ getMidPoint(&indexLeft,&indexRight,2);
  
- TEST_ASSERT_EQUAL(1,venueLeft);
- TEST_ASSERT_EQUAL(0,dayLeft);
- TEST_ASSERT_EQUAL(0,timeLeft);
- TEST_ASSERT_EQUAL(1,venueRight);
- TEST_ASSERT_EQUAL(0,dayRight);
- TEST_ASSERT_EQUAL(1,timeRight);
+ TEST_ASSERT_EQUAL(1,indexLeft.venue);
+ TEST_ASSERT_EQUAL(0,indexLeft.day);
+ TEST_ASSERT_EQUAL(0,indexLeft.time);
+ TEST_ASSERT_EQUAL(1,indexRight.venue);
+ TEST_ASSERT_EQUAL(0,indexRight.day);
+ TEST_ASSERT_EQUAL(1,indexRight.time);
  
 }
 
 void test_getMidPoint_should_set_parents_index_to_middle_even_invalid_initial_value(){
-  int venueLeft = 1000, dayLeft = 9999, timeLeft = 0;
-  int venueRight = 1000, dayRight = 9999, timeRight = 0;
+  ClassIndex indexLeft = {1000,9999,0};
+  ClassIndex indexRight = {1000,9999,0};
   
- getMidPoint(&venueLeft,&dayLeft,&timeLeft,&venueRight,&dayRight,&timeRight,2);
+ getMidPoint(&indexLeft,&indexRight,2);
  
- TEST_ASSERT_EQUAL(1,venueLeft);
- TEST_ASSERT_EQUAL(0,dayLeft);
- TEST_ASSERT_EQUAL(0,timeLeft);
- TEST_ASSERT_EQUAL(1,venueRight);
- TEST_ASSERT_EQUAL(0,dayRight);
- TEST_ASSERT_EQUAL(1,timeRight);
+ TEST_ASSERT_EQUAL(1,indexLeft.venue);
+ TEST_ASSERT_EQUAL(0,indexLeft.day);
+ TEST_ASSERT_EQUAL(0,indexLeft.time);
+ TEST_ASSERT_EQUAL(1,indexRight.venue);
+ TEST_ASSERT_EQUAL(0,indexRight.day);
+ TEST_ASSERT_EQUAL(1,indexRight.time);
  
 }
-
 void test_performCrossover_mother_ascending_order_father_reversed(){
   Class father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
   Class mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
   Class offspring[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
-  // Class emptyClass;
-  
+
   clearTimeTable(father);
   clearTimeTable(mother);
   clearTimeTable(offspring);
-  // emptyClass = clearClass(emptyClass);
   
  int i;
- int a = 0, b = 0 , c = 0;
- int d = MAX_VENUE-1, e = MAX_DAY-1, f = MAX_TIME_SLOT - 1;
+ ClassIndex motherIndex = {0,0,0};
+ ClassIndex fatherIndex = {MAX_VENUE - 1,MAX_DAY - 1,MAX_TIME_SLOT - 1};
+ ClassIndex offSpringIndex = {0,0,0};
  
  for( i = 0 ; i < 11 ; i++){
-   mother[a][b][c] = clazzList[i];
-   father[d][e][f] = clazzList[i];
-   indexForward(&a,&b,&c);
-   indexBackward(&d,&e,&f);
+   mother[motherIndex.venue][motherIndex.day][motherIndex.time] = clazzList[i];
+   father[fatherIndex.venue][fatherIndex.day][fatherIndex.time] = clazzList[i];
+   indexForward(&motherIndex);
+   indexBackward(&fatherIndex);
  }
  
  randomVenue_ExpectAndReturn(1);
@@ -379,31 +377,12 @@ void test_performCrossover_mother_ascending_order_father_reversed(){
  TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][4],mother[1][2][4]));
  TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][5],mother[1][2][5]));
 
- 
- 
- 
- 
  setUp();
-  a = 0;
-  b = 0;
-  c = 0;
   for(i = 0 ; i < 36 ; i++){
-   TEST_ASSERT_EQUAL(1, updateCounter(offspring[a][b][c]));
-   indexForward(&a,&b,&c);
+   TEST_ASSERT_EQUAL(1, updateCounter(offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+   indexForward(&offSpringIndex);
  }
-   TEST_ASSERT_EQUAL(0, updateCounter(offspring[0][0][0]));
-   
- // a=0;
- // b=0;
- // c=0;
- // for(i = 0 ; i < 36 ; i++){
-   // if(offspring[a][b][c].course == NULL)
-     // printf("%d. Empty\n",i);
-   // else
-     // printf("%d. %s\n",i,offspring[a][b][c].course->courseName);
-   // indexForward(&a,&b,&c);
- // }
- 
+   TEST_ASSERT_EQUAL(0, updateCounter(offspring[0][0][0])); 
 }
 
 void test_performCrossover_both_parents_are_identical(){
@@ -416,13 +395,13 @@ void test_performCrossover_both_parents_are_identical(){
   clearTimeTable(offspring);
   
  int i;
- int a = 0, b = 0 , c = 0;
+ ClassIndex index = {0,0,0};
+ ClassIndex offSpringIndex = {0,0,0};
  
  for( i = 0 ; i < 11 ; i++){
-   mother[a][b][c] = clazzList[i];
-   father[a][b][c] = clazzList[i];
-   indexForward(&a,&b,&c);
-
+   mother[index.venue][index.day][index.time] = clazzList[i];
+   father[index.venue][index.day][index.time] = clazzList[i];
+   indexForward(&index);
  }
  
  randomVenue_ExpectAndReturn(1);
@@ -472,25 +451,11 @@ void test_performCrossover_both_parents_are_identical(){
  TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][5],mother[0][2][4]));
  TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][0],mother[0][2][5]));
 
- 
- // a=0;
- // b=0;
- // c=0;
- // for(i = 0 ; i < 36 ; i++){
-   // if(offspring[a][b][c].course == NULL)
-     // printf("%d. Empty\n",i);
-   // else
-     // printf("%d. %s\n",i,offspring[a][b][c].course->courseName);
-   // indexForward(&a,&b,&c);
- // }
- 
  setUp();
-  a = 0;
-  b = 0;
-  c = 0;
+ 
   for(i = 0 ; i < 36 ; i++){
-   TEST_ASSERT_EQUAL(1, updateCounter(offspring[a][b][c]));
-   indexForward(&a,&b,&c);
+   TEST_ASSERT_EQUAL(1, updateCounter(offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+   indexForward(&offSpringIndex);
  }
-   TEST_ASSERT_EQUAL(0, updateCounter(offspring[0][0][0]));
+   TEST_ASSERT_EQUAL(0, updateCounter(offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
 }

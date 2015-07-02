@@ -3,6 +3,8 @@
 #include <math.h>
 #include "Constraints.h"
 #include "Structure.h"
+#include "CException.h"
+#include "ErrorCode.h"
 
 //  Formula to get totalVenue
 //  (sizeof(exampleClass)/sizeof(Class))/(sizeof(exampleClass[0])/sizeof(Class)));
@@ -26,14 +28,11 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
  int violation = 0;
  int groupSize = getGroupSize();
  int groupCounter[groupSize];
+ clearCounter(groupSize,groupCounter);
  
  if(dayToCheck >= MAX_DAY)
-  return -1;
+  Throw(ERR_EXCEEDED_INDEX);
  
- for( i = 0; i < groupSize; i++){
-  groupCounter[i] = 0;
- }
-
  for(venue = 0 ; venue < totalVenue ; venue++){
   for(time = 0 ; time < MAX_TIME_SLOT ; time++){
    for(i = 0 ; newClass[venue][dayToCheck][time].group[i] != NULL ; i++){
@@ -72,13 +71,10 @@ int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
  int violation = 0;
  int lecturerSize = getLecturerSize();
  int lecturerCounter[lecturerSize];
+ clearCounter(lecturerSize,lecturerCounter);
 
  if(timeToCheck >= MAX_TIME_SLOT || dayToCheck >= MAX_DAY)
-  return -1;
-  
- for( i = 0; i < lecturerSize; i++){
-  lecturerCounter[i] = 0;
- }
+  Throw(ERR_EXCEEDED_INDEX); 
  
  for(venue = 0 ; venue < totalVenue ; venue++){
 	for(i = 0 ; i < lecturerSize ; i++){
@@ -94,4 +90,43 @@ int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
  }
   
 return violation;
+}
+
+int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
+                        int dayToCheck, int timeToCheck, \
+                        int totalVenue)
+{
+  int i,j,venue;
+  int violation = 0;
+  int groupSize = getGroupSize();
+  int groupCounter[groupSize];
+  clearCounter(groupSize,groupCounter);
+
+  if(timeToCheck >= MAX_TIME_SLOT || dayToCheck >= MAX_DAY)
+    Throw(ERR_EXCEEDED_INDEX);
+ 
+  for(venue = 0 ; venue < totalVenue ; venue++){
+    for(i = 0 ; i < groupSize ; i++){
+      for(j = 0 ; j < groupSize ; j++){
+        if(newClass[venue][dayToCheck][timeToCheck].group[i] != NULL \
+          && newClass[venue][dayToCheck][timeToCheck].group[i] == &groupList[j])
+          groupCounter[j]++;
+      }
+    }
+  }
+ 
+  for( i = 0; i < groupSize ; i++){
+    if(groupCounter[i] > 1)
+    violation += groupCounter[i] - 1;
+  }
+  
+return violation;
+}
+
+
+void clearCounter(int size, int counter[size]){
+  int i;
+  for( i = 0; i < size; i++){
+    counter[i] = 0;
+  }
 }

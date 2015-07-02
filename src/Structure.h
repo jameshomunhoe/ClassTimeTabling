@@ -78,6 +78,7 @@ typedef struct Group Group;
 typedef struct Programme Programme;
 typedef struct Venue Venue;
 typedef struct Class Class;
+typedef struct ClassIndex ClassIndex;
 
 /************************************************************************
  *	Struct of Venue
@@ -142,6 +143,16 @@ struct Class
   Group *group[5];
 };
 
+/************************************************************************
+ *	Struct of index
+ ************************************************************************/
+struct ClassIndex 
+{
+  int venue;
+  int day;
+  int time;
+};
+
 extern Venue venueList[];
 extern Lecturer lecturerList[];
 extern Group groupList[];
@@ -156,7 +167,7 @@ extern Class clearClass(Class sourceClass);
 extern void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
 extern Class copyClassSlot(Class sourceClass);
 extern int checkEqualClass(Class newClass, Class newClass2);
-extern void indexForward(int *venue, int *day, int *time);
-extern void indexBackward(int *venue, int *day, int *time);
+extern void indexForward(ClassIndex *classIndex);
+extern void indexBackward(ClassIndex *classIndex);
 extern int classIsNull(Class sourceClass);
 #endif // Structure_H

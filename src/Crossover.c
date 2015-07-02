@@ -7,14 +7,11 @@
 #include "Structure.h"
 #include "Random.h"
 
-#define backwardIndexParam  &venueToLeft,&dayToLeft,&timeToLeft
-#define forwardIndexParam   &venueToRight,&dayToRight,&timeToRight
-#define backwardIndex       venueToLeft][dayToLeft][timeToLeft
-#define forwardIndex        venueToRight][dayToRight][timeToRight
-#define backwardOSParam     &venueOSLeft,&dayOSLeft,&timeOSLeft
-#define forwardOSParam      &venueOSRight,&dayOSRight,&timeOSRight
-#define backwardOSIndex     venueOSLeft][dayOSLeft][timeOSLeft
-#define forwardOSIndex      venueOSRight][dayOSRight][timeOSRight
+
+#define offpringLeftArr     offpringLeft.venue][offpringLeft.day][offpringLeft.time
+#define offpringRightArr    offpringRight.venue][offpringRight.day][offpringRight.time
+#define toRightIndexArr     toRightIndex.venue][toRightIndex.day][toRightIndex.time
+#define toLeftIndexArr      toLeftIndex.venue][toLeftIndex.day][toLeftIndex.time
 #define counterCourseIndex  classToCheck.course->courseIndex
 #define Lecture             'l'
 #define Tutorial            't'
@@ -135,89 +132,89 @@ int updateCounter(Class classToCheck){
  *                  elements from the parents in certain order and sort
  *                  nicely according to the order to create an offspring
  *****************************************************************************/
-int performCrossover(Class father[][MAX_DAY][MAX_TIME_SLOT], \
+ void performCrossover(Class father[][MAX_DAY][MAX_TIME_SLOT], \
                      Class mother[][MAX_DAY][MAX_TIME_SLOT], \
                      Class offspring[][MAX_DAY][MAX_TIME_SLOT],\
                      int totalVenue){
 int stopIndexLeft = 0, stopIndexRight = 0, i = 0;
-int venueToLeft, dayToLeft, timeToLeft;
-int venueToRight, dayToRight, timeToRight;
-int venueOSLeft, dayOSLeft, timeOSLeft;
-int venueOSRight, dayOSRight, timeOSRight;
+ClassIndex toLeftIndex;
+ClassIndex toRightIndex;
+ClassIndex offpringLeft;
+ClassIndex offpringRight;
 
-randomIndex(backwardIndexParam);
-randomIndex(forwardIndexParam);
-getMidPoint(backwardOSParam,forwardOSParam,totalVenue);
+randomIndex(&toLeftIndex);
+randomIndex(&toRightIndex);
+getMidPoint(&offpringLeft,&offpringRight,totalVenue);
 
 for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
   if(stopIndexLeft != 1){
-    if(updateCounter(father[backwardIndex])){
-      offspring[backwardOSIndex] = father[backwardIndex];
-      indexBackward(backwardOSParam);
+    if(updateCounter(father[toLeftIndexArr])){
+      offspring[offpringLeftArr] = father[toLeftIndexArr];
+      indexBackward(&offpringLeft);
     }
     else
       updateStopFlag(&stopIndexLeft, &stopIndexRight);
     
-    indexBackward(backwardIndexParam);
+    indexBackward(&toLeftIndex);
   }
   if(stopIndexRight != 1){
-    if(updateCounter(mother[forwardIndex])){
-      offspring[forwardOSIndex] = mother[forwardIndex];
-      indexForward(forwardOSParam);
+    if(updateCounter(mother[toRightIndexArr])){
+      offspring[offpringRightArr] = mother[toRightIndexArr];
+      indexForward(&offpringRight);
 		}
     else
       updateStopFlag(&stopIndexRight, &stopIndexLeft);
     
-    indexForward(forwardIndexParam);
+    indexForward(&toRightIndex);
   }
 }
 
              
 }
 
+
 /****************************************************************************
  *  Function name : randomIndex
- *  Inputs        : int *venue, int *day, int *time
+ *  Inputs        : ClassIndex *classIndex
  *  Output/return : NONE
- *  Destroy       : venue,day,time
+ *  Destroy       : classIndex
  *  Description   : The purpose of this function is to randomize the
  *                  values of venue,day and time index to pick an offset
  *                  for crossover purpose
  *****************************************************************************/
-void randomIndex(int *venue, int *day, int *time){
-  *venue = randomVenue();
-  *day = randomDay();
-  *time = randomTime();
+void randomIndex(ClassIndex *classIndex){
+  classIndex->venue = randomVenue();
+  classIndex->day = randomDay();
+  classIndex->time = randomTime();
 }
 
 /****************************************************************************
  *  Function name : getMidPoint
- *  Inputs        : int *venueLeft, int *dayLeft, int *timeLeft,
- *                  int *venueRight, int *dayRight, int *timeRight
- *                  int totalVenue
+ *  Inputs        : ClassIndex *classIndexLeft,\
+                    ClassIndex *classIndexRight,\
+                    int totalVenue
  *  Output/return : NONE
- *  Destroy       : int *venueLeft, int *dayLeft, int *timeLeft,
- *                  int *venueRight, int *dayRight, int *timeRight
+ *  Destroy       : classIndexLeft,classIndexRight
  *  Description   : The purpose of this function is to get the midpoint
  *                  of the 3D timetable array for offSpring offset
  *****************************************************************************/
-void getMidPoint(int *venueLeft, int *dayLeft, int *timeLeft,\
-                 int *venueRight, int *dayRight, int *timeRight,\
+void getMidPoint(ClassIndex *classIndexLeft,\
+                 ClassIndex *classIndexRight,\
                  int totalVenue){
   int mid = (totalVenue*MAX_DAY*MAX_TIME_SLOT) / 2;
   int i;
-  *venueLeft = 0;
-  *dayLeft = 0;
-  *timeLeft = 0;
-  *venueRight = 0;
-  *dayRight = 0;
-  *timeRight = 0;
+  classIndexLeft->venue = 0;
+  classIndexLeft->day = 0;
+  classIndexLeft->time = 0;
+  classIndexRight->venue = 0;
+  classIndexRight->day = 0;
+  classIndexRight->time= 0;
   
   for(i = 0 ; i < mid ; i++){
-    indexForward(venueLeft,dayLeft,timeLeft);
-    indexForward(venueRight,dayRight,timeRight);
+    indexForward(classIndexLeft);
+    indexForward(classIndexRight);
   }
-  indexForward(venueRight,dayRight,timeRight);
+  indexForward(classIndexRight);
 }
 
 /****************************************************************************

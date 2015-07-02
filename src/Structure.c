@@ -332,63 +332,63 @@ int checkEqualClass(Class newClass, Class newClass2){
 
 /****************************************************************************
  *  Function name : indexForward
- *  Inputs        : int *venue, int *day, int *time
+ *  Inputs        : ClassIndex *classIndex
  *  Output/return : NONE
- *  Destroy       : venue, day, time
+ *  Destroy       : classIndex->venue, classIndex->day, classIndex->time
  *  Description   : The purpose of this function is to perform 
  *                  3-Dimensional array index incremental. index will
  *                  reset to 0,0,0 when overload
  *****************************************************************************/
-void indexForward(int *venue, int *day, int *time){
+void indexForward(ClassIndex *classIndex){
 
-  if(*venue < 0 || *day < 0 || *time < 0)
+  if(classIndex->venue < 0 || classIndex->day < 0 || classIndex->time < 0)
     Throw(ERR_EXCEEDED_INDEX);
-  if(*venue >= MAX_VENUE || *day >= MAX_DAY || *time >= MAX_TIME_SLOT)
+  if(classIndex->venue >= MAX_VENUE || classIndex->day >= MAX_DAY || classIndex->time >= MAX_TIME_SLOT)
     Throw(ERR_EXCEEDED_INDEX);
 
-  (*time)++;
+  (classIndex->time)++;
   
-  if(*time >= MAX_TIME_SLOT){
-    *time = 0;
-    (*day)++;
+  if(classIndex->time >= MAX_TIME_SLOT){
+    classIndex->time = 0;
+    (classIndex->day)++;
   }
-  if(*day >= MAX_DAY){
-    *day = 0;
-    (*venue)++;
+  if(classIndex->day >= MAX_DAY){
+    classIndex->day = 0;
+    (classIndex->venue)++;
   }
-  if(*venue >= MAX_VENUE)
-    *venue = 0;
+  if(classIndex->venue >= MAX_VENUE)
+    classIndex->venue = 0;
 }
 
 
 /****************************************************************************
  *  Function name : indexBackward
- *  Inputs        : int *venue, int *day, int *time
+ *  Inputs        : ClassIndex *classIndex
  *  Output/return : NONE
- *  Destroy       : venue, day, time
+ *  Destroy       : classIndex->venue, classIndex->day, classIndex->time
  *  Description   : The purpose of this function is to perform 
  *                  3-Dimensional array index decremental. index will
  *                  reset to max value of each index when less than 0,0,0
  *****************************************************************************/
-void indexBackward(int *venue, int *day, int *time){
+void indexBackward(ClassIndex *classIndex){
   
-  if(*venue < 0 || *day < 0 || *time < 0)
+  if(classIndex->venue < 0 || classIndex->day < 0 || classIndex->time < 0)
     Throw(ERR_EXCEEDED_INDEX);
-  if(*venue >= MAX_VENUE || *day >= MAX_DAY || *time >= MAX_TIME_SLOT)
+  if(classIndex->venue >= MAX_VENUE || classIndex->day >= MAX_DAY || classIndex->time >= MAX_TIME_SLOT)
     Throw(ERR_EXCEEDED_INDEX);
   
-  (*time)--;
+  (classIndex->time)--;
   
-  if(*time < 0){
-    *time = MAX_TIME_SLOT - 1;
-    (*day)--;
+  if(classIndex->time < 0){
+    classIndex->time = MAX_TIME_SLOT - 1;
+    (classIndex->day)--;
   }
-  if(*day < 0){
-    *day = MAX_DAY - 1;
-    (*venue)--;
+  if(classIndex->day < 0){
+    classIndex->day = MAX_DAY - 1;
+    (classIndex->venue)--;
   }
-  if(*venue < 0)
-    *venue = MAX_VENUE - 1;
+  if(classIndex->venue < 0)
+    classIndex->venue = MAX_VENUE - 1;
 }
 
 /****************************************************************************

@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include "Constraints.h"
 #include "Structure.h"
+#include "ErrorCode.h"
+#include "CException.h"
 
 void setUp(void){}
 void tearDown(void){}
@@ -15,6 +17,20 @@ void tearDown(void){}
 * MAX_TIME_SLOT = 6
 **/
 
+void test_clear_counter_should_clear_all_array_to_0(){
+  int sizeOfArray = 5;
+  int array[sizeOfArray];
+  
+  clearCounter(sizeOfArray,array);
+  
+  TEST_ASSERT_EQUAL(0,array[0]);
+  TEST_ASSERT_EQUAL(0,array[1]);
+  TEST_ASSERT_EQUAL(0,array[2]);
+  TEST_ASSERT_EQUAL(0,array[3]);
+  TEST_ASSERT_EQUAL(0,array[4]);
+ 
+}
+
 void test_studyHourOverloaded_should_return_0_with_empty_Class(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
@@ -23,11 +39,16 @@ void test_studyHourOverloaded_should_return_0_with_empty_Class(void)
   
 }
 
-void test_studyHourOverloaded_should_return_negative_1_when_exceeding_MAX_DAY(void)
+void test_studyHourOverloaded_should_Throw_when_exceeding_MAX_DAY(void)
 {
+  ErrorCode e;
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
  
-  TEST_ASSERT_EQUAL(-1,studyHourOverloaded(exampleClass, 3, MAX_VENUE));
+  Try{
+    studyHourOverloaded(exampleClass, 3, MAX_VENUE);
+  }Catch(e){
+  TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
+  }
 }
 
 void test_studyHourOverloaded_should_return_0_only_4_class_total_2_venues(void)
@@ -142,18 +163,28 @@ void test_lecturerInMultipleVenue_should_return_0_with_empty_class(void)
   TEST_ASSERT_EQUAL(0, lecturerInMultipleVenue(exampleClass, 0, 0, 2));
 }
 
-void test_lecturerInMultipleVenue_should_return_negative_1_with_exceeded_TIME(void)
+void test_lecturerInMultipleVenue_should_Throw_with_exceeded_TIME(void)
 {
+  ErrorCode e;
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
   
-  TEST_ASSERT_EQUAL(-1, lecturerInMultipleVenue(exampleClass, 0, 7, 2));
+  Try{
+    lecturerInMultipleVenue(exampleClass, 0, 7, 2);
+  }Catch(e){
+  TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX,e);
+  }
 }
 
-void test_lecturerInMultipleVenue_should_return_negative_1_with_exceeded_DAY(void)
+void test_lecturerInMultipleVenue_should_Throw_with_exceeded_DAY(void)
 {
+  ErrorCode e;
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
   
-  TEST_ASSERT_EQUAL(-1, lecturerInMultipleVenue(exampleClass, 3, 0, 2));
+  Try{
+    lecturerInMultipleVenue(exampleClass, 3, 0, 2);
+  }Catch(e){
+    TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX,e);
+  }
 }
 
 void test_lecturerInMultipleVenue_should_return_1_if_same_lecturer_in_different_venue(void)
@@ -245,3 +276,106 @@ void test_lecturerInMultipleVenue_should_return_0_when_different_lecturer_in_sam
 
   TEST_ASSERT_EQUAL(0, lecturerInMultipleVenue(exampleClass, 0, 0, 7));
 }
+
+void test_groupInMultipleVenue_should_return_0_when_empty_class_inserted(void)
+{
+  //set venue 7 for testing purpose
+  Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
+
+  TEST_ASSERT_EQUAL(0, groupInMultipleVenue(exampleClass, 0, 0, 7));
+}
+
+void test_groupInMultipleVenue_should_Throw_when_Exceeded_DAY(void)
+{
+  //set venue 7 for testing purpose
+  ErrorCode e;
+  Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
+
+  Try{
+    groupInMultipleVenue(exampleClass, 5, 0, 7);
+  }Catch(e){
+    TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX,e);
+  }
+}
+
+void test_groupInMultipleVenue_should_Throw_when_Exceeded_TIME(void)
+{
+  //set venue 7 for testing purpose
+  ErrorCode e;
+  Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
+
+  Try{
+    groupInMultipleVenue(exampleClass, 0, 6, 7);
+  }Catch(e){
+    TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX,e);
+  }
+}
+
+void test_groupInMultipleVenue_should_return_1_when_1_clashes(void)
+{
+  //set venue 7 for testing purpose
+  ErrorCode e;
+  Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  exampleClass[0][0][0].group[0] = &groupList[0];
+  exampleClass[0][0][0].group[1] = NULL;
+  exampleClass[1][0][0].group[0] = &groupList[0];
+  exampleClass[1][0][0].group[1] = NULL;
+
+  TEST_ASSERT_EQUAL(1, groupInMultipleVenue(exampleClass, 0, 0, 7));
+
+}
+
+void test_groupInMultipleVenue_should_return_2_when_2_clashes(void)
+{
+  //set venue 7 for testing purpose
+  ErrorCode e;
+  Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  exampleClass[0][0][0].group[0] = &groupList[0];
+  exampleClass[0][0][0].group[1] = &groupList[1];
+  exampleClass[0][0][0].group[2] = NULL;
+  exampleClass[1][0][0].group[0] = &groupList[1];
+  exampleClass[1][0][0].group[1] = &groupList[2];
+  exampleClass[1][0][0].group[2] = NULL;
+  exampleClass[6][0][0].group[0] = &groupList[1];
+  exampleClass[6][0][0].group[1] = &groupList[3];
+  exampleClass[6][0][0].group[2] = NULL;
+
+  TEST_ASSERT_EQUAL(2, groupInMultipleVenue(exampleClass, 0, 0, 7));
+
+}
+
+void test_groupInMultipleVenue_should_return_0_when_different_groups_in_same_day_and_time(void)
+{
+  //set venue 7 for testing purpose
+  Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  exampleClass[0][0][0].group[0] = &groupList[0];
+  exampleClass[0][0][0].group[1] = NULL;
+  exampleClass[1][0][0].group[0] = &groupList[1];
+  exampleClass[1][0][0].group[1] = NULL;
+  exampleClass[2][0][0].group[0] = &groupList[2];
+  exampleClass[2][0][0].group[1] = NULL;
+
+  TEST_ASSERT_EQUAL(0, groupInMultipleVenue(exampleClass, 0, 0, 7));
+}
+
+void test_groupInMultipleVenue_should_return_0_when_0_clashes(void)
+{
+  //set venue 7 for testing purpose
+  ErrorCode e;
+  Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  exampleClass[0][0][0].group[0] = &groupList[0];
+  exampleClass[0][0][0].group[1] = &groupList[1];
+  exampleClass[0][0][0].group[2] = NULL;
+  exampleClass[1][0][0].group[0] = &groupList[2];
+  exampleClass[1][0][0].group[1] = &groupList[3];
+  exampleClass[1][0][0].group[2] = NULL;
+
+  TEST_ASSERT_EQUAL(0, groupInMultipleVenue(exampleClass, 0, 0, 7));
+
+}
+
+
