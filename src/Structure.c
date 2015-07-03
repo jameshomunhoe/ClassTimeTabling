@@ -15,7 +15,12 @@
                       { .nameOfVenue = "K102",
                         .sizeOfVenue = 80,
                         .venueType = 'l'
-                      }};
+                      },
+                      { .nameOfVenue = "Q301",
+                        .sizeOfVenue = 50,
+                        .venueType = 't'
+                      }
+                      };
 
 /************************************************************************
  *  List of Lecturer

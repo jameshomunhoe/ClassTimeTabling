@@ -408,3 +408,91 @@ void test_venueOverloaded_should_return_0_when_venue1_sufficient(){
   
   TEST_ASSERT_EQUAL(0, venueOverloaded(exampleClass,1));
 }
+
+void test_wrongVenueType_should_return_0_if_class_is_empty(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 0));
+}
+
+void test_wrongVenueType_should_return_0_if_lecture_in_practial_lab(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[0]; //English lecture
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 0));
+}
+
+void test_wrongVenueType_should_return_0_if_tutorial_in_practial_lab(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[2]; //English tutorial
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 0));
+}
+
+void test_wrongVenueType_should_return_0_if_pratical_in_practial_lab(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[10]; //Control system practical
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 0));
+}
+
+void test_wrongVenueType_should_return_0_if_lecture_in_tutorial_class(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[0]; //English lecture
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 2));
+}
+
+void test_wrongVenueType_should_return_0_if_tutorial_in_tutorial_class(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[2]; //English tutorial
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 2));
+}
+
+void test_wrongVenueType_should_return_1_if_pratical_in_tutorial_class(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[10]; //Control system practical
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(1, wrongVenueType(newClass, 2));
+}
+
+void test_wrongVenueType_should_return_0_if_lecture_in_leture_class(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[0]; //English lecture
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 1));
+}
+
+void test_wrongVenueType_should_return_0_if_tutorial_in_leture_class(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[2]; //English tutorial
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(0, wrongVenueType(newClass, 1));
+}
+
+void test_wrongVenueType_should_return_1_if_pratical_in_leture_class(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  newClass = clazzList[10]; //Control system practical
+  
+  //venue 0 = Practial, venue 1 = Lecture, venue 2 = Tutorial
+  TEST_ASSERT_EQUAL(1, wrongVenueType(newClass, 1));
+}

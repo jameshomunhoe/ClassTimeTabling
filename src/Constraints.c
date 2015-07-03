@@ -6,6 +6,10 @@
 #include "CException.h"
 #include "ErrorCode.h"
 
+#define Lecture             'l'
+#define Tutorial            't'
+#define Practical           'p'
+
 //  Formula to get totalVenue
 //  (sizeof(exampleClass)/sizeof(Class))/(sizeof(exampleClass[0])/sizeof(Class)));
 
@@ -92,6 +96,15 @@ int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
 return violation;
 }
 
+/****************************************************************************
+ *	Function name	:	groupInMultipleVenue
+ *	Inputs				: Class sourceClass[][][], dayToCheck, timeToCheck, totalVenue
+ *	Output/return	: number of violation
+ *	Destroy				:	NONE
+ *	Description		:	The purpose of this function is to calculate the
+ *                  violation of same group appeared in same class during
+ *                  particular day and hour.
+ *****************************************************************************/
 int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, int timeToCheck, \
                         int totalVenue)
@@ -123,6 +136,15 @@ int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
 return violation;
 }
 
+/****************************************************************************
+ *	Function name	:	venueOverloaded
+ *	Inputs				: Class classToCheck, int venueIndex(venueList)
+ *	Output/return	: 1 if there is violation, 0 otherwise
+ *	Destroy				:	NONE
+ *	Description		:	The purpose of this function is to check whether
+ *                  whether the amount of students in the class can
+ *                  fit into the venue
+ *****************************************************************************/
 int venueOverloaded(Class classToCheck, int venue){
   if(classIsNull(classToCheck))
     return 0;
@@ -131,6 +153,24 @@ int venueOverloaded(Class classToCheck, int venue){
   else
     return 0;
     
+}
+
+/****************************************************************************
+ *	Function name	:	wrongVenueType
+ *	Inputs				: Class classToCheck, int venueIndex(venueList)
+ *	Output/return	: 1 if there is violation, 0 otherwise
+ *	Destroy				:	NONE
+ *	Description		:	The purpose of this function is to check whether
+ *                  whether the class suitable with the typeOfClass of
+ *                  the class
+ *****************************************************************************/
+int wrongVenueType(Class classToCheck, int venue){
+  if(classIsNull(classToCheck))
+    return 0;
+  else if(classToCheck.typeOfClass == Practical && venueList[venue].venueType != Practical)
+    return 1;
+  else
+    return 0;
 }
 
 void clearCounter(int size, int counter[size]){

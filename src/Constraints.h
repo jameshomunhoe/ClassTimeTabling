@@ -19,4 +19,5 @@ int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int totalVenue);
                         
 int venueOverloaded(Class classToCheck, int venue);
+int wrongVenueType(Class classToCheck, int venue);
 #endif // Constraints_H
