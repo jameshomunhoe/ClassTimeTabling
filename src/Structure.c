@@ -9,12 +9,12 @@
  *  List of Venue
  ************************************************************************/
  Venue venueList[] = {{ .nameOfVenue = "D300",
-                        .sizeOfVenue = 25,
+                        .sizeOfVenue = 55,
                         .venueType = 'p'
                       },
                       { .nameOfVenue = "K102",
-                        .sizeOfVenue = 30,
-                        .venueType = 't'
+                        .sizeOfVenue = 80,
+                        .venueType = 'l'
                       }};
 
 /************************************************************************
@@ -411,4 +411,21 @@ int classIsNull(Class sourceClass){
     return 0;
   
   return 1;
+}
+
+/****************************************************************************
+ *  Function name : getClassStudentsSize
+ *  Inputs        : Class classToCheck
+ *  Output/return : totalStudents
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to perform 
+ *                  class checking and return the total students in the class
+ *****************************************************************************/
+int getClassStudentsSize(Class classToCheck){
+  int i,totalStudents = 0;
+  
+  for(i = 0 ; classToCheck.group[i] ; i++){
+    totalStudents += classToCheck.group[i]->groupSize;
+  }
+  return totalStudents;
 }

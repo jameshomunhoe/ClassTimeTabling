@@ -170,4 +170,5 @@ extern int checkEqualClass(Class newClass, Class newClass2);
 extern void indexForward(ClassIndex *classIndex);
 extern void indexBackward(ClassIndex *classIndex);
 extern int classIsNull(Class sourceClass);
+extern int getClassStudentsSize(Class classToCheck);
 #endif // Structure_H

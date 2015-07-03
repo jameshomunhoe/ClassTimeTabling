@@ -378,4 +378,33 @@ void test_groupInMultipleVenue_should_return_0_when_0_clashes(void)
 
 }
 
+void test_venueOverloaded_should_return_0_when_empty_class(){
+  Class exampleClass;
+  exampleClass = clearClass(exampleClass);
+  
+  TEST_ASSERT_EQUAL(0, venueOverloaded(exampleClass,0));
+}
 
+void test_venueOverloaded_should_return_5_when_insufficient_space(){
+  Class exampleClass;
+  exampleClass = clearClass(exampleClass);
+  exampleClass = clazzList[3];
+  
+  TEST_ASSERT_EQUAL(5, venueOverloaded(exampleClass,0));
+}
+
+void test_venueOverloaded_should_return_17_when_insufficient_space(){
+  Class exampleClass;
+  exampleClass = clearClass(exampleClass);
+  exampleClass = clazzList[0];
+  
+  TEST_ASSERT_EQUAL(17, venueOverloaded(exampleClass,0));
+}
+
+void test_venueOverloaded_should_return_0_when_venue1_sufficient(){
+  Class exampleClass;
+  exampleClass = clearClass(exampleClass);
+  exampleClass = clazzList[0];
+  
+  TEST_ASSERT_EQUAL(0, venueOverloaded(exampleClass,1));
+}

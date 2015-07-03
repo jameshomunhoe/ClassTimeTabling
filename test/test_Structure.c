@@ -353,3 +353,40 @@ void test_classIsNull_will_return_1_when_empty_class(){
   
   TEST_ASSERT_EQUAL(1, classIsNull(newClass));
 }
+
+void test_getClassStudentsSize_should_return_0_when_class_is_empty(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  
+  TEST_ASSERT_EQUAL(0, getClassStudentsSize(newClass));
+}
+
+void test_getClassStudentsSize_should_return_25_when_1_group_of_25(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  
+  newClass.group[0] = &groupList[0];
+  newClass.group[1] = NULL;
+  
+  TEST_ASSERT_EQUAL(25, getClassStudentsSize(newClass));
+}
+
+void test_getClassStudentsSize_should_return_32_when_2_group_of_25_and_7(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  
+  newClass.group[0] = &groupList[0];
+  newClass.group[1] = &groupList[1];
+  newClass.group[2] = NULL;
+  
+  TEST_ASSERT_EQUAL(32, getClassStudentsSize(newClass));
+}
+
+void test_getClassStudentsSize_should_return_72_using_clazzList0(){
+  Class newClass;
+  newClass = clearClass(newClass);
+  
+  newClass = clazzList[0];
+  
+  TEST_ASSERT_EQUAL(72, getClassStudentsSize(newClass));
+}

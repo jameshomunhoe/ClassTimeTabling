@@ -123,6 +123,15 @@ int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
 return violation;
 }
 
+int venueOverloaded(Class classToCheck, int venue){
+  if(classIsNull(classToCheck))
+    return 0;
+  else if(getClassStudentsSize(classToCheck) > venueList[venue].sizeOfVenue)
+    return getClassStudentsSize(classToCheck) - venueList[venue].sizeOfVenue;
+  else
+    return 0;
+    
+}
 
 void clearCounter(int size, int counter[size]){
   int i;

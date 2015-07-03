@@ -17,4 +17,6 @@ int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
 int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, int timeToCheck, \
                         int totalVenue);
+                        
+int venueOverloaded(Class classToCheck, int venue);
 #endif // Constraints_H
