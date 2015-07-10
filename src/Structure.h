@@ -79,6 +79,7 @@ typedef struct Programme Programme;
 typedef struct Venue Venue;
 typedef struct Class Class;
 typedef struct ClassIndex ClassIndex;
+typedef struct CombinedGroups CombinedGroups;
 
 /************************************************************************
  *	Struct of Venue
@@ -88,6 +89,8 @@ struct Venue
   char *nameOfVenue;
   int sizeOfVenue;
   char venueType;
+  int numOfSpecificCourse;
+  Course  **course;
 };
 
 /************************************************************************
@@ -114,7 +117,9 @@ struct Group
 struct Programme
 {
   char *programmeName;
-  Group *group[5];
+  int numOfGroup;
+  Group **group;
+  // Group *group[5];
 };
 
 /************************************************************************
@@ -128,7 +133,11 @@ struct Course
   int hoursOfLecture;
   int hoursOfTutorial;
   int hoursOfPractical;
-  Programme *programme[5];
+  int numOfProgramme;
+  Programme **programme;
+  int numOfCombinedGroups;
+  CombinedGroups *combinedGroups;
+  // Programme *programme[5];
 
 };
 
@@ -140,7 +149,9 @@ struct Class
   Course *course;
   Lecturer *lecturer;
   char typeOfClass;
-  Group *group[5];
+  int groupIndexInClass;
+  CombinedGroups *groupInClass;
+  
 };
 
 /************************************************************************
@@ -152,6 +163,17 @@ struct ClassIndex
   int day;
   int time;
 };
+
+/************************************************************************
+ *	Struct of index
+ ************************************************************************/
+struct CombinedGroups 
+{
+  int size;
+  Group **groups;
+};
+
+
 
 extern Venue venueList[];
 extern Lecturer lecturerList[];
@@ -171,4 +193,9 @@ extern void indexForward(ClassIndex *classIndex);
 extern void indexBackward(ClassIndex *classIndex);
 extern int classIsNull(Class sourceClass);
 extern int getClassStudentsSize(Class classToCheck);
+extern int courseGetNumberOfCombinedGroups(Course course);
+extern Group **courseGetCombinedGroups(Course course, int index, int *number);
+extern char *combinedGroupsGetName(CombinedGroups combinedGroups, int index);
+extern Programme **courseGetProgrammes(Course course, int *number);
+extern char *programmeGetName(Programme programme, int index);
 #endif // Structure_H
