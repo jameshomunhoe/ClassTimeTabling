@@ -381,26 +381,27 @@ void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
  *                  two different classes have the same elements
  *****************************************************************************/
 int checkEqualClass(Class newClass, Class newClass2){
-  int i;
+
   if(newClass.course == NULL && newClass2.course == NULL)
     return 1;
   
-  if(newClass.course == newClass2.course){
-    if(newClass.lecturer == newClass2.lecturer){
-      if(newClass.typeOfClass == newClass2.typeOfClass){
-        if(newClass.groupIndexInClass == newClass2.groupIndexInClass);
-        else
-          return 0;
-        
-      }
-      else
-        return 0;
-    }
-    else
+  if(newClass.course != newClass2.course)
+    return 0;
+  
+  if(newClass.lecturer != newClass2.lecturer)
+    return 0;
+  
+  if(newClass.typeOfClass != newClass2.typeOfClass)
+    return 0;
+  
+  if(newClass.groupIndexInClass != newClass2.groupIndexInClass)
+    return 0;
+  
+  if(newClass.groupInClass || newClass2.groupInClass){
+    if(newClass.groupInClass != newClass2.groupInClass)
       return 0;
   }
-  else
-    return 0;
+
     
   return 1;
 }
@@ -482,7 +483,7 @@ int classIsNull(Class sourceClass){
     return 0;
   if(sourceClass.typeOfClass != 0)
     return 0;
-  if(sourceClass.groupIndexInClass = 0)
+  if(sourceClass.groupIndexInClass != 0)
     return 0;
   if(sourceClass.groupInClass != NULL)
     return 0;
@@ -491,21 +492,51 @@ int classIsNull(Class sourceClass){
 }
 
 /****************************************************************************
- *  Function name : getClassStudentsSize
+ *  Function name : classGetTotalStudent
  *  Inputs        : Class classToCheck
  *  Output/return : totalStudents
  *  Destroy       : NONE
  *  Description   : The purpose of this function is to perform 
  *                  class checking and return the total students in the class
  *****************************************************************************/
-// int getClassStudentsSize(Class classToCheck){
-  // int i,totalStudents = 0;
+int classGetTotalStudent(Class classToCheck){
+  int combinedGroupSize, totalCombinedGroups, i;
+  int totalStudents = 0;
+  Group **groups;
   
-  // for(i = 0 ; classToCheck.group[i] ; i++){
-    // totalStudents += classToCheck.group[i]->groupSize;
-  // }
-  // return totalStudents;
-// }
+  if(classIsNull(classToCheck))
+    return 0;
+  
+  if(classToCheck.groupInClass == NULL){
+    totalStudents = classGetTotalStudentInLecture(classToCheck);
+    return totalStudents;
+  }
+  else{
+    groups = courseGetCombinedGroups(classToCheck.course,classToCheck.groupIndexInClass, &combinedGroupSize);
+  
+    for(i = 0 ; i < combinedGroupSize ; i++){
+      totalStudents += groups[i]->groupSize;
+    }
+  }
+  return totalStudents;
+}
+
+int classGetTotalStudentInLecture(Class classToCheck){
+  int combinedGroups, combinedGroupSize, i, j;
+  int totalStudents = 0;
+  Group **groups;
+  
+  combinedGroups = courseGetNumberOfCombinedGroups(classToCheck.course);
+
+  for(i = 0 ; i < combinedGroups ; i++){
+    groups = courseGetCombinedGroups(classToCheck.course,i, &combinedGroupSize);
+  
+    for(j = 0 ; j < combinedGroupSize ; j++){
+      totalStudents += groups[j]->groupSize;
+    }
+  }
+  return totalStudents;
+}
 
 void initProgrammeList(){
   
@@ -544,10 +575,10 @@ void initCourseList(){
   courseList[1].combinedGroups[1].size = 2;
   courseList[1].combinedGroups[0].groups = malloc(courseList[1].combinedGroups[0].size*sizeof(Group*));
   courseList[1].combinedGroups[1].groups = malloc(courseList[1].combinedGroups[1].size*sizeof(Group*));
-  courseList[0].combinedGroups[0].groups[0] = &groupList[2];
-  courseList[0].combinedGroups[0].groups[1] = &groupList[3];
-  courseList[0].combinedGroups[1].groups[0] = &groupList[4];
-  courseList[0].combinedGroups[1].groups[1] = &groupList[5];
+  courseList[1].combinedGroups[0].groups[0] = &groupList[2];
+  courseList[1].combinedGroups[0].groups[1] = &groupList[3];
+  courseList[1].combinedGroups[1].groups[0] = &groupList[4];
+  courseList[1].combinedGroups[1].groups[1] = &groupList[5];
   
   courseList[2].programme = malloc(courseList[2].numOfProgramme*sizeof(Course*));
   courseList[2].programme[0] = &programmeList[0];
@@ -557,10 +588,10 @@ void initCourseList(){
   courseList[2].combinedGroups[1].size = 2;
   courseList[2].combinedGroups[0].groups = malloc(courseList[2].combinedGroups[0].size*sizeof(Group*));
   courseList[2].combinedGroups[1].groups = malloc(courseList[2].combinedGroups[1].size*sizeof(Group*));
-  courseList[0].combinedGroups[0].groups[0] = &groupList[0];
-  courseList[0].combinedGroups[0].groups[1] = &groupList[1];
-  courseList[0].combinedGroups[1].groups[0] = &groupList[4];
-  courseList[0].combinedGroups[1].groups[1] = &groupList[5];
+  courseList[2].combinedGroups[0].groups[0] = &groupList[0];
+  courseList[2].combinedGroups[0].groups[1] = &groupList[1];
+  courseList[2].combinedGroups[1].groups[0] = &groupList[4];
+  courseList[2].combinedGroups[1].groups[1] = &groupList[5];
 }
 
 void initClassList(){
@@ -588,8 +619,44 @@ void initClassList(){
   
 }
 
-int courseGetNumberOfCombinedGroups(Course course){}
-Group **courseGetCombinedGroups(Course course, int index, int *number){}
-char *combinedGroupsGetName(CombinedGroups combinedGroups, int index){}
-Programme **courseGetProgrammes(Course course, int *number){}
-char *programmeGetName(Programme programme, int index){}
+int courseGetNumberOfCombinedGroups(Course *course){
+  if(course != NULL)
+    return course->numOfCombinedGroups;
+  else
+    return 0;
+}
+
+Group **courseGetCombinedGroups(Course *course, int index, int *number){
+  
+  if(course == NULL)
+    Throw(ERR_EMPTY_COURSE);
+  
+  if(index >= course->numOfCombinedGroups)
+    Throw(ERR_EXCEEDED_INDEX);
+  
+  (*number) = course->combinedGroups[index].size;
+  
+  return (course->combinedGroups[index].groups);
+}
+
+char *combinedGroupsGetName(CombinedGroups *combinedGroups, int index){
+  if(index >= combinedGroups->size)
+    Throw(ERR_EXCEEDED_INDEX);
+  
+  if(combinedGroups->groups[index])
+    return combinedGroups->groups[index]->groupName;
+}
+
+
+Programme **courseGetProgrammes(Course *course, int *number){
+  if(course != NULL){
+    (*number) = course->numOfProgramme;
+    return course->programme;
+  }
+}
+
+char *programmeGetName(Programme *programme){
+  if(programme != NULL)
+    return programme->programmeName;
+  
+}

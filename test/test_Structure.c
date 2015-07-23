@@ -7,9 +7,12 @@
 #include "ErrorCode.h"
 #include "CException.h"
 
-void setUp(void){}
+void setUp(void){
+  initProgrammeList();
+  initCourseList();
+  initClassList();
+}
 void tearDown(void){}
-
 void test_clearClass_should_empty_an_empty_class(){
   Class testClass;
   
@@ -18,11 +21,9 @@ void test_clearClass_should_empty_an_empty_class(){
   TEST_ASSERT_EQUAL(NULL, testClass.course);
   TEST_ASSERT_EQUAL(NULL, testClass.lecturer);
   TEST_ASSERT_EQUAL(NULL, testClass.typeOfClass);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[0]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[1]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[2]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[3]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[4]);
+  TEST_ASSERT_EQUAL(0, testClass.groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL, testClass.groupInClass);
+  
 }
 
 void test_clearClass_should_empty_a_class(){
@@ -33,11 +34,8 @@ void test_clearClass_should_empty_a_class(){
   TEST_ASSERT_EQUAL(NULL, testClass.course);
   TEST_ASSERT_EQUAL(NULL, testClass.lecturer);
   TEST_ASSERT_EQUAL(NULL, testClass.typeOfClass);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[0]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[1]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[2]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[3]);
-  TEST_ASSERT_EQUAL(NULL, testClass.group[4]);
+  TEST_ASSERT_EQUAL(0, testClass.groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL, testClass.groupInClass);
 }
 
 void test_clearTimeTable_should_clear_first_element_timeTable(){
@@ -49,21 +47,16 @@ void test_clearTimeTable_should_clear_first_element_timeTable(){
   TEST_ASSERT_EQUAL(&courseList[0], newClass[0][0][0].course);
   TEST_ASSERT_EQUAL(&lecturerList[0], newClass[0][0][0].lecturer);
   TEST_ASSERT_EQUAL('l', newClass[0][0][0].typeOfClass);
-  TEST_ASSERT_EQUAL(&groupList[0], newClass[0][0][0].group[0]);
-  TEST_ASSERT_EQUAL(&groupList[1], newClass[0][0][0].group[1]);
-  TEST_ASSERT_EQUAL(&groupList[2], newClass[0][0][0].group[2]);
-  TEST_ASSERT_EQUAL(&groupList[3], newClass[0][0][0].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[4]);
+  TEST_ASSERT_EQUAL(0, newClass[0][0][0].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].groupInClass);
   
   clearTimeTable(newClass);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].course);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].lecturer);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].typeOfClass);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[0]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[1]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[2]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[4]);
+  
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].course);
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].lecturer);
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].typeOfClass);
+  TEST_ASSERT_EQUAL(0,  newClass[0][0][0].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].groupInClass);
 
 }
 
@@ -77,21 +70,15 @@ void test_clearTimeTable_should_clear_last_element_timeTable(){
   TEST_ASSERT_EQUAL(&courseList[0], newClass[1][2][5].course);
   TEST_ASSERT_EQUAL(&lecturerList[0], newClass[1][2][5].lecturer);
   TEST_ASSERT_EQUAL('l', newClass[1][2][5].typeOfClass);
-  TEST_ASSERT_EQUAL(&groupList[0], newClass[1][2][5].group[0]);
-  TEST_ASSERT_EQUAL(&groupList[1], newClass[1][2][5].group[1]);
-  TEST_ASSERT_EQUAL(&groupList[2], newClass[1][2][5].group[2]);
-  TEST_ASSERT_EQUAL(&groupList[3], newClass[1][2][5].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[4]);
+  TEST_ASSERT_EQUAL(0, newClass[1][2][5].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].groupInClass);
   
   clearTimeTable(newClass);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].course);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].lecturer);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].typeOfClass);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[0]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[1]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[2]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[4]);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].course);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].lecturer);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].typeOfClass);
+  TEST_ASSERT_EQUAL(0,  newClass[1][2][5].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].groupInClass);
 
 }
 
@@ -106,39 +93,27 @@ void test_clearTimeTable_should_clear_multiple_element_timeTable(){
   TEST_ASSERT_EQUAL(&courseList[0], newClass[0][0][0].course);
   TEST_ASSERT_EQUAL(&lecturerList[0], newClass[0][0][0].lecturer);
   TEST_ASSERT_EQUAL('l', newClass[0][0][0].typeOfClass);
-  TEST_ASSERT_EQUAL(&groupList[0], newClass[0][0][0].group[0]);
-  TEST_ASSERT_EQUAL(&groupList[1], newClass[0][0][0].group[1]);
-  TEST_ASSERT_EQUAL(&groupList[2], newClass[0][0][0].group[2]);
-  TEST_ASSERT_EQUAL(&groupList[3], newClass[0][0][0].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[4]);
+  TEST_ASSERT_EQUAL(0, newClass[0][0][0].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].groupInClass);
 
   TEST_ASSERT_EQUAL(&courseList[0], newClass[1][2][5].course);
   TEST_ASSERT_EQUAL(&lecturerList[0], newClass[1][2][5].lecturer);
   TEST_ASSERT_EQUAL('l', newClass[1][2][5].typeOfClass);
-  TEST_ASSERT_EQUAL(&groupList[0], newClass[1][2][5].group[0]);
-  TEST_ASSERT_EQUAL(&groupList[1], newClass[1][2][5].group[1]);
-  TEST_ASSERT_EQUAL(&groupList[2], newClass[1][2][5].group[2]);
-  TEST_ASSERT_EQUAL(&groupList[3], newClass[1][2][5].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[4]);
+  TEST_ASSERT_EQUAL(0, newClass[1][2][5].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].groupInClass);
   
   clearTimeTable(newClass);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].course);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].lecturer);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].typeOfClass);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[0]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[1]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[2]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[0][0][0].group[4]);
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].course);
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].lecturer);
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].typeOfClass);
+  TEST_ASSERT_EQUAL(0,  newClass[0][0][0].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL,  newClass[0][0][0].groupInClass);
   
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].course);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].lecturer);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].typeOfClass);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[0]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[1]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[2]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[3]);
-  TEST_ASSERT_EQUAL(NULL, newClass[1][2][5].group[4]);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].course);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].lecturer);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].typeOfClass);
+  TEST_ASSERT_EQUAL(0,  newClass[1][2][5].groupIndexInClass);
+  TEST_ASSERT_EQUAL(NULL,  newClass[1][2][5].groupInClass);
 
 }
 
@@ -341,7 +316,7 @@ void test_classIsNull_will_return_0_when_group_available(){
   
    newClass = clearClass(newClass);
   
-  newClass.group[0] = &groupList[0];
+  newClass.groupIndexInClass = 1;
   
   TEST_ASSERT_EQUAL(0, classIsNull(newClass));
 }
@@ -354,39 +329,184 @@ void test_classIsNull_will_return_1_when_empty_class(){
   TEST_ASSERT_EQUAL(1, classIsNull(newClass));
 }
 
-void test_getClassStudentsSize_should_return_0_when_class_is_empty(){
-  Class newClass;
-  newClass = clearClass(newClass);
+
+void test_courseGetNumberOfCombinedGroups_should_get_2_from_course_0(){
+  TEST_ASSERT_EQUAL(2,courseGetNumberOfCombinedGroups(&courseList[0]));
   
-  TEST_ASSERT_EQUAL(0, getClassStudentsSize(newClass));
 }
 
-void test_getClassStudentsSize_should_return_25_when_1_group_of_25(){
-  Class newClass;
-  newClass = clearClass(newClass);
+void test_courseGetNumberOfCombinedGroups_should_get_2_from_course_1(){
+  TEST_ASSERT_EQUAL(2,courseGetNumberOfCombinedGroups(&courseList[1]));
   
-  newClass.group[0] = &groupList[0];
-  newClass.group[1] = NULL;
-  
-  TEST_ASSERT_EQUAL(25, getClassStudentsSize(newClass));
 }
 
-void test_getClassStudentsSize_should_return_32_when_2_group_of_25_and_7(){
-  Class newClass;
-  newClass = clearClass(newClass);
+void test_courseGetNumberOfCombinedGroups_should_get_2_from_course_2(){
+  TEST_ASSERT_EQUAL(2,courseGetNumberOfCombinedGroups(&courseList[2]));
   
-  newClass.group[0] = &groupList[0];
-  newClass.group[1] = &groupList[1];
-  newClass.group[2] = NULL;
-  
-  TEST_ASSERT_EQUAL(32, getClassStudentsSize(newClass));
 }
 
-void test_getClassStudentsSize_should_return_72_using_clazzList0(){
-  Class newClass;
-  newClass = clearClass(newClass);
+void test_courseGetNumberOfCombinedGroups_should_get_0_from_empty_course(){
+  Course *emptyCourse = NULL;
   
-  newClass = clazzList[0];
+  TEST_ASSERT_EQUAL(0,courseGetNumberOfCombinedGroups(emptyCourse));
   
-  TEST_ASSERT_EQUAL(72, getClassStudentsSize(newClass));
+}
+
+void test_courseGetCombinedGroups_should_throw_when_index_exceeded(){
+  ErrorCode e;
+  
+  int groupSize;
+  
+  Try{
+    courseGetCombinedGroups(&courseList[0],2,&groupSize);
+  }Catch(e){
+    TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
+  }
+}
+
+void test_courseGetCombinedGroups_should_throw_when_course_is_empty(){
+  ErrorCode e;
+  
+  Course *emptyCourse = NULL;
+  int groupSize;
+  
+  Try{
+    courseGetCombinedGroups(emptyCourse,0,&groupSize);
+  }Catch(e){
+    TEST_ASSERT_EQUAL(ERR_EMPTY_COURSE, e);
+  }
+}
+
+void test_courseGetCombinedGroups_should_return_group_0_and_1(){
+
+  Group **groupsInCourse;
+  int groupSize;
+  
+
+  groupsInCourse = courseGetCombinedGroups(&courseList[0],0,&groupSize);
+
+  TEST_ASSERT_EQUAL_PTR(&groupList[0],groupsInCourse[0]);
+  TEST_ASSERT_EQUAL_PTR(&groupList[1],groupsInCourse[1]);
+  TEST_ASSERT_EQUAL(2,groupSize);
+}
+
+void test_courseGetCombinedGroups_should_return_group_1_and_2(){
+
+  Group **groupsInCourse;
+  int groupSize;
+  
+
+  groupsInCourse = courseGetCombinedGroups(&courseList[0],1,&groupSize);
+
+  TEST_ASSERT_EQUAL_PTR(&groupList[2],groupsInCourse[0]);
+  TEST_ASSERT_EQUAL_PTR(&groupList[3],groupsInCourse[1]);
+  TEST_ASSERT_EQUAL(2,groupSize);
+}
+
+void test_combinedGroupsGetName_should_throw_when_index_exceeded(){
+  ErrorCode e;
+  
+  Try{
+    combinedGroupsGetName(courseList[0].combinedGroups,2);
+  }Catch(e){
+    TEST_ASSERT_EQUAL(ERR_EXCEEDED_INDEX, e);
+  }
+}
+
+void test_combinedGroupsGetName_should_get_JJ1(){
+
+  char *groupName;
+  
+
+  groupName = combinedGroupsGetName(courseList[0].combinedGroups,0);
+
+  TEST_ASSERT_EQUAL_STRING("JJ1", groupName);
+
+}
+
+void test_combinedGroupsGetName_should_get_K2(){
+
+  char *groupName;
+  
+
+  groupName = combinedGroupsGetName(&(courseList[2].combinedGroups[1]),1);
+
+  TEST_ASSERT_EQUAL_STRING("K2", groupName);
+
+}
+
+void test_courseGetProgrammes_should_get_programme_0_and_1(){
+
+  Programme **programmes;
+  int numberOfProgrammes;
+
+  programmes = courseGetProgrammes(&courseList[0],&numberOfProgrammes);
+
+  TEST_ASSERT_EQUAL(2, numberOfProgrammes);
+  TEST_ASSERT_EQUAL_PTR(&programmeList[0], programmes[0]);
+  TEST_ASSERT_EQUAL_PTR(&programmeList[1], programmes[1]);
+
+}
+
+void test_courseGetProgrammes_should_get_programme_1_and_2(){
+
+  Programme **programmes;
+  int numberOfProgrammes;
+
+  programmes = courseGetProgrammes(&courseList[1],&numberOfProgrammes);
+
+  TEST_ASSERT_EQUAL(2, numberOfProgrammes);
+  TEST_ASSERT_EQUAL_PTR(&programmeList[1], programmes[0]);
+  TEST_ASSERT_EQUAL_PTR(&programmeList[2], programmes[1]);
+
+}
+
+void test_programmeGetNames_should_get_programName_RMB3(){
+
+  char *programmeName;
+
+  programmeName = programmeGetName(&programmeList[0]);
+
+  TEST_ASSERT_EQUAL_STRING("RMB3", programmeName);
+
+}
+
+void test_programmeGetNames_should_get_programName_DMK2(){
+
+  char *programmeName;
+
+  programmeName = programmeGetName(&programmeList[2]);
+
+  TEST_ASSERT_EQUAL_STRING("DMK2", programmeName);
+
+}
+
+void test_classGetTotalStudentInLecture_should_return_72(){
+ 
+  TEST_ASSERT_EQUAL(72, classGetTotalStudentInLecture(clazzList[0]));
+}
+
+void test_classGetTotalStudentInLecture_should_return_60(){
+ 
+  TEST_ASSERT_EQUAL(60, classGetTotalStudentInLecture(clazzList[4]));
+}
+
+void test_classGetTotalStudent_should_return_72_lecture(){
+  
+  TEST_ASSERT_EQUAL(72, classGetTotalStudent(clazzList[0]));
+}
+
+void test_classGetTotalStudent_should_return_60_lecture(){
+  
+  TEST_ASSERT_EQUAL(60, classGetTotalStudent(clazzList[4]));
+}
+
+void test_classGetTotalStudent_should_return_32_tutorial(){
+  
+  TEST_ASSERT_EQUAL(32, classGetTotalStudent(clazzList[2]));
+}
+
+void test_classGetTotalStudent_should_return_40_tutorial(){
+  
+  TEST_ASSERT_EQUAL(40, classGetTotalStudent(clazzList[3]));
 }

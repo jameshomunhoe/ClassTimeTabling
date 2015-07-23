@@ -192,10 +192,14 @@ extern int checkEqualClass(Class newClass, Class newClass2);
 extern void indexForward(ClassIndex *classIndex);
 extern void indexBackward(ClassIndex *classIndex);
 extern int classIsNull(Class sourceClass);
-extern int getClassStudentsSize(Class classToCheck);
-extern int courseGetNumberOfCombinedGroups(Course course);
-extern Group **courseGetCombinedGroups(Course course, int index, int *number);
-extern char *combinedGroupsGetName(CombinedGroups combinedGroups, int index);
-extern Programme **courseGetProgrammes(Course course, int *number);
-extern char *programmeGetName(Programme programme, int index);
+extern int classGetTotalStudent(Class classToCheck);
+extern int classGetTotalStudentInLecture(Class classToCheck);
+extern int courseGetNumberOfCombinedGroups(Course *course);
+extern Group **courseGetCombinedGroups(Course *course, int index, int *number);
+extern char *combinedGroupsGetName(CombinedGroups *combinedGroups, int index);
+extern Programme **courseGetProgrammes(Course *course, int *number);
+extern char *programmeGetName(Programme *programme);
+
+
+
 #endif // Structure_H
