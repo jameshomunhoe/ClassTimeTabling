@@ -112,180 +112,168 @@
                          .lecturer = &lecturerList[0],
                          .typeOfClass = 'l',
                          .groupIndexInClass = 0
-                         // .numOfGroup = 4
-                         // .group[0] = &groupList[0],
-                         // .group[1] = &groupList[1],
-                         // .group[2] = &groupList[2],
-                         // .group[3] = &groupList[3],
-                         // .group[4] = NULL
                         },
                         { .course = &courseList[0],
                           .lecturer = &lecturerList[0],
                           .typeOfClass = 'l',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[2],
-                          // .group[3] = &groupList[3],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[0],
                           .lecturer = &lecturerList[0],
                           .typeOfClass = 't',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[2],
-                          // .group[3] = &groupList[3],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[0],
                           .lecturer = &lecturerList[0],
                           .typeOfClass = 't',
                           .groupIndexInClass = 1
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[2],
-                          // .group[3] = &groupList[3],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[1],
                           .lecturer = &lecturerList[1],
                           .typeOfClass = 'l',
                           .groupIndexInClass = 1
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[2],
-                          // .group[1] = &groupList[3],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[1],
                           .lecturer = &lecturerList[1],
                           .typeOfClass = 'l',
                           .groupIndexInClass = 1
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[2],
-                          // .group[1] = &groupList[3],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[1],
                           .lecturer = &lecturerList[1],
                           .typeOfClass = 't',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[2],
-                          // .group[1] = &groupList[3],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[1],
                           .lecturer = &lecturerList[1],
                           .typeOfClass = 't',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[2],
-                          // .group[1] = &groupList[3],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[1],
                           .lecturer = &lecturerList[1],
                           .typeOfClass = 't',
                           .groupIndexInClass = 1
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[2],
-                          // .group[1] = &groupList[3],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[1],
                           .lecturer = &lecturerList[1],
                           .typeOfClass = 't',
                           .groupIndexInClass = 1
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[2],
-                          // .group[1] = &groupList[3],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[2],
                           .lecturer = &lecturerList[2],
                           .typeOfClass = 'l',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[2],
                           .lecturer = &lecturerList[2],
                           .typeOfClass = 'l',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[2],
                           .lecturer = &lecturerList[2],
                           .typeOfClass = 't',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[2],
                           .lecturer = &lecturerList[2],
                           .typeOfClass = 't',
                           .groupIndexInClass = 1
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[2],
                           .lecturer = &lecturerList[2],
                           .typeOfClass = 'p',
                           .groupIndexInClass = 0
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         },
                         { .course = &courseList[2],
                           .lecturer = &lecturerList[2],
                           .typeOfClass = 'p',
                           .groupIndexInClass = 1
-                          // .numOfGroup = 4
-                          // .group[0] = &groupList[0],
-                          // .group[1] = &groupList[1],
-                          // .group[2] = &groupList[4],
-                          // .group[3] = &groupList[5],
-                          // .group[4] = NULL
                         }};
                         
-                        
+
+/****************************************************************************
+ *  Initialization of structures
+ *****************************************************************************/
+void initProgrammeList(){
+  
+  programmeList[0].group = malloc(programmeList[0].numOfGroup*sizeof(Group*));
+  programmeList[0].group[0] = &groupList[0];
+  programmeList[0].group[1] = &groupList[1];
+
+  programmeList[1].group = malloc((sizeof(Group *))* (programmeList[1].numOfGroup));
+  programmeList[1].group[0] = &groupList[2];
+  programmeList[1].group[1] = &groupList[3];
+
+  programmeList[2].group = malloc((sizeof(Group *))* (programmeList[2].numOfGroup));
+  programmeList[2].group[0] = &groupList[4];
+  programmeList[2].group[1] = &groupList[5];
+}
+
+void initCourseList(){
+  courseList[0].programme = malloc(courseList[0].numOfProgramme*sizeof(Course*));
+  courseList[0].programme[0] = &programmeList[0];
+  courseList[0].programme[1] = &programmeList[1];
+  courseList[0].combinedGroups = malloc(courseList[0].numOfCombinedGroups*sizeof(CombinedGroups));
+  courseList[0].combinedGroups[0].size = 2;
+  courseList[0].combinedGroups[1].size = 2;
+  courseList[0].combinedGroups[0].groups = malloc(courseList[0].combinedGroups[0].size*sizeof(Group*));
+  courseList[0].combinedGroups[1].groups = malloc(courseList[0].combinedGroups[1].size*sizeof(Group*));
+  courseList[0].combinedGroups[0].groups[0] = &groupList[0];
+  courseList[0].combinedGroups[0].groups[1] = &groupList[1];
+  courseList[0].combinedGroups[1].groups[0] = &groupList[2];
+  courseList[0].combinedGroups[1].groups[1] = &groupList[3];
+  
+  courseList[1].programme = malloc(courseList[1].numOfProgramme*sizeof(Course*));
+  courseList[1].programme[0] = &programmeList[1];
+  courseList[1].programme[1] = &programmeList[2];
+  courseList[1].combinedGroups = malloc(courseList[1].numOfCombinedGroups*sizeof(CombinedGroups));
+  courseList[1].combinedGroups[0].size = 2;
+  courseList[1].combinedGroups[1].size = 2;
+  courseList[1].combinedGroups[0].groups = malloc(courseList[1].combinedGroups[0].size*sizeof(Group*));
+  courseList[1].combinedGroups[1].groups = malloc(courseList[1].combinedGroups[1].size*sizeof(Group*));
+  courseList[1].combinedGroups[0].groups[0] = &groupList[2];
+  courseList[1].combinedGroups[0].groups[1] = &groupList[3];
+  courseList[1].combinedGroups[1].groups[0] = &groupList[4];
+  courseList[1].combinedGroups[1].groups[1] = &groupList[5];
+  
+  courseList[2].programme = malloc(courseList[2].numOfProgramme*sizeof(Course*));
+  courseList[2].programme[0] = &programmeList[0];
+  courseList[2].programme[1] = &programmeList[2];
+  courseList[2].combinedGroups = malloc(courseList[2].numOfCombinedGroups*sizeof(CombinedGroups));
+  courseList[2].combinedGroups[0].size = 2;
+  courseList[2].combinedGroups[1].size = 2;
+  courseList[2].combinedGroups[0].groups = malloc(courseList[2].combinedGroups[0].size*sizeof(Group*));
+  courseList[2].combinedGroups[1].groups = malloc(courseList[2].combinedGroups[1].size*sizeof(Group*));
+  courseList[2].combinedGroups[0].groups[0] = &groupList[0];
+  courseList[2].combinedGroups[0].groups[1] = &groupList[1];
+  courseList[2].combinedGroups[1].groups[0] = &groupList[4];
+  courseList[2].combinedGroups[1].groups[1] = &groupList[5];
+}
+
+void initClassList(){
+  //English
+  clazzList[0].groupInClass = NULL;
+  clazzList[1].groupInClass = NULL;
+  clazzList[2].groupInClass = &(clazzList[2].course->combinedGroups[clazzList[2].groupIndexInClass]);
+  clazzList[3].groupInClass = &(clazzList[3].course->combinedGroups[clazzList[3].groupIndexInClass]);
+  
+  //Mathematics
+  clazzList[4].groupInClass = NULL;
+  clazzList[5].groupInClass = NULL;
+  clazzList[6].groupInClass = &(clazzList[6].course->combinedGroups[clazzList[6].groupIndexInClass]);
+  clazzList[7].groupInClass = &(clazzList[7].course->combinedGroups[clazzList[7].groupIndexInClass]);
+  clazzList[8].groupInClass = &(clazzList[8].course->combinedGroups[clazzList[8].groupIndexInClass]);
+  clazzList[9].groupInClass = &(clazzList[9].course->combinedGroups[clazzList[9].groupIndexInClass]);
+  
+  //Control System
+  clazzList[10].groupInClass = NULL;
+  clazzList[11].groupInClass = NULL;
+  clazzList[12].groupInClass = &(clazzList[12].course->combinedGroups[clazzList[12].groupIndexInClass]);
+  clazzList[13].groupInClass = &(clazzList[13].course->combinedGroups[clazzList[13].groupIndexInClass]);
+  clazzList[14].groupInClass = &(clazzList[14].course->combinedGroups[clazzList[14].groupIndexInClass]);
+  clazzList[15].groupInClass = &(clazzList[15].course->combinedGroups[clazzList[15].groupIndexInClass]);
+  
+}            
+            
 /****************************************************************************
  * Functions
  *****************************************************************************/
@@ -521,6 +509,15 @@ int classGetTotalStudent(Class classToCheck){
   return totalStudents;
 }
 
+/****************************************************************************
+ *  Function name : classGetTotalStudentInLecture
+ *  Inputs        : Class classToCheck
+ *  Output/return : totalStudents(lecture only)
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to perform 
+ *                  class checking and return the total students in lectureClass
+ *                  This is a sub-function of classGetTotalStudent
+ *****************************************************************************/
 int classGetTotalStudentInLecture(Class classToCheck){
   int combinedGroups, combinedGroupSize, i, j;
   int totalStudents = 0;
@@ -538,87 +535,14 @@ int classGetTotalStudentInLecture(Class classToCheck){
   return totalStudents;
 }
 
-void initProgrammeList(){
-  
-  programmeList[0].group = malloc(programmeList[0].numOfGroup*sizeof(Group*));
-  programmeList[0].group[0] = &groupList[0];
-  programmeList[0].group[1] = &groupList[1];
-
-  programmeList[1].group = malloc((sizeof(Group *))* (programmeList[1].numOfGroup));
-  programmeList[1].group[0] = &groupList[2];
-  programmeList[1].group[1] = &groupList[3];
-
-  programmeList[2].group = malloc((sizeof(Group *))* (programmeList[2].numOfGroup));
-  programmeList[2].group[0] = &groupList[4];
-  programmeList[2].group[1] = &groupList[5];
-}
-
-void initCourseList(){
-  courseList[0].programme = malloc(courseList[0].numOfProgramme*sizeof(Course*));
-  courseList[0].programme[0] = &programmeList[0];
-  courseList[0].programme[1] = &programmeList[1];
-  courseList[0].combinedGroups = malloc(courseList[0].numOfCombinedGroups*sizeof(CombinedGroups));
-  courseList[0].combinedGroups[0].size = 2;
-  courseList[0].combinedGroups[1].size = 2;
-  courseList[0].combinedGroups[0].groups = malloc(courseList[0].combinedGroups[0].size*sizeof(Group*));
-  courseList[0].combinedGroups[1].groups = malloc(courseList[0].combinedGroups[1].size*sizeof(Group*));
-  courseList[0].combinedGroups[0].groups[0] = &groupList[0];
-  courseList[0].combinedGroups[0].groups[1] = &groupList[1];
-  courseList[0].combinedGroups[1].groups[0] = &groupList[2];
-  courseList[0].combinedGroups[1].groups[1] = &groupList[3];
-  
-  courseList[1].programme = malloc(courseList[1].numOfProgramme*sizeof(Course*));
-  courseList[1].programme[0] = &programmeList[1];
-  courseList[1].programme[1] = &programmeList[2];
-  courseList[1].combinedGroups = malloc(courseList[1].numOfCombinedGroups*sizeof(CombinedGroups));
-  courseList[1].combinedGroups[0].size = 2;
-  courseList[1].combinedGroups[1].size = 2;
-  courseList[1].combinedGroups[0].groups = malloc(courseList[1].combinedGroups[0].size*sizeof(Group*));
-  courseList[1].combinedGroups[1].groups = malloc(courseList[1].combinedGroups[1].size*sizeof(Group*));
-  courseList[1].combinedGroups[0].groups[0] = &groupList[2];
-  courseList[1].combinedGroups[0].groups[1] = &groupList[3];
-  courseList[1].combinedGroups[1].groups[0] = &groupList[4];
-  courseList[1].combinedGroups[1].groups[1] = &groupList[5];
-  
-  courseList[2].programme = malloc(courseList[2].numOfProgramme*sizeof(Course*));
-  courseList[2].programme[0] = &programmeList[0];
-  courseList[2].programme[1] = &programmeList[2];
-  courseList[2].combinedGroups = malloc(courseList[2].numOfCombinedGroups*sizeof(CombinedGroups));
-  courseList[2].combinedGroups[0].size = 2;
-  courseList[2].combinedGroups[1].size = 2;
-  courseList[2].combinedGroups[0].groups = malloc(courseList[2].combinedGroups[0].size*sizeof(Group*));
-  courseList[2].combinedGroups[1].groups = malloc(courseList[2].combinedGroups[1].size*sizeof(Group*));
-  courseList[2].combinedGroups[0].groups[0] = &groupList[0];
-  courseList[2].combinedGroups[0].groups[1] = &groupList[1];
-  courseList[2].combinedGroups[1].groups[0] = &groupList[4];
-  courseList[2].combinedGroups[1].groups[1] = &groupList[5];
-}
-
-void initClassList(){
-  //English
-  clazzList[0].groupInClass = NULL;
-  clazzList[1].groupInClass = NULL;
-  clazzList[2].groupInClass = &(clazzList[2].course->combinedGroups[clazzList[2].groupIndexInClass]);
-  clazzList[3].groupInClass = &(clazzList[3].course->combinedGroups[clazzList[3].groupIndexInClass]);
-  
-  //Mathematics
-  clazzList[4].groupInClass = NULL;
-  clazzList[5].groupInClass = NULL;
-  clazzList[6].groupInClass = &(clazzList[6].course->combinedGroups[clazzList[6].groupIndexInClass]);
-  clazzList[7].groupInClass = &(clazzList[7].course->combinedGroups[clazzList[7].groupIndexInClass]);
-  clazzList[8].groupInClass = &(clazzList[8].course->combinedGroups[clazzList[8].groupIndexInClass]);
-  clazzList[9].groupInClass = &(clazzList[9].course->combinedGroups[clazzList[9].groupIndexInClass]);
-  
-  //Control System
-  clazzList[10].groupInClass = NULL;
-  clazzList[11].groupInClass = NULL;
-  clazzList[12].groupInClass = &(clazzList[12].course->combinedGroups[clazzList[12].groupIndexInClass]);
-  clazzList[13].groupInClass = &(clazzList[13].course->combinedGroups[clazzList[13].groupIndexInClass]);
-  clazzList[14].groupInClass = &(clazzList[14].course->combinedGroups[clazzList[14].groupIndexInClass]);
-  clazzList[15].groupInClass = &(clazzList[15].course->combinedGroups[clazzList[15].groupIndexInClass]);
-  
-}
-
+/****************************************************************************
+ *  Function name : courseGetNumberOfCombinedGroups
+ *  Inputs        : Class *course
+ *  Output/return : The number of combined group(s) in the course
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to return the total 
+ *                  combined groups in the course.
+ *****************************************************************************/
 int courseGetNumberOfCombinedGroups(Course *course){
   if(course != NULL)
     return course->numOfCombinedGroups;
@@ -626,6 +550,14 @@ int courseGetNumberOfCombinedGroups(Course *course){
     return 0;
 }
 
+/****************************************************************************
+ *  Function name : courseGetCombinedGroups
+ *  Inputs        : Course *course, int index, int *number
+ *  Output/return : **group in the selected combinedGroup
+ *  Destroy       : int *number
+ *  Description   : The purpose of this function is to return the group(s)
+ *                  in the selected combinedGroup according the index
+ *****************************************************************************/
 Group **courseGetCombinedGroups(Course *course, int index, int *number){
   
   if(course == NULL)
@@ -639,6 +571,14 @@ Group **courseGetCombinedGroups(Course *course, int index, int *number){
   return (course->combinedGroups[index].groups);
 }
 
+/****************************************************************************
+ *  Function name : combinedGroupsGetName
+ *  Inputs        : CombinedGroups *combinedGroups, int index
+ *  Output/return : *char the name of selected group in combinedGroup
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to return the name of selected
+ *                  group among the combinedGroup
+ *****************************************************************************/
 char *combinedGroupsGetName(CombinedGroups *combinedGroups, int index){
   if(index >= combinedGroups->size)
     Throw(ERR_EXCEEDED_INDEX);
@@ -647,7 +587,15 @@ char *combinedGroupsGetName(CombinedGroups *combinedGroups, int index){
     return combinedGroups->groups[index]->groupName;
 }
 
-
+/****************************************************************************
+ *  Function name : courseGetProgrammes
+ *  Inputs        : Course *course, int *number
+ *  Output/return : **programme in the course
+ *  Destroy       : *number
+ *  Description   : The purpose of this function is to return the programme(s)
+ *                  in the course.
+ *                  *number will be replaced with the number of programmes in course
+ *****************************************************************************/
 Programme **courseGetProgrammes(Course *course, int *number){
   if(course != NULL){
     (*number) = course->numOfProgramme;
@@ -655,8 +603,71 @@ Programme **courseGetProgrammes(Course *course, int *number){
   }
 }
 
+/****************************************************************************
+ *  Function name : programmeGetName
+ *  Inputs        : Programme *programme
+ *  Output/return : *char nameOfProgramme
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to return the programme's
+ *                  name.
+ *****************************************************************************/
 char *programmeGetName(Programme *programme){
   if(programme != NULL)
     return programme->programmeName;
+  
+}
+
+
+/****************************************************************************
+ *  Function name : getIndexInList
+ *  Inputs        : void *data, char type
+ *  Output/return : int indexOfDataInList
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to return the data's index
+ *                  as declare in the list.
+ *                  It is able to return the index for courseList, lecturerList,
+ *                  groupList, programmeList and venueList
+ *****************************************************************************/
+int getIndexInList(void *data, char type){
+  
+  int *addressOfData = (int*)data;
+  int *addressOfFirstIndex = 0;
+  int index = 0, sizeOfType;
+  
+  switch(type){
+    case 'c':
+      addressOfFirstIndex = (int*)(&courseList[0]);
+      sizeOfType = sizeof(Course);
+      break;
+      
+    case 'l':
+      addressOfFirstIndex = (int*)(&lecturerList[0]);
+      sizeOfType = sizeof(Lecturer);
+      break;
+      
+    case 'g':
+      addressOfFirstIndex = (int*)(&groupList[0]);
+      sizeOfType = sizeof(Group);
+      break;
+      
+    case 'p':
+      addressOfFirstIndex = (int*)(&programmeList[0]);
+      sizeOfType = sizeof(Programme);
+      break;
+      
+    case 'v':
+      addressOfFirstIndex = (int*)(&venueList[0]);
+      sizeOfType = sizeof(Venue);
+      break;
+      
+    default:
+      Throw(ERR_INVALID_TYPE);
+      break;
+  }
+  
+  //mutiply 4 because 1 = 4 bits
+  index = ((addressOfData-addressOfFirstIndex)*4)/sizeOfType;
+  
+  return index;
   
 }

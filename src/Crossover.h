@@ -5,13 +5,21 @@
 #include "Structure.h"
 
 typedef struct ClassCounter ClassCounter;
+typedef struct ClassGroupCounter ClassGroupCounter;
+
+
 
 struct ClassCounter
+{
+  ClassGroupCounter *groupCounter;
+  int forEmptyClasses;
+};
+
+struct ClassGroupCounter
 {
   int lectureCounter;
   int tutorialCounter;
   int practicalCounter;
-  int forEmptyClasses;
 };
 
 extern ClassCounter classCount[4];

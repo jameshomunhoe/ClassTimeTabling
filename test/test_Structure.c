@@ -510,3 +510,122 @@ void test_classGetTotalStudent_should_return_40_tutorial(){
   
   TEST_ASSERT_EQUAL(40, classGetTotalStudent(clazzList[3]));
 }
+
+void test_getIndexInList_should_throw_error_when_invalid_type(){
+  ErrorCode e;
+  int index;
+  
+  Try{
+    getIndexInList(&programmeList[0], 'k');
+  }Catch(e){
+    TEST_ASSERT_EQUAL(ERR_INVALID_TYPE,e);
+  }
+}
+
+void test_getIndexInList_should_return_courseList_index_0(){
+  int index;
+  
+  index =  getIndexInList(&courseList[0], 'c');
+
+  TEST_ASSERT_EQUAL(0, index);
+
+}
+
+void test_getIndexInList_should_return_courseList_index_2(){
+  int index;
+  
+  index =  getIndexInList(&courseList[2], 'c');
+
+  TEST_ASSERT_EQUAL(2, index);
+
+}
+
+void test_getIndexInList_should_return_exceeded_courseList_index_because_reserved_memory(){
+  int index;
+  
+  index =  getIndexInList(&courseList[1000000], 'c');
+
+  TEST_ASSERT_EQUAL(1000000, index);
+
+}
+
+void test_getIndexInList_should_return_lecturerList_index_0(){
+  int index;
+  
+  index =  getIndexInList(&lecturerList[0], 'l');
+
+  TEST_ASSERT_EQUAL(0, index);
+
+}
+
+void test_getIndexInList_should_return_lecturerList_index_2(){
+  int index;
+  
+  index =  getIndexInList(&lecturerList[2], 'l');
+
+  TEST_ASSERT_EQUAL(2, index);
+
+}
+
+void test_getIndexInList_should_return_exceeded_lecturerList_index_because_reserved_memory(){
+  int index;
+  
+  index =  getIndexInList(&lecturerList[1000000], 'l');
+
+  TEST_ASSERT_EQUAL(1000000, index);
+
+}
+
+void test_getIndexInList_should_return_groupList_index_0(){
+  int index;
+  
+  index =  getIndexInList(&groupList[0], 'g');
+
+  TEST_ASSERT_EQUAL(0, index);
+
+}
+
+void test_getIndexInList_should_return_groupList_index_2(){
+  int index;
+  
+  index =  getIndexInList(&groupList[2], 'g');
+
+  TEST_ASSERT_EQUAL(2, index);
+
+}
+
+void test_getIndexInList_should_return_programmeList_index_0(){
+  int index;
+  
+  index =  getIndexInList(&programmeList[0], 'p');
+
+  TEST_ASSERT_EQUAL(0, index);
+
+}
+
+void test_getIndexInList_should_return_programmeList_index_2(){
+  int index;
+  
+  index =  getIndexInList(&programmeList[2], 'p');
+
+  TEST_ASSERT_EQUAL(2, index);
+
+}
+
+void test_getIndexInList_should_return_venueList_index_0(){
+  int index;
+  
+  index =  getIndexInList(&venueList[0], 'v');
+
+  TEST_ASSERT_EQUAL(0, index);
+
+}
+
+void test_getIndexInList_should_return_venueList_index_2(){
+  int index;
+  
+  index =  getIndexInList(&venueList[2], 'v');
+
+  TEST_ASSERT_EQUAL(2, index);
+
+}

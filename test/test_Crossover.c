@@ -10,17 +10,23 @@
  
 
 void setUp(void){
-  int i;
+  // int i;
   
-  for(i = 0 ; i < (sizeof(classCount)/sizeof(ClassCounter)) ; i++){
-    classCount[i].lectureCounter = 0;
-    classCount[i].tutorialCounter = 0;
-    classCount[i].practicalCounter = 0;
-    classCount[i].forEmptyClasses = 0;
-  }
+  // for(i = 0 ; i < (sizeof(classCount)/sizeof(ClassCounter)) ; i++){
+    // classCount[i].lectureCounter = 0;
+    // classCount[i].tutorialCounter = 0;
+    // classCount[i].practicalCounter = 0;
+    // classCount[i].forEmptyClasses = 0;
+  // }
 }
 void tearDown(void){}
 
+void test_alele(){
+  
+  initClassCounter();
+}
+
+/*
 void test_updateEmptyCounter_should_return_1_when_update_from_0_to_1(){
   
   Class newClass;
@@ -459,3 +465,5 @@ void test_performCrossover_both_parents_are_identical(){
  }
    TEST_ASSERT_EQUAL(0, updateCounter(offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
 }
+
+*/

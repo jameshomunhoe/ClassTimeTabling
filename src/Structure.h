@@ -199,6 +199,7 @@ extern Group **courseGetCombinedGroups(Course *course, int index, int *number);
 extern char *combinedGroupsGetName(CombinedGroups *combinedGroups, int index);
 extern Programme **courseGetProgrammes(Course *course, int *number);
 extern char *programmeGetName(Programme *programme);
+extern int getIndexInList(void *data, char type);
 
 
 
