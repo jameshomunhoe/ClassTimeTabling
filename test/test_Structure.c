@@ -16,7 +16,7 @@ void tearDown(void){}
 void test_clearClass_should_empty_an_empty_class(){
   Class testClass;
   
-  testClass = clearClass(testClass);
+  clearClass(&testClass);
 
   TEST_ASSERT_EQUAL(NULL, testClass.course);
   TEST_ASSERT_EQUAL(NULL, testClass.lecturer);
@@ -29,7 +29,7 @@ void test_clearClass_should_empty_an_empty_class(){
 void test_clearClass_should_empty_a_class(){
   Class testClass = clazzList[0];
 
-  testClass = clearClass(testClass);
+  clearClass(&testClass);
 
   TEST_ASSERT_EQUAL(NULL, testClass.course);
   TEST_ASSERT_EQUAL(NULL, testClass.lecturer);
@@ -123,7 +123,7 @@ void test_checkEqualClass_should_return_0_when_compare_with_empty_class(){
   
   class1 = clazzList[0];
   
-  TEST_ASSERT_EQUAL(0, checkEqualClass(class1, class2));
+  TEST_ASSERT_EQUAL(0, checkEqualClass(&class1, &class2));
 }
 
 void test_checkEqualClass_should_return_0_when_compare_with_different_class(){
@@ -133,17 +133,17 @@ void test_checkEqualClass_should_return_0_when_compare_with_different_class(){
   class1 = clazzList[0];
   class2 = clazzList[2];
   
-  TEST_ASSERT_EQUAL(0, checkEqualClass(class1, class2));
+  TEST_ASSERT_EQUAL(0, checkEqualClass(&class1, &class2));
 }
 
 void test_checkEqualClass_should_return_1_when_compare_empty_class(){
   Class class1;
   Class class2;
   
-  class1 = clearClass(class1);
-  class2 = clearClass(class2);
+  clearClass(&class1);
+  clearClass(&class2);
   
-  TEST_ASSERT_EQUAL(1, checkEqualClass(class1, class2));
+  TEST_ASSERT_EQUAL(1, checkEqualClass(&class1, &class2));
 }
 
 void test_indexForward_should_increase_time_from_0_to_1(){
@@ -284,49 +284,49 @@ void test_indexBackward_should_throw_when_exceeded_index(){
 void test_classIsNull_will_return_0_when_course_available(){
   Class newClass;
   
-  newClass = clearClass(newClass);
+  clearClass(&newClass);
   
   newClass.course = &courseList[0];
   
-  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
+  TEST_ASSERT_EQUAL(0, classIsNull(&newClass));
 }
 
 void test_classIsNull_will_return_0_when_lecturer_available(){
   Class newClass;
   
-   newClass = clearClass(newClass);
+  clearClass(&newClass);
   
   newClass.lecturer = &lecturerList[0];
   
-  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
+  TEST_ASSERT_EQUAL(0, classIsNull(&newClass));
 }
 
 void test_classIsNull_will_return_0_when_typeOfClass_available(){
   Class newClass;
   
-   newClass = clearClass(newClass);
+  clearClass(&newClass);
   
   newClass.typeOfClass = 'l';
   
-  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
+  TEST_ASSERT_EQUAL(0, classIsNull(&newClass));
 }
 
 void test_classIsNull_will_return_0_when_group_available(){
   Class newClass;
   
-   newClass = clearClass(newClass);
+  clearClass(&newClass);
   
   newClass.groupIndexInClass = 1;
   
-  TEST_ASSERT_EQUAL(0, classIsNull(newClass));
+  TEST_ASSERT_EQUAL(0, classIsNull(&newClass));
 }
 
 void test_classIsNull_will_return_1_when_empty_class(){
   Class newClass;
   
-   newClass = clearClass(newClass);
+  clearClass(&newClass);
   
-  TEST_ASSERT_EQUAL(1, classIsNull(newClass));
+  TEST_ASSERT_EQUAL(1, classIsNull(&newClass));
 }
 
 
@@ -483,32 +483,32 @@ void test_programmeGetNames_should_get_programName_DMK2(){
 
 void test_classGetTotalStudentInLecture_should_return_72(){
  
-  TEST_ASSERT_EQUAL(72, classGetTotalStudentInLecture(clazzList[0]));
+  TEST_ASSERT_EQUAL(72, classGetTotalStudentInLecture(&clazzList[0]));
 }
 
 void test_classGetTotalStudentInLecture_should_return_60(){
  
-  TEST_ASSERT_EQUAL(60, classGetTotalStudentInLecture(clazzList[4]));
+  TEST_ASSERT_EQUAL(60, classGetTotalStudentInLecture(&clazzList[4]));
 }
 
 void test_classGetTotalStudent_should_return_72_lecture(){
   
-  TEST_ASSERT_EQUAL(72, classGetTotalStudent(clazzList[0]));
+  TEST_ASSERT_EQUAL(72, classGetTotalStudent(&clazzList[0]));
 }
 
 void test_classGetTotalStudent_should_return_60_lecture(){
   
-  TEST_ASSERT_EQUAL(60, classGetTotalStudent(clazzList[4]));
+  TEST_ASSERT_EQUAL(60, classGetTotalStudent(&clazzList[4]));
 }
 
 void test_classGetTotalStudent_should_return_32_tutorial(){
   
-  TEST_ASSERT_EQUAL(32, classGetTotalStudent(clazzList[2]));
+  TEST_ASSERT_EQUAL(32, classGetTotalStudent(&clazzList[2]));
 }
 
 void test_classGetTotalStudent_should_return_40_tutorial(){
   
-  TEST_ASSERT_EQUAL(40, classGetTotalStudent(clazzList[3]));
+  TEST_ASSERT_EQUAL(40, classGetTotalStudent(&clazzList[3]));
 }
 
 void test_getIndexInList_should_throw_error_when_invalid_type(){
@@ -621,11 +621,11 @@ void test_getIndexInList_should_return_venueList_index_0(){
 
 }
 
-void test_getIndexInList_should_return_venueList_index_2(){
+void test_getIndexInList_should_return_venueList_index_1(){
   int index;
   
-  index =  getIndexInList(&venueList[2], 'v');
+  index =  getIndexInList(&venueList[1], 'v');
 
-  TEST_ASSERT_EQUAL(2, index);
+  TEST_ASSERT_EQUAL(1, index);
 
 }

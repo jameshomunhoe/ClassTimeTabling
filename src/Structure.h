@@ -129,7 +129,6 @@ struct Course
 {
   char *courseCode;
   char *courseName;
-  int courseIndex;
   int hoursOfLecture;
   int hoursOfTutorial;
   int hoursOfPractical;
@@ -185,15 +184,14 @@ extern int getGroupSize();
 extern int getLecturerSize();
 extern int getCourseSize();
 extern int getClazzListSize();
-extern Class clearClass(Class sourceClass);
+extern void clearClass(Class *sourceClass);
 extern void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
-extern Class copyClassSlot(Class sourceClass);
-extern int checkEqualClass(Class newClass, Class newClass2);
+extern int checkEqualClass(Class *newClass, Class *newClass2);
 extern void indexForward(ClassIndex *classIndex);
 extern void indexBackward(ClassIndex *classIndex);
-extern int classIsNull(Class sourceClass);
-extern int classGetTotalStudent(Class classToCheck);
-extern int classGetTotalStudentInLecture(Class classToCheck);
+extern int classIsNull(Class *sourceClass);
+extern int classGetTotalStudent(Class *classToCheck);
+extern int classGetTotalStudentInLecture(Class *classToCheck);
 extern int courseGetNumberOfCombinedGroups(Course *course);
 extern Group **courseGetCombinedGroups(Course *course, int index, int *number);
 extern char *combinedGroupsGetName(CombinedGroups *combinedGroups, int index);

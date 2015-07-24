@@ -79,7 +79,6 @@
  ************************************************************************/
  Course courseList[] = {{ .courseCode = "AAMP1234",
                           .courseName = "ENGLISH",
-                          .courseIndex = 0,
                           .hoursOfLecture = 2,
                           .hoursOfTutorial = 1,
                           .hoursOfPractical = 0,
@@ -88,7 +87,6 @@
                         },
                         { .courseCode = "AAMP4321",
                           .courseName = "Mathematics",
-                          .courseIndex = 1,
                           .hoursOfLecture = 2,
                           .hoursOfTutorial = 2,
                           .hoursOfPractical = 0,
@@ -97,7 +95,6 @@
                         },
                         { .courseCode = "MDFK9413",
                           .courseName = "ControlSystem",
-                          .courseIndex = 2,
                           .hoursOfLecture = 2,
                           .hoursOfTutorial = 1,
                           .hoursOfPractical = 1,
@@ -329,16 +326,13 @@ int getClazzListSize(){
  *  Destroy       : Class sourceClass
  *  Description   : The purpose of this function is to clear particular slot in class[][][]
  *****************************************************************************/
-Class clearClass(Class sourceClass){
-  int i;
+void clearClass(Class *sourceClass){
   
-  sourceClass.course = NULL;
-  sourceClass.lecturer = NULL;
-  sourceClass.typeOfClass = 0;
-  sourceClass.groupIndexInClass = 0;
-  sourceClass.groupInClass = NULL;
-  
-  return sourceClass;
+  sourceClass->course = NULL;
+  sourceClass->lecturer = NULL;
+  sourceClass->typeOfClass = 0;
+  sourceClass->groupIndexInClass = 0;
+  sourceClass->groupInClass = NULL;
 }
 
 /****************************************************************************
@@ -354,7 +348,7 @@ void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
   for( venue = 0 ; venue < MAX_VENUE ; venue++ ){
     for( day = 0 ; day < MAX_DAY ; day++ ){
       for( time = 0 ; time < MAX_TIME_SLOT ; time++ ){
-        sourceClass[venue][day][time] = clearClass(sourceClass[venue][day][time]);
+        clearClass(&sourceClass[venue][day][time]);
       }
     }
   }
@@ -368,25 +362,25 @@ void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
  *  Description   : The purpose of this function is to compare whether
  *                  two different classes have the same elements
  *****************************************************************************/
-int checkEqualClass(Class newClass, Class newClass2){
+int checkEqualClass(Class *newClass, Class *newClass2){
 
-  if(newClass.course == NULL && newClass2.course == NULL)
+  if(newClass->course == NULL && newClass2->course == NULL)
     return 1;
   
-  if(newClass.course != newClass2.course)
+  if(newClass->course != newClass2->course)
     return 0;
   
-  if(newClass.lecturer != newClass2.lecturer)
+  if(newClass->lecturer != newClass2->lecturer)
     return 0;
   
-  if(newClass.typeOfClass != newClass2.typeOfClass)
+  if(newClass->typeOfClass != newClass2->typeOfClass)
     return 0;
   
-  if(newClass.groupIndexInClass != newClass2.groupIndexInClass)
+  if(newClass->groupIndexInClass != newClass2->groupIndexInClass)
     return 0;
   
-  if(newClass.groupInClass || newClass2.groupInClass){
-    if(newClass.groupInClass != newClass2.groupInClass)
+  if(newClass->groupInClass || newClass2->groupInClass){
+    if(newClass->groupInClass != newClass2->groupInClass)
       return 0;
   }
 
@@ -463,17 +457,17 @@ void indexBackward(ClassIndex *classIndex){
  *  Description   : The purpose of this function is to perform 
  *                  class checking to make sure it is NULL or contains data
  *****************************************************************************/
-int classIsNull(Class sourceClass){
+int classIsNull(Class *sourceClass){
   
-  if(sourceClass.course != NULL)
+  if(sourceClass->course != NULL)
     return 0;
-  if(sourceClass.lecturer != NULL)
+  if(sourceClass->lecturer != NULL)
     return 0;
-  if(sourceClass.typeOfClass != 0)
+  if(sourceClass->typeOfClass != 0)
     return 0;
-  if(sourceClass.groupIndexInClass != 0)
+  if(sourceClass->groupIndexInClass != 0)
     return 0;
-  if(sourceClass.groupInClass != NULL)
+  if(sourceClass->groupInClass != NULL)
     return 0;
   
   return 1;
@@ -487,7 +481,7 @@ int classIsNull(Class sourceClass){
  *  Description   : The purpose of this function is to perform 
  *                  class checking and return the total students in the class
  *****************************************************************************/
-int classGetTotalStudent(Class classToCheck){
+int classGetTotalStudent(Class *classToCheck){
   int combinedGroupSize, totalCombinedGroups, i;
   int totalStudents = 0;
   Group **groups;
@@ -495,12 +489,12 @@ int classGetTotalStudent(Class classToCheck){
   if(classIsNull(classToCheck))
     return 0;
   
-  if(classToCheck.groupInClass == NULL){
+  if(classToCheck->groupInClass == NULL){
     totalStudents = classGetTotalStudentInLecture(classToCheck);
     return totalStudents;
   }
   else{
-    groups = courseGetCombinedGroups(classToCheck.course,classToCheck.groupIndexInClass, &combinedGroupSize);
+    groups = courseGetCombinedGroups(classToCheck->course,classToCheck->groupIndexInClass, &combinedGroupSize);
   
     for(i = 0 ; i < combinedGroupSize ; i++){
       totalStudents += groups[i]->groupSize;
@@ -518,15 +512,15 @@ int classGetTotalStudent(Class classToCheck){
  *                  class checking and return the total students in lectureClass
  *                  This is a sub-function of classGetTotalStudent
  *****************************************************************************/
-int classGetTotalStudentInLecture(Class classToCheck){
+int classGetTotalStudentInLecture(Class *classToCheck){
   int combinedGroups, combinedGroupSize, i, j;
   int totalStudents = 0;
   Group **groups;
   
-  combinedGroups = courseGetNumberOfCombinedGroups(classToCheck.course);
+  combinedGroups = courseGetNumberOfCombinedGroups(classToCheck->course);
 
   for(i = 0 ; i < combinedGroups ; i++){
-    groups = courseGetCombinedGroups(classToCheck.course,i, &combinedGroupSize);
+    groups = courseGetCombinedGroups(classToCheck->course,i, &combinedGroupSize);
   
     for(j = 0 ; j < combinedGroupSize ; j++){
       totalStudents += groups[j]->groupSize;

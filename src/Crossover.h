@@ -22,9 +22,9 @@ struct ClassGroupCounter
   int practicalCounter;
 };
 
-extern ClassCounter classCount[4];
+extern ClassCounter *classCount;
 
-int updateCounter(Class classToCheck);
+int updateCounter(Class *classToCheck);
 void performCrossover(Class father[][MAX_DAY][MAX_TIME_SLOT], \
                      Class mother[][MAX_DAY][MAX_TIME_SLOT], \
                      Class offspring[][MAX_DAY][MAX_TIME_SLOT],\
@@ -34,8 +34,8 @@ void getMidPoint(ClassIndex *classIndexLeft,\
                  ClassIndex *classIndexRight,\
                  int totalVenue);
 void updateStopFlag(int *currentSide, int *oppositeSide);
-int updateEmptyCounter(Class classToCheck, int emptyIndex, int totalEmptySlots);
-int updateLectureCounter(Class classToCheck);
-int updateTutorialCounter(Class classToCheck);
-int updatePracticalCounter(Class classToCheck);
+int updateEmptyCounter(int emptyIndex, int totalEmptySlots);
+int updateLectureCounter(Class *classToCheck);
+int updateTutorialCounter(Class *classToCheck);
+int updatePracticalCounter(Class *classToCheck);
 #endif // Crossover_H
