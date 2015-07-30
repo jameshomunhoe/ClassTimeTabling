@@ -6,6 +6,10 @@
 
 #define FOR_TEST
 
+#define Lecture             'l'
+#define Tutorial            't'
+#define Practical           'p'
+
 /************************************************************************
  *  List of Venue
  ************************************************************************/
@@ -187,6 +191,9 @@
                         }};
                         
 
+ClassCounter *classCount;
+                        
+                        
 /****************************************************************************
  *  Initialization of structures
  *****************************************************************************/
@@ -389,67 +396,6 @@ int checkEqualClass(Class *newClass, Class *newClass2){
 }
 
 /****************************************************************************
- *  Function name : indexForward
- *  Inputs        : ClassIndex *classIndex
- *  Output/return : NONE
- *  Destroy       : classIndex->venue, classIndex->day, classIndex->time
- *  Description   : The purpose of this function is to perform 
- *                  3-Dimensional array index incremental. index will
- *                  reset to 0,0,0 when overload
- *****************************************************************************/
-void indexForward(ClassIndex *classIndex){
-
-  if(classIndex->venue < 0 || classIndex->day < 0 || classIndex->time < 0)
-    Throw(ERR_EXCEEDED_INDEX);
-  if(classIndex->venue >= MAX_VENUE || classIndex->day >= MAX_DAY || classIndex->time >= MAX_TIME_SLOT)
-    Throw(ERR_EXCEEDED_INDEX);
-
-  (classIndex->time)++;
-  
-  if(classIndex->time >= MAX_TIME_SLOT){
-    classIndex->time = 0;
-    (classIndex->day)++;
-  }
-  if(classIndex->day >= MAX_DAY){
-    classIndex->day = 0;
-    (classIndex->venue)++;
-  }
-  if(classIndex->venue >= MAX_VENUE)
-    classIndex->venue = 0;
-}
-
-
-/****************************************************************************
- *  Function name : indexBackward
- *  Inputs        : ClassIndex *classIndex
- *  Output/return : NONE
- *  Destroy       : classIndex->venue, classIndex->day, classIndex->time
- *  Description   : The purpose of this function is to perform 
- *                  3-Dimensional array index decremental. index will
- *                  reset to max value of each index when less than 0,0,0
- *****************************************************************************/
-void indexBackward(ClassIndex *classIndex){
-  
-  if(classIndex->venue < 0 || classIndex->day < 0 || classIndex->time < 0)
-    Throw(ERR_EXCEEDED_INDEX);
-  if(classIndex->venue >= MAX_VENUE || classIndex->day >= MAX_DAY || classIndex->time >= MAX_TIME_SLOT)
-    Throw(ERR_EXCEEDED_INDEX);
-  
-  (classIndex->time)--;
-  
-  if(classIndex->time < 0){
-    classIndex->time = MAX_TIME_SLOT - 1;
-    (classIndex->day)--;
-  }
-  if(classIndex->day < 0){
-    classIndex->day = MAX_DAY - 1;
-    (classIndex->venue)--;
-  }
-  if(classIndex->venue < 0)
-    classIndex->venue = MAX_VENUE - 1;
-}
-
-/****************************************************************************
  *  Function name : classIsNull
  *  Inputs        : Class sourceClass
  *  Output/return : 1 if class is NULL, 0 otherwise
@@ -611,7 +557,6 @@ char *programmeGetName(Programme *programme){
   
 }
 
-
 /****************************************************************************
  *  Function name : getIndexInList
  *  Inputs        : void *data, char type
@@ -664,4 +609,219 @@ int getIndexInList(void *data, char type){
   
   return index;
   
+}
+
+/****************************************************************************
+ *  Function name : indexForward
+ *  Inputs        : ClassIndex *classIndex
+ *  Output/return : NONE
+ *  Destroy       : classIndex->venue, classIndex->day, classIndex->time
+ *  Description   : The purpose of this function is to perform 
+ *                  3-Dimensional array index incremental. index will
+ *                  reset to 0,0,0 when overload
+ *****************************************************************************/
+void indexForward(ClassIndex *classIndex){
+
+  if(classIndex->venue < 0 || classIndex->day < 0 || classIndex->time < 0)
+    Throw(ERR_EXCEEDED_INDEX);
+  if(classIndex->venue >= MAX_VENUE || classIndex->day >= MAX_DAY || classIndex->time >= MAX_TIME_SLOT)
+    Throw(ERR_EXCEEDED_INDEX);
+
+  (classIndex->time)++;
+  
+  if(classIndex->time >= MAX_TIME_SLOT){
+    classIndex->time = 0;
+    (classIndex->day)++;
+  }
+  if(classIndex->day >= MAX_DAY){
+    classIndex->day = 0;
+    (classIndex->venue)++;
+  }
+  if(classIndex->venue >= MAX_VENUE)
+    classIndex->venue = 0;
+}
+
+/****************************************************************************
+ *  Function name : indexBackward
+ *  Inputs        : ClassIndex *classIndex
+ *  Output/return : NONE
+ *  Destroy       : classIndex->venue, classIndex->day, classIndex->time
+ *  Description   : The purpose of this function is to perform 
+ *                  3-Dimensional array index decremental. index will
+ *                  reset to max value of each index when less than 0,0,0
+ *****************************************************************************/
+void indexBackward(ClassIndex *classIndex){
+  
+  if(classIndex->venue < 0 || classIndex->day < 0 || classIndex->time < 0)
+    Throw(ERR_EXCEEDED_INDEX);
+  if(classIndex->venue >= MAX_VENUE || classIndex->day >= MAX_DAY || classIndex->time >= MAX_TIME_SLOT)
+    Throw(ERR_EXCEEDED_INDEX);
+  
+  (classIndex->time)--;
+  
+  if(classIndex->time < 0){
+    classIndex->time = MAX_TIME_SLOT - 1;
+    (classIndex->day)--;
+  }
+  if(classIndex->day < 0){
+    classIndex->day = MAX_DAY - 1;
+    (classIndex->venue)--;
+  }
+  if(classIndex->venue < 0)
+    classIndex->venue = MAX_VENUE - 1;
+}
+
+/****************************************************************************
+ *  Function name : initClassCounter
+ *  Inputs        : NONE
+ *  Output/return : NONE
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to initialize the classCount
+ *                  by malloc according to the amount of course, and groups
+ *****************************************************************************/
+void initClassCounter(){
+  int i, j;
+  int courseSize = getCourseSize();
+  int groupSize = getGroupSize();
+  
+  classCount = calloc(courseSize+1, sizeof(ClassCounter));
+  
+  
+  for(i = 0 ; i < courseSize+1 ; i++){
+    classCount[i].groupCounter = calloc(groupSize, sizeof(ClassGroupCounter));
+  }
+  
+ 
+}
+
+/****************************************************************************
+ *  Function name : updateEmptyCounter
+ *  Inputs        : int emptyIndex, int totalEmptySlots
+ *  Output/return : 1 if able to update counter, 0 otherwise
+ *  Destroy       : classCount[emptyIndex].forEmptyClasses
+ *  Description   : The purpose of this function is to update the scratch pad
+ *                  of empty classes in the timetable
+ *****************************************************************************/
+int updateEmptyCounter(int emptyIndex, int totalEmptySlots){
+  if(classCount[emptyIndex].forEmptyClasses < totalEmptySlots){
+    classCount[emptyIndex].forEmptyClasses++;
+    return 1;
+  }
+  else
+    return 0;
+}
+
+/****************************************************************************
+ *  Function name : updateLectureCounter
+ *  Inputs        : Class classToCheck
+ *  Output/return : 1 if able to update counter, 0 otherwise
+ *  Destroy       : classCount[courseIndex].lectureCounter
+ *  Description   : The purpose of this function is to update the scratch pad
+ *                  of lecture classes for particular course in the timetable
+ *****************************************************************************/
+int updateLectureCounter(Class *classToCheck){
+  int gSize, cgSize, courseIndex, groupIndex, i, j;
+  Group **receivedGroup;
+  cgSize = courseGetNumberOfCombinedGroups(classToCheck->course);
+  
+  
+  for(i = 0 ; i < cgSize ; i++){
+    receivedGroup = courseGetCombinedGroups(classToCheck->course, i, &gSize);
+    courseIndex = getIndexInList(classToCheck->course, 'c');
+ 
+    for(j = 0 ; j < gSize ; j++){
+      groupIndex = getIndexInList(receivedGroup[j], 'g');
+      if(classCount[courseIndex].groupCounter[groupIndex].lectureCounter < courseList[courseIndex].hoursOfLecture)
+        classCount[courseIndex].groupCounter[groupIndex].lectureCounter++;
+      else
+        return 0;
+      
+    }
+  }
+  
+  return 1;
+}
+
+/****************************************************************************
+ *  Function name : updateTutorialCounter
+ *  Inputs        : Class classToCheck
+ *  Output/return : 1 if able to update counter, 0 otherwise
+ *  Destroy       : classCount[courseIndex].tutorialCounter
+ *  Description   : The purpose of this function is to update the scratch pad
+ *                  of tutorial classes for particular course in the timetable
+ *****************************************************************************/
+int updateTutorialCounter(Class *classToCheck){
+  int gSize, courseIndex, groupIndex, i;
+  Group **receivedGroup;
+  
+  receivedGroup = courseGetCombinedGroups(classToCheck->course, classToCheck->groupIndexInClass, &gSize);
+  courseIndex = getIndexInList(classToCheck->course, 'c');
+    
+  for(i = 0 ; i < gSize ; i++){
+      groupIndex = getIndexInList(receivedGroup[i], 'g');
+      if(classCount[courseIndex].groupCounter[groupIndex].tutorialCounter < courseList[courseIndex].hoursOfTutorial)
+        classCount[courseIndex].groupCounter[groupIndex].tutorialCounter++;
+      else
+        return 0;
+      
+    }
+  
+  return 1;
+}
+
+/****************************************************************************
+ *  Function name : updatePracticalCounter
+ *  Inputs        : Class classToCheck
+ *  Output/return : 1 if able to update counter, 0 otherwise
+ *  Destroy       : classCount[courseIndex].practicalCounter
+ *  Description   : The purpose of this function is to update the scratch pad
+ *                  of practical classes for particular course in the timetable
+ *****************************************************************************/
+int updatePracticalCounter(Class *classToCheck){
+  int gSize, courseIndex, groupIndex, i;
+  Group **receivedGroup;
+  
+  receivedGroup = courseGetCombinedGroups(classToCheck->course, classToCheck->groupIndexInClass, &gSize);
+  courseIndex = getIndexInList(classToCheck->course, 'c');
+    
+  for(i = 0 ; i < gSize ; i++){
+      groupIndex = getIndexInList(receivedGroup[i], 'g');
+      if(classCount[courseIndex].groupCounter[groupIndex].practicalCounter < courseList[courseIndex].hoursOfPractical)
+        classCount[courseIndex].groupCounter[groupIndex].practicalCounter++;
+      else
+        return 0;
+      
+    }
+  
+  return 1;
+}
+    
+/****************************************************************************
+ *  Function name : updateCounter
+ *  Inputs        : Class classToCheck
+ *  Output/return : 1 if valid to extract, 0 otherwise
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to compare whether
+ *                  two different classes have the same elements
+ *****************************************************************************/
+int updateCounter(Class *classToCheck){
+  int i;
+  int size = getCourseSize();
+  int emptyIndex = size;
+  int emptyClasses = (MAX_VENUE*MAX_DAY*MAX_TIME_SLOT) - getClazzListSize();
+  int returnValue;
+  
+  if(classIsNull(classToCheck))
+    returnValue = updateEmptyCounter(emptyIndex, emptyClasses);
+  
+  else if(classToCheck->typeOfClass == Lecture)
+    returnValue = updateLectureCounter(classToCheck);
+  
+  else if(classToCheck->typeOfClass == Tutorial)
+    returnValue = updateTutorialCounter(classToCheck);
+  
+  else if(classToCheck->typeOfClass == Practical)
+    returnValue = updatePracticalCounter(classToCheck);
+  
+  return returnValue;
 }

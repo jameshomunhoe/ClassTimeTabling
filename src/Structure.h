@@ -80,6 +80,8 @@ typedef struct Venue Venue;
 typedef struct Class Class;
 typedef struct ClassIndex ClassIndex;
 typedef struct CombinedGroups CombinedGroups;
+typedef struct ClassCounter ClassCounter;
+typedef struct ClassGroupCounter ClassGroupCounter;
 
 /************************************************************************
  *	Struct of Venue
@@ -172,33 +174,69 @@ struct CombinedGroups
   Group **groups;
 };
 
+/************************************************************************
+ *	Struct of ClassCounter
+ ************************************************************************/
+struct ClassCounter
+{
+  ClassGroupCounter *groupCounter;
+  int forEmptyClasses;
+};
 
+/************************************************************************
+ *	Struct of ClassGroupCounter
+ ************************************************************************/
+struct ClassGroupCounter
+{
+  int lectureCounter;
+  int tutorialCounter;
+  int practicalCounter;
+};
 
+//extern of List(s)
 extern Venue venueList[];
 extern Lecturer lecturerList[];
 extern Group groupList[];
 extern Programme programmeList[];
 extern Course courseList[];
 extern Class clazzList[];
+extern ClassCounter *classCount;
+
+//functions that returns List's size
 extern int getGroupSize();
 extern int getLecturerSize();
 extern int getCourseSize();
 extern int getClazzListSize();
+
+//functions of class
 extern void clearClass(Class *sourceClass);
 extern void clearTimeTable(Class sourceClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
 extern int checkEqualClass(Class *newClass, Class *newClass2);
-extern void indexForward(ClassIndex *classIndex);
-extern void indexBackward(ClassIndex *classIndex);
 extern int classIsNull(Class *sourceClass);
 extern int classGetTotalStudent(Class *classToCheck);
-extern int classGetTotalStudentInLecture(Class *classToCheck);
+extern int classGetTotalStudentInLecture(Class *classToCheck); //sub-function
+
+//functions of course & programme
 extern int courseGetNumberOfCombinedGroups(Course *course);
 extern Group **courseGetCombinedGroups(Course *course, int index, int *number);
 extern char *combinedGroupsGetName(CombinedGroups *combinedGroups, int index);
 extern Programme **courseGetProgrammes(Course *course, int *number);
 extern char *programmeGetName(Programme *programme);
+
+//function to get index from list
 extern int getIndexInList(void *data, char type);
 
+//function to perform 3D array index increment/decrement
+extern void indexForward(ClassIndex *classIndex);
+extern void indexBackward(ClassIndex *classIndex);
+
+//Histogram of groups in the classes
+extern void initClassCounter();
+extern int updateCounter(Class *classToCheck);
+extern int updateEmptyCounter(int emptyIndex, int totalEmptySlots); //sub-function
+extern int updateLectureCounter(Class *classToCheck); //sub-function
+extern int updateTutorialCounter(Class *classToCheck); //sub-function
+extern int updatePracticalCounter(Class *classToCheck); //sub-function
 
 
 #endif // Structure_H

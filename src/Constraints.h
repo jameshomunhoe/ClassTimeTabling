@@ -6,10 +6,10 @@
 
 //function prototype
 void clearCounter(int size, int counter[size]);
-int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
-                        int dayToCheck, \
-                        int totalVenue);
-                        
+void groupCounterUpdateNumOfAppearing(int size, int counter[size]);
+int generateViolationFromCounter(int size, int counter[size], int limit);
+
+//constraints                        
 int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, int timeToCheck, \
                         int totalVenue);
@@ -17,7 +17,14 @@ int lecturerInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
 int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, int timeToCheck, \
                         int totalVenue);
+
+int venueOverloaded(Class *classToCheck, int venue);
+int wrongVenueType(Class *classToCheck, int venue);
+
+//fitness
+int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
+                        int dayToCheck, \
+                        int totalVenue);
+
                         
-int venueOverloaded(Class classToCheck, int venue);
-int wrongVenueType(Class classToCheck, int venue);
 #endif // Constraints_H

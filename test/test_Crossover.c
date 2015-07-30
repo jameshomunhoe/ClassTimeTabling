@@ -346,7 +346,6 @@ void test_getMidPoint_should_set_parents_index_to_middle_even_invalid_initial_va
  TEST_ASSERT_EQUAL(1,indexRight.time);
  
 }
-/*
 void test_performCrossover_mother_ascending_order_father_reversed(){
   Class father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
   Class mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
@@ -361,7 +360,9 @@ void test_performCrossover_mother_ascending_order_father_reversed(){
  ClassIndex fatherIndex = {MAX_VENUE - 1,MAX_DAY - 1,MAX_TIME_SLOT - 1};
  ClassIndex offSpringIndex = {0,0,0};
  
- for( i = 0 ; i < 11 ; i++){
+ int clazzListSize = getClazzListSize();
+ 
+ for( i = 0 ; i < clazzListSize ; i++){
    mother[motherIndex.venue][motherIndex.day][motherIndex.time] = clazzList[i];
    father[fatherIndex.venue][fatherIndex.day][fatherIndex.time] = clazzList[i];
    indexForward(&motherIndex);
@@ -377,51 +378,53 @@ void test_performCrossover_mother_ascending_order_father_reversed(){
  performCrossover(father,mother,offspring,2);
  
  
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][0],father[1][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][0],&father[1][2][5]));
  //starting point for father ^, mother v
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][1],mother[0][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][2],mother[0][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][3],mother[0][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][4],mother[0][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][5],mother[0][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][0],mother[0][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][1],mother[0][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][2],mother[0][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][3],mother[0][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][4],mother[0][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][5],mother[0][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][0],mother[0][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][1],mother[0][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][2],mother[0][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][3],mother[0][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][4],mother[0][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][5],mother[0][2][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][0],mother[1][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][1],mother[1][0][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][2],mother[1][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][3],mother[1][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][4],mother[1][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][5],mother[1][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][0],mother[1][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][1],mother[1][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][2],mother[1][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][3],mother[1][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][4],mother[1][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][5],mother[1][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][0],mother[1][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][1],mother[1][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][2],mother[1][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][3],mother[1][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][4],mother[1][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][5],mother[1][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&mother[0][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&mother[0][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&mother[0][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&mother[0][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&mother[0][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&mother[0][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&mother[0][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&mother[0][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&mother[0][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&mother[0][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&mother[0][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&mother[0][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&mother[0][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&mother[0][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&mother[0][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&mother[0][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&mother[0][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][0],&mother[1][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][1],&mother[1][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][2],&mother[1][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][3],&mother[1][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][4],&mother[1][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][5],&mother[1][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][0],&mother[1][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][1],&mother[1][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][2],&mother[1][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][3],&mother[1][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][4],&mother[1][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][5],&mother[1][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][0],&mother[1][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][1],&mother[1][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][2],&mother[1][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][3],&mother[1][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][4],&mother[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][5],&mother[1][2][5]));
+
 
  setUp();
-  for(i = 0 ; i < 36 ; i++){
-   TEST_ASSERT_EQUAL(1, updateCounter(offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+  for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
+   TEST_ASSERT_EQUAL(1, updateCounter(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
    indexForward(&offSpringIndex);
  }
-   TEST_ASSERT_EQUAL(0, updateCounter(offspring[0][0][0])); 
+   TEST_ASSERT_EQUAL(0, updateCounter(&offspring[0][0][0])); 
 }
+
 
 void test_performCrossover_both_parents_are_identical(){
   Class father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
@@ -436,7 +439,9 @@ void test_performCrossover_both_parents_are_identical(){
  ClassIndex index = {0,0,0};
  ClassIndex offSpringIndex = {0,0,0};
  
- for( i = 0 ; i < 11 ; i++){
+ int clazzListSize = getClazzListSize();
+ 
+ for( i = 0 ; i < clazzListSize ; i++){
    mother[index.venue][index.day][index.time] = clazzList[i];
    father[index.venue][index.day][index.time] = clazzList[i];
    indexForward(&index);
@@ -450,52 +455,49 @@ void test_performCrossover_both_parents_are_identical(){
  randomTime_ExpectAndReturn(0);
  performCrossover(father,mother,offspring,2);
  
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][1],father[1][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][1],father[1][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][2],father[1][0][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][3],father[1][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][4],father[1][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][5],father[1][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][0],father[1][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][1],father[1][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][2],father[1][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][3],father[1][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][4],father[1][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][1][5],father[1][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][0],father[1][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][1],father[1][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][2],father[1][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][3],father[1][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][4],father[1][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][2][5],father[1][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][0],father[1][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][1],&father[1][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][2],&father[1][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][3],&father[1][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][4],&father[1][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][5],&father[1][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][0],&father[1][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][1],&father[1][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][2],&father[1][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][3],&father[1][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][4],&father[1][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][5],&father[1][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][0],&father[1][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][1],&father[1][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][2],&father[1][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][3],&father[1][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][4],&father[1][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][5],&father[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][0],&father[1][2][5]));
  //starting point for father ^, mother v
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][1],mother[0][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][2],mother[0][0][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][3],mother[0][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][4],mother[0][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][0][5],mother[0][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][0],mother[0][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][1],mother[0][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][2],mother[0][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][3],mother[0][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][4],mother[0][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][1][5],mother[0][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][0],mother[0][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][1],mother[0][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][2],mother[0][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][3],mother[0][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][4],mother[0][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[1][2][5],mother[0][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(offspring[0][0][0],mother[0][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&mother[0][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&mother[0][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&mother[0][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&mother[0][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&mother[0][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&mother[0][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&mother[0][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&mother[0][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&mother[0][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&mother[0][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&mother[0][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&mother[0][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&mother[0][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&mother[0][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&mother[0][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&mother[0][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&mother[0][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][0],&mother[0][2][5]));
 
  setUp();
  
-  for(i = 0 ; i < 36 ; i++){
-   TEST_ASSERT_EQUAL(1, updateCounter(offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+  for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
+   TEST_ASSERT_EQUAL(1, updateCounter(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
    indexForward(&offSpringIndex);
  }
-   TEST_ASSERT_EQUAL(0, updateCounter(offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+   TEST_ASSERT_EQUAL(0, updateCounter(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
 }
-
-*/
