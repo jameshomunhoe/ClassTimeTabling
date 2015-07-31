@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "Timetable.h"
 #include "Structure.h"
+#include "TestStructure.h"
 #include "ErrorCode.h"
 #include "mock_Random.h"
 
@@ -79,12 +80,15 @@ void test_fillClassIntoTimetable_should_fill_in_clazzList0_to_timeTable_1_2_5(vo
   
 }
 
-// void test_fillClassIntoTimetable_should_fill_in_2_classes_to_000_and_111(void){
-  // ClassIndex classIndex = {1,2,5};
-  // Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+void test_fillClassIntoTimetable_should_fill_in_2_classes_to_000_and_111(void){
+  ClassIndex classIndex = {0,0,0};
+  ClassIndex classIndex2 = {1,2,5};
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
   
-  // TEST_ASSERT_EQUAL(1, fillClassIntoTimetable(timeTable, &classIndex, &clazzList[0]));
-  // TEST_ASSERT_EQUAL(1, classIsNull(&timeTable[0][0][0]));
-  // TEST_ASSERT_EQUAL(1, checkEqualClass(&timeTable[1][2][5], &clazzList[0]));
+  TEST_ASSERT_EQUAL(1, fillClassIntoTimetable(timeTable, &classIndex, &clazzList[0]));
+  TEST_ASSERT_EQUAL(1, fillClassIntoTimetable(timeTable, &classIndex2, &clazzList[0]));
   
-// }
+  TEST_ASSERT_EQUAL(1, checkEqualClass(&timeTable[1][2][5], &clazzList[0]));
+  TEST_ASSERT_EQUAL(1, checkEqualClass(&timeTable[0][0][0], &clazzList[0]));
+  
+}

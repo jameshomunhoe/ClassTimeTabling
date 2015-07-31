@@ -3,6 +3,7 @@
 
 #include "unity.h"
 #include <stdio.h>
+#include "TestStructure.h"
 #include "Constraints.h"
 #include "Structure.h"
 #include "ErrorCode.h"

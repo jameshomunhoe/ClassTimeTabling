@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "Constraints.h"
+#include "TestStructure.h"
 #include "Structure.h"
 #include "CException.h"
 #include "ErrorCode.h"

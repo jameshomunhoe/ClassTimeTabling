@@ -197,20 +197,8 @@ struct ClassGroupCounter
   int practicalCounter;
 };
 
-//extern of List(s)
-extern Venue venueList[];
-extern Lecturer lecturerList[];
-extern Group groupList[];
-extern Programme programmeList[];
-extern Course courseList[];
-extern Class clazzList[];
+//extern of classCount
 extern ClassCounter *classCount;
-
-//functions that returns List's size
-extern int getGroupSize();
-extern int getLecturerSize();
-extern int getCourseSize();
-extern int getClazzListSize();
 
 //functions of class
 extern void clearClass(Class *sourceClass);

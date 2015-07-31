@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "Mutation.h"
 #include "Structure.h"
+#include "TestStructure.h"
 #include "mock_Random.h"
 
 
