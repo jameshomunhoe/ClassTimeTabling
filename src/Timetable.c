@@ -9,7 +9,8 @@
 #include "malloc.h"
 
 
-int fillClassIntoTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT], ClassIndex *classIndex){
+int fillClassIntoTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT], \
+                           ClassIndex *classIndex, Class *classToFill){
   
   if(classIndex->venue >= MAX_VENUE || classIndex->venue < 0)
     Throw(ERR_EXCEEDED_VENUE_INDEX);
@@ -18,6 +19,12 @@ int fillClassIntoTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT], C
   else if(classIndex->time >= MAX_TIME_SLOT || classIndex->time < 0)
     Throw(ERR_EXCEEDED_TIME_INDEX);
   
+  if(classIsNull(&(timeTable[classIndex->venue][classIndex->day][classIndex->time]))){
+    timeTable[classIndex->venue][classIndex->day][classIndex->time] = *classToFill;
+    return 1;
+  }
+  else
+    return 0;
   
   
 }
