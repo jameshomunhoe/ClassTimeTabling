@@ -10,6 +10,7 @@
 #define Tutorial            't'
 #define Practical           'p'
 
+
 //  Formula to get totalVenue
 //  (sizeof(exampleClass)/sizeof(Class))/(sizeof(exampleClass[0])/sizeof(Class)));
 
@@ -178,8 +179,8 @@ int wrongVenueType(Class *classToCheck, int venue){
  *  Output/return : number of violation
  *  Destroy       : NONE
  *  Description   : The purpose of this function is to calculate the
- *                  violation of same group of student study more than 4 hours
- *                  a day
+ *                  violation of same group of student study more than 6 hours
+ *                  a day(for test, 4 hours)
  *****************************************************************************/
 int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, \
@@ -202,6 +203,42 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
   }
 
   groupCounterUpdateNumOfAppearing(groupSize, groupCounter);
-  violation = generateViolationFromCounter(groupSize, groupCounter, 4);
+  violation = generateViolationFromCounter(groupSize, groupCounter, studyHourLimit);
+return violation;
+}
+
+/****************************************************************************
+ *  Function name : studyHourOverloaded
+ *  Inputs        : Class sourceClass[][][], dayToCheck, totalVenue
+ *  Output/return : number of violation
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to calculate the
+ *                  violation of same group of student study more than 6 hours
+ *                  a day(for test, 4 hours)
+ *****************************************************************************/
+int teachingHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
+                           int dayToCheck, \
+                           int totalVenue)
+{
+
+  int time, venue, lecturerIndex;
+  int violation = 0;
+  int lecturerSize = getLecturerSize();
+  int lecturerCounter[lecturerSize];
+  clearCounter(lecturerSize,lecturerCounter);
+
+  if(dayToCheck >= MAX_DAY)
+    Throw(ERR_EXCEEDED_INDEX);
+ 
+  for(venue = 0 ; venue < totalVenue ; venue++){
+    for(time = 0 ; time < MAX_TIME_SLOT ; time++){
+      if(classIsNull(&(newClass[venue][dayToCheck][time]))==0){
+        lecturerIndex = getIndexInList(newClass[venue][dayToCheck][time].lecturer, 'l');
+        lecturerCounter[lecturerIndex]++;
+      }
+    }
+  }
+
+  violation = generateViolationFromCounter(lecturerSize, lecturerCounter, teachingHourLimit);
 return violation;
 }

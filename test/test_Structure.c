@@ -13,6 +13,10 @@ void setUp(void){
   initClassList();
 }
 void tearDown(void){}
+
+/************************************************************************
+ *  TEST of clearClass
+ ************************************************************************/
 void test_clearClass_should_empty_an_empty_class(){
   Class testClass;
   
@@ -38,6 +42,9 @@ void test_clearClass_should_empty_a_class(){
   TEST_ASSERT_EQUAL(NULL, testClass.groupInClass);
 }
 
+/************************************************************************
+ *  TEST of clearTimeTable
+ ************************************************************************/
 void test_clearTimeTable_should_clear_first_element_timeTable(){
   Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
 
@@ -82,7 +89,6 @@ void test_clearTimeTable_should_clear_last_element_timeTable(){
 
 }
 
-
 void test_clearTimeTable_should_clear_multiple_element_timeTable(){
   Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
 
@@ -117,6 +123,9 @@ void test_clearTimeTable_should_clear_multiple_element_timeTable(){
 
 }
 
+/************************************************************************
+ *  TEST of checkEqualClass
+ ************************************************************************/
 void test_checkEqualClass_should_return_0_when_compare_with_empty_class(){
   Class class1;
   Class class2;
@@ -145,7 +154,9 @@ void test_checkEqualClass_should_return_1_when_compare_empty_class(){
   
   TEST_ASSERT_EQUAL(1, checkEqualClass(&class1, &class2));
 }
-
+/************************************************************************
+ *  TEST of indexForward
+ ************************************************************************/
 void test_indexForward_should_increase_time_from_0_to_1(){
   //max venue = 2, day = 3, time = 6
   ClassIndex newIndex = {0,0,0};
@@ -213,6 +224,9 @@ void test_indexForward_should_throw_error_when_exceeding_value(){
   }
 }
 
+/************************************************************************
+ *  TEST of indexBackward
+ ************************************************************************/
 void test_indexBackward_should_reduce_time_to_0(){
   //max venue = 2, day = 3, time = 6
   ClassIndex newIndex = {0,0,1};
@@ -281,6 +295,9 @@ void test_indexBackward_should_throw_when_exceeded_index(){
   }
 }
 
+/************************************************************************
+ *  TEST of classIsNull
+ ************************************************************************/
 void test_classIsNull_will_return_0_when_course_available(){
   Class newClass;
   
@@ -329,7 +346,9 @@ void test_classIsNull_will_return_1_when_empty_class(){
   TEST_ASSERT_EQUAL(1, classIsNull(&newClass));
 }
 
-
+/************************************************************************
+ *  TEST of courseGetNumberOfCombinedGroups
+ ************************************************************************/
 void test_courseGetNumberOfCombinedGroups_should_get_2_from_course_0(){
   TEST_ASSERT_EQUAL(2,courseGetNumberOfCombinedGroups(&courseList[0]));
   
@@ -352,6 +371,9 @@ void test_courseGetNumberOfCombinedGroups_should_get_0_from_empty_course(){
   
 }
 
+/************************************************************************
+ *  TEST of courseGetCombinedGroups
+ ************************************************************************/
 void test_courseGetCombinedGroups_should_throw_when_index_exceeded(){
   ErrorCode e;
   
@@ -403,6 +425,9 @@ void test_courseGetCombinedGroups_should_return_group_1_and_2(){
   TEST_ASSERT_EQUAL(2,groupSize);
 }
 
+/************************************************************************
+ *  TEST of combinedGroupsGetName
+ ************************************************************************/
 void test_combinedGroupsGetName_should_throw_when_index_exceeded(){
   ErrorCode e;
   
@@ -435,6 +460,9 @@ void test_combinedGroupsGetName_should_get_K2(){
 
 }
 
+/************************************************************************
+ *  TEST of courseGetProgrammes
+ ************************************************************************/
 void test_courseGetProgrammes_should_get_programme_0_and_1(){
 
   Programme **programmes;
@@ -461,6 +489,9 @@ void test_courseGetProgrammes_should_get_programme_1_and_2(){
 
 }
 
+/************************************************************************
+ *  TEST of programmeGetNames
+ ************************************************************************/
 void test_programmeGetNames_should_get_programName_RMB3(){
 
   char *programmeName;
@@ -481,6 +512,9 @@ void test_programmeGetNames_should_get_programName_DMK2(){
 
 }
 
+/************************************************************************
+ *  TEST of classGetTotalStudentInLecture
+ ************************************************************************/
 void test_classGetTotalStudentInLecture_should_return_72(){
  
   TEST_ASSERT_EQUAL(72, classGetTotalStudentInLecture(&clazzList[0]));
@@ -491,6 +525,9 @@ void test_classGetTotalStudentInLecture_should_return_60(){
   TEST_ASSERT_EQUAL(60, classGetTotalStudentInLecture(&clazzList[4]));
 }
 
+/************************************************************************
+ *  TEST of classGetTotalStudent
+ ************************************************************************/
 void test_classGetTotalStudent_should_return_72_lecture(){
   
   TEST_ASSERT_EQUAL(72, classGetTotalStudent(&clazzList[0]));
@@ -511,6 +548,9 @@ void test_classGetTotalStudent_should_return_40_tutorial(){
   TEST_ASSERT_EQUAL(40, classGetTotalStudent(&clazzList[3]));
 }
 
+/************************************************************************
+ *  TEST of getIndexInList
+ ************************************************************************/
 void test_getIndexInList_should_throw_error_when_invalid_type(){
   ErrorCode e;
   int index;

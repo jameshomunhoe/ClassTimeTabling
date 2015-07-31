@@ -21,7 +21,9 @@ void test_alele(){
   
 }
 
-
+/************************************************************************
+ *  TEST of updateEmptyCounter
+ ************************************************************************/
 void test_updateEmptyCounter_should_return_1_when_update_from_0_to_1(){
   
   TEST_ASSERT_EQUAL(1, updateEmptyCounter(3, 1));
@@ -36,6 +38,9 @@ void test_updateEmptyCounter_should_return_0_when_empty_counter_overload(){
   
 }
 
+/************************************************************************
+ *  TEST of updateLectureCounter
+ ************************************************************************/
 void test_updateLectureCounter_should_return_1_when_filling_2_lecture(){
   
   Class newClass;
@@ -65,6 +70,43 @@ void test_updateLectureCounter_should_return_0_when_filling_3rd_lecture(){
  
 }
 
+void test_updateLectureCounter_should_update_3_different_course_and_return_1(){
+  
+  Class newClass;
+  Class newClass2;
+  Class newClass3;
+  newClass = clazzList[0]; //2 Lecture
+  newClass2 = clazzList[4]; //2 Lecture
+  newClass3 = clazzList[10]; //2 Lecture
+  
+  TEST_ASSERT_EQUAL(1, updateLectureCounter(&newClass));
+  TEST_ASSERT_EQUAL(1, updateLectureCounter(&newClass2));
+  TEST_ASSERT_EQUAL(1, updateLectureCounter(&newClass3));
+  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[0].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[1].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[2].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[3].lectureCounter);
+  TEST_ASSERT_EQUAL(0, classCount[0].groupCounter[4].lectureCounter);
+  TEST_ASSERT_EQUAL(0, classCount[0].groupCounter[5].lectureCounter);
+  
+  TEST_ASSERT_EQUAL(0, classCount[1].groupCounter[0].lectureCounter);
+  TEST_ASSERT_EQUAL(0, classCount[1].groupCounter[1].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[2].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[3].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[4].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[5].lectureCounter);
+  
+  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[0].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[1].lectureCounter);
+  TEST_ASSERT_EQUAL(0, classCount[2].groupCounter[2].lectureCounter);
+  TEST_ASSERT_EQUAL(0, classCount[2].groupCounter[3].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[4].lectureCounter);
+  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[5].lectureCounter);
+
+}
+/************************************************************************
+ *  TEST of updateTutorialCounter
+ ************************************************************************/
 void test_updateTutorialCounter_should_return_1_when_filling_1_tutorial(){
   
   Class newClass;
@@ -103,6 +145,9 @@ void test_updateTutorialCounter_should_return_1_when_filling_tutorial_seperately
   
 }
 
+/************************************************************************
+ *  TEST of updatePracticalCounter
+ ************************************************************************/
 void test_updatePracticalCounter_should_return_1_when_filling_1_Practical(){
   
   Class newClass;
@@ -126,41 +171,9 @@ void test_updatePracticalCounter_should_return_0_when_filling_2nd_Practical(){
   
 }
 
-void test_updateLectureCounter_should_update_3_different_course_and_return_1(){
-  
-  Class newClass;
-  Class newClass2;
-  Class newClass3;
-  newClass = clazzList[0]; //2 Lecture
-  newClass2 = clazzList[4]; //2 Lecture
-  newClass3 = clazzList[10]; //2 Lecture
-  
-  TEST_ASSERT_EQUAL(1, updateLectureCounter(&newClass));
-  TEST_ASSERT_EQUAL(1, updateLectureCounter(&newClass2));
-  TEST_ASSERT_EQUAL(1, updateLectureCounter(&newClass3));
-  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[0].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[1].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[2].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[3].lectureCounter);
-  TEST_ASSERT_EQUAL(0, classCount[0].groupCounter[4].lectureCounter);
-  TEST_ASSERT_EQUAL(0, classCount[0].groupCounter[5].lectureCounter);
-  
-  TEST_ASSERT_EQUAL(0, classCount[1].groupCounter[0].lectureCounter);
-  TEST_ASSERT_EQUAL(0, classCount[1].groupCounter[1].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[2].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[3].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[4].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[1].groupCounter[5].lectureCounter);
-  
-  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[0].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[1].lectureCounter);
-  TEST_ASSERT_EQUAL(0, classCount[2].groupCounter[2].lectureCounter);
-  TEST_ASSERT_EQUAL(0, classCount[2].groupCounter[3].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[4].lectureCounter);
-  TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[5].lectureCounter);
-
-}
-
+/************************************************************************
+ *  TEST of updateCounter
+ ************************************************************************/
 void test_updateCounter_should_return_1_with_one_empty_class(){
   
   Class newClass;
@@ -274,6 +287,9 @@ void test_updateCounter_should_able_to_run_with_different_class(){
   TEST_ASSERT_EQUAL(0, updateCounter(&newClass2));
 }
 
+/************************************************************************
+ *  TEST of randomIndex
+ ************************************************************************/
 void test_randomIndex_should_update_values(){
   ClassIndex newClassIndex;
   
@@ -287,6 +303,9 @@ void test_randomIndex_should_update_values(){
   TEST_ASSERT_EQUAL(3, newClassIndex.time);
 }
 
+/************************************************************************
+ *  TEST of updateStopFlag
+ ************************************************************************/
 void test_updateStopFlag_should_update_when_opposite_direction_not_stop_yet(){
   int currentSide = 0;
   int oppositeSide = 0;
@@ -317,6 +336,9 @@ void test_updateStopFlag_should_remain_1_even_initially_1(){
   TEST_ASSERT_EQUAL(0,oppositeSide);
 }
 
+/************************************************************************
+ *  TEST of getMidPoint
+ ************************************************************************/
 void test_getMidPoint_should_set_parents_index_to_middle(){
   ClassIndex indexLeft;
   ClassIndex indexRight;
@@ -346,6 +368,10 @@ void test_getMidPoint_should_set_parents_index_to_middle_even_invalid_initial_va
  TEST_ASSERT_EQUAL(1,indexRight.time);
  
 }
+
+/************************************************************************
+ *  TEST of performCrossover
+ ************************************************************************/
 void test_performCrossover_mother_ascending_order_father_reversed(){
   Class father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
   Class mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];

@@ -4,14 +4,18 @@
 #define FOR_TEST
 
 #ifdef FOR_TEST
-  #define MAX_VENUE     2
-  #define MAX_DAY       3
-  #define MAX_TIME_SLOT 6
+  #define MAX_VENUE         2
+  #define MAX_DAY           3
+  #define MAX_TIME_SLOT     6
+  #define studyHourLimit    4
+  #define teachingHourLimit 4
 
 #else
   #define MAX_VENUE     5
   #define MAX_DAY       6
   #define MAX_TIME_SLOT 8
+  #define studyHourLimit    6
+  #define teachingHourLimit 6
 #endif //TEST
 
 

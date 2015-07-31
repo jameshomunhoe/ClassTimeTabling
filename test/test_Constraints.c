@@ -22,7 +22,9 @@ void tearDown(void){}
 * MAX_TIME_SLOT = 6
 **/
 
-
+/************************************************************************
+ *  TEST of clearCounter
+ ************************************************************************/
 void test_clear_counter_should_clear_all_array_to_0(){
   int sizeOfArray = 5;
   int array[sizeOfArray];
@@ -37,6 +39,9 @@ void test_clear_counter_should_clear_all_array_to_0(){
  
 }
 
+/************************************************************************
+ *  TEST of studyHourOverloaded
+ ************************************************************************/
 void test_studyHourOverloaded_should_return_0_with_empty_Class(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
@@ -61,10 +66,12 @@ void test_studyHourOverloaded_should_return_0_only_4_class_total_2_venues(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
   
-  exampleClass[0][2][0] = clazzList[0];
-  exampleClass[0][2][1] = clazzList[0];
-  exampleClass[1][2][0] = clazzList[0];
-  exampleClass[1][2][1] = clazzList[0];
+  exampleClass[0][2][0] = clazzList[0]; // 0,1,2,3
+  exampleClass[0][2][1] = clazzList[0]; // 0,1,2,3
+  exampleClass[1][2][0] = clazzList[0]; // 0,1,2,3
+  exampleClass[1][2][1] = clazzList[0]; // 0,1,2,3
+                                        // The following will cap at 2 class, 
+                                        // because each group only can take 2 L class for English
   
   TEST_ASSERT_EQUAL(0,studyHourOverloaded(exampleClass, 2, MAX_VENUE));
 }
@@ -72,8 +79,6 @@ void test_studyHourOverloaded_should_return_0_only_4_class_total_2_venues(void)
 void test_studyHourOverloaded_should_return_2_when_2_group_exceeded_1_hour(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
-  
-  //There are 4 group in clazzList[0]
   
   exampleClass[0][2][0] = clazzList[0]; // 0,1,2,3
   exampleClass[0][2][1] = clazzList[1]; // 0,1,2,3
@@ -89,8 +94,6 @@ void test_studyHourOverloaded_should_return_2_when_2_group_exceeded_1_hour(void)
 void test_studyHourOverloaded_should_return_4_when_4_group_exceeded_1_hour(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
-  
-  //There are 4 group in clazzList[0]
   
   exampleClass[0][2][0] = clazzList[0]; // 0,1,2,3
   exampleClass[0][2][1] = clazzList[1]; // 0,1,2,3
@@ -111,8 +114,6 @@ void test_studyHourOverloaded_should_return_0_when_checking_different_day(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
   
-  //There are 4 group in clazzList[0]
-  
   exampleClass[0][2][0] = clazzList[0];
   exampleClass[0][2][1] = clazzList[0];
   exampleClass[0][2][2] = clazzList[0];
@@ -125,8 +126,6 @@ void test_studyHourOverloaded_should_return_0_when_checking_different_day(void)
   exampleClass[1][2][3] = clazzList[0];
   exampleClass[1][2][4] = clazzList[0];
   exampleClass[1][2][5] = clazzList[0];
-  
-  //exceeded 8 hours, 4 groups x 8 hours = 32 violations
   
   TEST_ASSERT_EQUAL(0,studyHourOverloaded(exampleClass, 0, MAX_VENUE));
 }
@@ -150,10 +149,14 @@ void test_studyHourOverloaded_should_return_8(void)
   exampleClass[1][2][4] = clazzList[10];//01  45
                                         //group 2,3 exceeded 3 hours
                                         //group 4,5 exceeded 1 hours
+                                        //3+3+1+1 = 8
   
   TEST_ASSERT_EQUAL(8,studyHourOverloaded(exampleClass, 2, MAX_VENUE));
 }
 
+/************************************************************************
+ *  TEST of lecturerInMultipleVenue
+ ************************************************************************/
 void test_lecturerInMultipleVenue_should_return_0_with_empty_class(void)
 {
   Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
@@ -275,6 +278,10 @@ void test_lecturerInMultipleVenue_should_return_0_when_different_lecturer_in_sam
 
   TEST_ASSERT_EQUAL(0, lecturerInMultipleVenue(exampleClass, 0, 0, 7));
 }
+
+/************************************************************************
+ *  TEST of groupInMultipleVenue
+ ************************************************************************/
 void test_groupInMultipleVenue_should_return_0_when_empty_class_inserted(void)
 {
   //set venue 7 for testing purpose
@@ -314,8 +321,8 @@ void test_groupInMultipleVenue_should_return_4_when_1_clashes_4_groups(void)
   ErrorCode e;
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
   
-  exampleClass[0][0][0] = clazzList[0];
-  exampleClass[1][0][0] = clazzList[0];
+  exampleClass[0][0][0] = clazzList[0]; // 0,1,2,3
+  exampleClass[1][0][0] = clazzList[0]; // 0,1,2,3
 
   TEST_ASSERT_EQUAL(4, groupInMultipleVenue(exampleClass, 0, 0, 7));
 
@@ -327,8 +334,8 @@ void test_groupInMultipleVenue_should_return_2_when_1_clashes_2_groups(void)
   ErrorCode e;
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
   
-  exampleClass[0][0][0] = clazzList[0];
-  exampleClass[1][0][0] = clazzList[2];
+  exampleClass[0][0][0] = clazzList[0]; //0,1,2,3
+  exampleClass[1][0][0] = clazzList[2]; //0,1
 
   TEST_ASSERT_EQUAL(2, groupInMultipleVenue(exampleClass, 0, 0, 7));
 
@@ -339,8 +346,8 @@ void test_groupInMultipleVenue_should_return_0_when_different_groups_in_same_day
   //set venue 7 for testing purpose
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
   
- exampleClass[0][0][0] = clazzList[2];
- exampleClass[1][0][0] = clazzList[3];
+ exampleClass[0][0][0] = clazzList[2]; //0,1
+ exampleClass[1][0][0] = clazzList[3]; //2,3
 
   TEST_ASSERT_EQUAL(0, groupInMultipleVenue(exampleClass, 0, 0, 7));
 }
@@ -358,6 +365,9 @@ void test_groupInMultipleVenue_should_return_0_when_0_clashes(void)
 
 }
 
+/************************************************************************
+ *  TEST of venueOverloaded
+ ************************************************************************/
 void test_venueOverloaded_should_return_0_when_empty_class(){
   Class exampleClass;
   clearClass(&exampleClass);
@@ -389,6 +399,9 @@ void test_venueOverloaded_should_return_0_when_venue1_sufficient(){
   TEST_ASSERT_EQUAL(0, venueOverloaded(&exampleClass,1));
 }
 
+/************************************************************************
+ *  TEST of wrongVenueType
+ ************************************************************************/
 void test_wrongVenueType_should_return_0_if_class_is_empty(){
   Class newClass;
   clearClass(&newClass);
@@ -477,6 +490,9 @@ void test_wrongVenueType_should_return_1_if_pratical_in_leture_class(){
   TEST_ASSERT_EQUAL(1, wrongVenueType(&newClass, 1));
 }
 
+/************************************************************************
+ *  TEST of groupCounterUpdateNumOfAppearing
+ ************************************************************************/
 void test_groupCounterUpdateNumOfAppearing_should_return_0_when_empty(){
   int counter[5];
   clearCounter(5, counter);
@@ -522,6 +538,9 @@ void test_groupCounterUpdateNumOfAppearing_should_update_counter_by_2_for_group_
   
 }
 
+/************************************************************************
+ *  TEST of groupCounterUpdateNumOfAppearing
+ ************************************************************************/
 void test_generateViolationFromCounter_should_return_0_when_counter_empty(){
   int counter[5];
   clearCounter(5, counter);
@@ -550,3 +569,61 @@ void test_generateViolationFromCounter_should_return_2_when_when_2_group_exceede
   TEST_ASSERT_EQUAL(2, generateViolationFromCounter(5, counter, 1));
 }
 
+/************************************************************************
+ *  TEST of teachingHourOverloaded
+ ************************************************************************/
+void test_teachingHourOverloaded_should_return_0_for_empty_class(){
+  Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0}; 
+  
+  TEST_ASSERT_EQUAL(0,teachingHourOverloaded(exampleClass, 0, MAX_VENUE));
+   
+}
+
+void test_teachingHourOverloaded_should_return_0_if_4_hour_a_day(){
+  Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0}; 
+  
+  //Max 4 hours per day
+  
+  exampleClass[0][0][0] = clazzList[0];
+  exampleClass[0][0][1] = clazzList[0];
+  exampleClass[0][0][2] = clazzList[0];
+  exampleClass[0][0][3] = clazzList[0];
+  
+  TEST_ASSERT_EQUAL(0,teachingHourOverloaded(exampleClass, 0, MAX_VENUE));
+}
+
+void test_teachingHourOverloaded_should_return_1_if_5_hour_a_day(){
+  Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0}; 
+  
+  //Max 4 hours per day
+  
+  exampleClass[0][0][0] = clazzList[0];
+  exampleClass[0][0][1] = clazzList[0];
+  exampleClass[0][0][2] = clazzList[0];
+  exampleClass[0][0][3] = clazzList[0];
+  exampleClass[0][0][4] = clazzList[0];
+  
+  TEST_ASSERT_EQUAL(1,teachingHourOverloaded(exampleClass, 0, MAX_VENUE));
+}
+
+void test_teachingHourOverloaded_should_return_2_if_5_hour_a_day_2_lecturer(){
+  Class exampleClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0}; 
+  
+  //Max 4 hours per day
+  
+  exampleClass[0][0][0] = clazzList[0];
+  exampleClass[0][0][1] = clazzList[0];
+  exampleClass[0][0][2] = clazzList[0];
+  exampleClass[0][0][3] = clazzList[0];
+  exampleClass[0][0][4] = clazzList[0];
+  exampleClass[1][0][0] = clazzList[4];
+  exampleClass[1][0][1] = clazzList[4];
+  exampleClass[1][0][2] = clazzList[4];
+  exampleClass[1][0][3] = clazzList[4];
+  exampleClass[1][0][4] = clazzList[4];
+  
+  TEST_ASSERT_EQUAL(2,teachingHourOverloaded(exampleClass, 0, MAX_VENUE));
+}
+ 
+ 
+ 
