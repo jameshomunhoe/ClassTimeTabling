@@ -12,8 +12,8 @@
 
 #else
   #define MAX_VENUE     5
-  #define MAX_DAY       6
-  #define MAX_TIME_SLOT 8
+  #define MAX_DAY       5
+  #define MAX_TIME_SLOT 9
   #define studyHourLimit    6
   #define teachingHourLimit 6
 #endif //TEST
@@ -47,13 +47,13 @@
  ************************************************************************/
 typedef enum
 {
-  SUNDAY,
   MONDAY,
   TUESDAY,
   WEDNESDAY,
   THURSDAY,
   FRIDAY,
-  SATURDAY
+  SATURDAY,
+  SUNDAY
 } Days;
 
 

@@ -26,10 +26,6 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, \
                         int totalVenue);
 
-int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
-                        int dayToCheck, \
-                        int totalVenue);
-                        
 int teachingHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         int dayToCheck, \
                         int totalVenue);
