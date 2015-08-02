@@ -128,7 +128,7 @@ int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
     Throw(ERR_EXCEEDED_INDEX);
  
   for(venue = 0 ; venue < totalVenue ; venue++){
-    updateCounter(&(newClass[venue][dayToCheck][timeToCheck]));
+    updateGroupCounterFromClass(&(newClass[venue][dayToCheck][timeToCheck]));
   }
 
   groupCounterUpdateNumOfAppearing(groupSize, groupCounter);
@@ -175,6 +175,10 @@ int wrongVenueType(Class *classToCheck, int venue){
 }
 
 /****************************************************************************
+* Fitness functions
+****************************************************************************/
+
+/****************************************************************************
  *  Function name : studyHourOverloaded
  *  Inputs        : Class sourceClass[][][], dayToCheck, totalVenue
  *  Output/return : number of violation
@@ -199,7 +203,7 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
  
   for(venue = 0 ; venue < totalVenue ; venue++){
     for(time = 0 ; time < MAX_TIME_SLOT ; time++){
-      updateCounter(&(newClass[venue][dayToCheck][time]));
+      updateGroupCounterFromClass(&(newClass[venue][dayToCheck][time]));
     }
   }
 
@@ -209,12 +213,12 @@ return violation;
 }
 
 /****************************************************************************
- *  Function name : studyHourOverloaded
+ *  Function name : teachingHourOverloaded
  *  Inputs        : Class sourceClass[][][], dayToCheck, totalVenue
  *  Output/return : number of violation
  *  Destroy       : NONE
  *  Description   : The purpose of this function is to calculate the
- *                  violation of same group of student study more than 6 hours
+ *                  violation of same lecturer teach more than 6 hours
  *                  a day(for test, 4 hours)
  *****************************************************************************/
 int teachingHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \

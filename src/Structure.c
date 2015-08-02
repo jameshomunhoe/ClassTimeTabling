@@ -389,14 +389,14 @@ void initClassCounter(){
 }
 
 /****************************************************************************
- *  Function name : updateEmptyCounter
+ *  Function name : updateEmptyCounterFromClass
  *  Inputs        : int emptyIndex, int totalEmptySlots
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[emptyIndex].forEmptyClasses
- *  Description   : The purpose of this function is to update the scratch pad
- *                  of empty classes in the timetable
+ *  Description   : The purpose of this function is to plot the amount of empty
+ *                  classes had scan through
  *****************************************************************************/
-int updateEmptyCounter(int emptyIndex, int totalEmptySlots){
+int updateEmptyCounterFromClass(int emptyIndex, int totalEmptySlots){
   if(classCount[emptyIndex].forEmptyClasses < totalEmptySlots){
     classCount[emptyIndex].forEmptyClasses++;
     return 1;
@@ -406,14 +406,14 @@ int updateEmptyCounter(int emptyIndex, int totalEmptySlots){
 }
 
 /****************************************************************************
- *  Function name : updateLectureCounter
+ *  Function name : updateGroupLectureCounterFromClass
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[courseIndex].lectureCounter
- *  Description   : The purpose of this function is to update the scratch pad
- *                  of lecture classes for particular course in the timetable
+ *  Description   : The purpose of this function is to plot the histogram of 
+ *                  each group to keep track the Lecture classes taken by them
  *****************************************************************************/
-int updateLectureCounter(Class *classToCheck){
+int updateGroupLectureCounterFromClass(Class *classToCheck){
   int gSize, cgSize, courseIndex, groupIndex, i, j;
   Group **receivedGroup;
   cgSize = courseGetNumberOfCombinedGroups(classToCheck->course);
@@ -437,14 +437,14 @@ int updateLectureCounter(Class *classToCheck){
 }
 
 /****************************************************************************
- *  Function name : updateTutorialCounter
+ *  Function name : updateGroupTutorialCounterFromClass
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[courseIndex].tutorialCounter
- *  Description   : The purpose of this function is to update the scratch pad
- *                  of tutorial classes for particular course in the timetable
+ *  Description   : The purpose of this function is to plot the histogram of 
+ *                  each group to keep track the Tutorial classes taken by them
  *****************************************************************************/
-int updateTutorialCounter(Class *classToCheck){
+int updateGroupTutorialCounterFromClass(Class *classToCheck){
   int gSize, courseIndex, groupIndex, i;
   Group **receivedGroup;
   
@@ -464,14 +464,14 @@ int updateTutorialCounter(Class *classToCheck){
 }
 
 /****************************************************************************
- *  Function name : updatePracticalCounter
+ *  Function name : updateGroupPracticalCounterFromClass
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[courseIndex].practicalCounter
- *  Description   : The purpose of this function is to update the scratch pad
- *                  of practical classes for particular course in the timetable
+ *  Description   : The purpose of this function is to plot the histogram of 
+ *                  each group to keep track the practical classes taken by them
  *****************************************************************************/
-int updatePracticalCounter(Class *classToCheck){
+int updateGroupPracticalCounterFromClass(Class *classToCheck){
   int gSize, courseIndex, groupIndex, i;
   Group **receivedGroup;
   
@@ -491,14 +491,14 @@ int updatePracticalCounter(Class *classToCheck){
 }
     
 /****************************************************************************
- *  Function name : updateCounter
+ *  Function name : updateGroupCounterFromClass
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if valid to extract, 0 otherwise
  *  Destroy       : NONE
- *  Description   : The purpose of this function is to compare whether
- *                  two different classes have the same elements
+ *  Description   : The purpose of this function is to plot the histogram of 
+ *                  each group to keep track of classes taken by them
  *****************************************************************************/
-int updateCounter(Class *classToCheck){
+int updateGroupCounterFromClass(Class *classToCheck){
   int i;
   int size = getCourseSize();
   int emptyIndex = size;
@@ -506,16 +506,16 @@ int updateCounter(Class *classToCheck){
   int returnValue;
   
   if(classIsNull(classToCheck))
-    returnValue = updateEmptyCounter(emptyIndex, emptyClasses);
+    returnValue = updateEmptyCounterFromClass(emptyIndex, emptyClasses);
   
   else if(classToCheck->typeOfClass == Lecture)
-    returnValue = updateLectureCounter(classToCheck);
+    returnValue = updateGroupLectureCounterFromClass(classToCheck);
   
   else if(classToCheck->typeOfClass == Tutorial)
-    returnValue = updateTutorialCounter(classToCheck);
+    returnValue = updateGroupTutorialCounterFromClass(classToCheck);
   
   else if(classToCheck->typeOfClass == Practical)
-    returnValue = updatePracticalCounter(classToCheck);
+    returnValue = updateGroupPracticalCounterFromClass(classToCheck);
   
   return returnValue;
 }

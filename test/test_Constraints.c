@@ -512,7 +512,7 @@ void test_groupCounterUpdateNumOfAppearing_should_update_counter_by_1(){
   int counter[5];
   clearCounter(5, counter);
   
-  updateCounter(&(clazzList[0]));//0,1,2,3
+  updateGroupCounterFromClass(&(clazzList[0]));//0,1,2,3
   groupCounterUpdateNumOfAppearing(5, counter); 
   
   TEST_ASSERT_EQUAL(1, counter[0]);
@@ -527,8 +527,8 @@ void test_groupCounterUpdateNumOfAppearing_should_update_counter_by_2_for_group_
   int counter[5];
   clearCounter(5, counter);
   
-  updateCounter(&(clazzList[0]));//0,1,2,3
-  updateCounter(&(clazzList[2]));//0,1
+  updateGroupCounterFromClass(&(clazzList[0]));//0,1,2,3
+  updateGroupCounterFromClass(&(clazzList[2]));//0,1
   groupCounterUpdateNumOfAppearing(5, counter); 
   
   TEST_ASSERT_EQUAL(2, counter[0]);
@@ -553,7 +553,7 @@ void test_generateViolationFromCounter_should_return_0_when_counter_of_each_grou
   int counter[5];
   clearCounter(5, counter);
   
-  updateCounter(&(clazzList[0]));//0,1,2,3
+  updateGroupCounterFromClass(&(clazzList[0]));//0,1,2,3
   groupCounterUpdateNumOfAppearing(5, counter); 
   
   TEST_ASSERT_EQUAL(0, generateViolationFromCounter(5, counter, 1));
@@ -563,8 +563,8 @@ void test_generateViolationFromCounter_should_return_2_when_when_2_group_exceede
   int counter[5];
   clearCounter(5, counter);
   
-  updateCounter(&(clazzList[0]));//0,1,2,3
-  updateCounter(&(clazzList[2]));//0,1
+  updateGroupCounterFromClass(&(clazzList[0]));//0,1,2,3
+  updateGroupCounterFromClass(&(clazzList[2]));//0,1
   groupCounterUpdateNumOfAppearing(5, counter); 
   
   TEST_ASSERT_EQUAL(2, generateViolationFromCounter(5, counter, 1));

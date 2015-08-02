@@ -46,7 +46,7 @@ getMidPoint(&offpringLeft,&offpringRight,totalVenue);
 
 for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
   if(stopIndexLeft != 1){
-    if(updateCounter(&father[toLeftIndexArr])){
+    if(updateGroupCounterFromClass(&father[toLeftIndexArr])){
       offspring[offpringLeftArr] = father[toLeftIndexArr];
       indexBackward(&offpringLeft);
     }
@@ -56,7 +56,7 @@ for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
     indexBackward(&toLeftIndex);
   }
   if(stopIndexRight != 1){
-    if(updateCounter(&mother[toRightIndexArr])){
+    if(updateGroupCounterFromClass(&mother[toRightIndexArr])){
       offspring[offpringRightArr] = mother[toRightIndexArr];
       indexForward(&offpringRight);
     }
