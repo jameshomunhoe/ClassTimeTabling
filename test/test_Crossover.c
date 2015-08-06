@@ -15,6 +15,7 @@ void setUp(void){
   initCourseList();
   initClassList();
   initClassCounter();
+  initVenueList();
 }
 void tearDown(void){}
 

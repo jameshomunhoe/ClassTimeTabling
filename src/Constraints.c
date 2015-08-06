@@ -247,3 +247,27 @@ int teachingHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
   violation = generateViolationFromCounter(lecturerSize, lecturerCounter, teachingHourLimit);
 return violation;
 }
+
+/****************************************************************************
+ *  Function name : teachingHourOverloaded
+ *  Inputs        : Class sourceClass[][][], dayToCheck, totalVenue
+ *  Output/return : number of violation
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to calculate the
+ *                  violation of same lecturer teach more than 6 hours
+ *                  a day(for test, 4 hours)
+ *****************************************************************************/
+int possibleConstraintsCausedHere(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
+                                 int venueIndex, int dayIndex, int timeIndex)
+{
+
+  int violations = 0;
+  
+  
+  violations += lecturerInMultipleVenue(timeTable, dayIndex, timeIndex, MAX_VENUE);
+  violations += groupInMultipleVenue(timeTable, dayIndex, timeIndex, MAX_VENUE);
+  violations += venueOverloaded(&(timeTable[venueIndex][dayIndex][timeIndex]), venueIndex);
+  violations += wrongVenueType(&(timeTable[venueIndex][dayIndex][timeIndex]), venueIndex);
+
+  
+}

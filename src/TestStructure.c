@@ -15,7 +15,8 @@
  ************************************************************************/
  Venue venueList[] = {{ .nameOfVenue = "D300",
                         .sizeOfVenue = 55,
-                        .venueType = 'p'
+                        .venueType = 'p',
+                        .numOfSpecificCourse = 1
                       },
                       { .nameOfVenue = "K102",
                         .sizeOfVenue = 80,
@@ -210,7 +211,7 @@ void initProgrammeList(){
 }
 
 void initCourseList(){
-  courseList[0].programme = malloc(courseList[0].numOfProgramme*sizeof(Course*));
+  courseList[0].programme = malloc(courseList[0].numOfProgramme*sizeof(Programme*));
   courseList[0].programme[0] = &programmeList[0];
   courseList[0].programme[1] = &programmeList[1];
   courseList[0].combinedGroups = malloc(courseList[0].numOfCombinedGroups*sizeof(CombinedGroups));
@@ -223,7 +224,7 @@ void initCourseList(){
   courseList[0].combinedGroups[1].groups[0] = &groupList[2];
   courseList[0].combinedGroups[1].groups[1] = &groupList[3];
   
-  courseList[1].programme = malloc(courseList[1].numOfProgramme*sizeof(Course*));
+  courseList[1].programme = malloc(courseList[1].numOfProgramme*sizeof(Programme*));
   courseList[1].programme[0] = &programmeList[1];
   courseList[1].programme[1] = &programmeList[2];
   courseList[1].combinedGroups = malloc(courseList[1].numOfCombinedGroups*sizeof(CombinedGroups));
@@ -236,7 +237,7 @@ void initCourseList(){
   courseList[1].combinedGroups[1].groups[0] = &groupList[4];
   courseList[1].combinedGroups[1].groups[1] = &groupList[5];
   
-  courseList[2].programme = malloc(courseList[2].numOfProgramme*sizeof(Course*));
+  courseList[2].programme = malloc(courseList[2].numOfProgramme*sizeof(Programme*));
   courseList[2].programme[0] = &programmeList[0];
   courseList[2].programme[1] = &programmeList[2];
   courseList[2].combinedGroups = malloc(courseList[2].numOfCombinedGroups*sizeof(CombinedGroups));
@@ -274,6 +275,11 @@ void initClassList(){
   clazzList[15].groupInClass = &(clazzList[15].course->combinedGroups[clazzList[15].groupIndexInClass]);
   
 }           
+
+void initVenueList(){
+  venueList[0].course = malloc(venueList[0].numOfSpecificCourse*sizeof(Course*)); 
+  venueList[0].course[0] = &courseList[2];
+}
 
 /****************************************************************************
  *  Function name : getGroupSize
