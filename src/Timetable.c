@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "Crossover.h"
 #include "Structure.h"
+#include "TestStructure.h"
 #include "Timetable.h"
 #include "CException.h"
 #include "ErrorCode.h"
@@ -25,6 +27,20 @@ int fillClassIntoTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT], \
   }
   else
     return 0;
+}
+
+
+void createTimeTable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
+  ClassIndex ttIndex = {0,0,0};
+  clearTimeTable(timeTable);
+  int clazzListSize = getClazzListSize();
+  int i = 0;
   
-  
+  while(i < clazzListSize){
+    
+    randomIndex(&ttIndex);
+    
+    if(fillClassIntoTimetable(timeTable, &ttIndex, &clazzList[i]) == 1)
+      i++;
+  }
 }

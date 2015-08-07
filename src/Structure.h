@@ -217,6 +217,7 @@ extern char *programmeGetName(Programme *programme);
 
 //function to get index from list
 extern int getIndexInList(void *data, char type);
+extern void randomIndex(ClassIndex *classIndex);
 
 //function to perform 3D array index increment/decrement
 extern void indexForward(ClassIndex *classIndex);

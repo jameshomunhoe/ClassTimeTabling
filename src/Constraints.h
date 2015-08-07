@@ -33,6 +33,6 @@ int teachingHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
                         
 
 //possible violation caused by one class                        
-int possibleViolationsCausedHere(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
-                                 int venueIndex, int dayIndex, int timeIndex);
+int possibleConstraintsInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
+                               ClassIndex *classIndex);
 #endif // Constraints_H

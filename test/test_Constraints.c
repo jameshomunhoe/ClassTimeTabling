@@ -4,6 +4,7 @@
 #include "unity.h"
 #include <stdio.h>
 #include "TestStructure.h"
+#include "mock_Random.h"
 #include "Constraints.h"
 #include "Structure.h"
 #include "ErrorCode.h"
@@ -31,7 +32,7 @@ void test_clear_counter_should_clear_all_array_to_0(){
   int sizeOfArray = 5;
   int array[sizeOfArray];
   
-  clearCounter(sizeOfArray,array);
+  clearCounter(sizeOfArray, array);
   
   TEST_ASSERT_EQUAL(0,array[0]);
   TEST_ASSERT_EQUAL(0,array[1]);
@@ -286,14 +287,14 @@ void test_lecturerInMultipleVenue_should_return_0_when_different_lecturer_in_sam
  ************************************************************************/
 void test_groupInMultipleVenue_should_return_0_when_empty_class_inserted(void)
 {
-  //set venue 7 for testing purpose
+  // set venue 7 for testing purpose
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
 
   TEST_ASSERT_EQUAL(0, groupInMultipleVenue(exampleClass, MONDAY, _8_to_9am, MAX_VENUE));
 }
 void test_groupInMultipleVenue_should_Throw_when_Exceeded_DAY(void)
 {
-  //set venue 7 for testing purpose
+  // set venue 7 for testing purpose
   ErrorCode e;
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
 
@@ -319,7 +320,7 @@ void test_groupInMultipleVenue_should_Throw_when_Exceeded_TIME(void)
 
 void test_groupInMultipleVenue_should_return_4_when_1_clashes_4_groups(void)
 {
-  //set venue 7 for testing purpose
+  // set venue 7 for testing purpose
   ErrorCode e;
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
   
@@ -332,7 +333,7 @@ void test_groupInMultipleVenue_should_return_4_when_1_clashes_4_groups(void)
 
 void test_groupInMultipleVenue_should_return_2_when_1_clashes_2_groups(void)
 {
-  //set venue 7 for testing purpose
+  // set venue 7 for testing purpose
   ErrorCode e;
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
   
@@ -345,7 +346,7 @@ void test_groupInMultipleVenue_should_return_2_when_1_clashes_2_groups(void)
 
 void test_groupInMultipleVenue_should_return_0_when_different_groups_in_same_day_and_time(void)
 {
-  //set venue 7 for testing purpose
+  // set venue 7 for testing purpose
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
   
  exampleClass[0][0][0] = clazzList[2]; //0,1
@@ -356,7 +357,7 @@ void test_groupInMultipleVenue_should_return_0_when_different_groups_in_same_day
 
 void test_groupInMultipleVenue_should_return_0_when_0_clashes(void)
 {
-  //set venue 7 for testing purpose
+  // set venue 7 for testing purpose
   ErrorCode e;
   Class exampleClass[7][MAX_DAY][MAX_TIME_SLOT] = {0};
   
@@ -627,5 +628,69 @@ void test_teachingHourOverloaded_should_return_2_if_5_hour_a_day_2_lecturer(){
   TEST_ASSERT_EQUAL(2,teachingHourOverloaded(exampleClass, MONDAY, MAX_VENUE));
 }
  
+void test_possibleConstraintsInIndex_should_return_0_for_empty_timeTable_0_0_0(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {0,MONDAY,_8_to_9am};
+  
+  TEST_ASSERT_EQUAL(0, possibleConstraintsInIndex(newClass, &classIndex));
+}
+
+void test_possibleConstraintsInIndex_should_return_0_for_empty_timeTable_1_2_5(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,WEDNESDAY,_1_to_2pm};
+  
+  TEST_ASSERT_EQUAL(0, possibleConstraintsInIndex(newClass, &classIndex));
+}
+
+void test_possibleConstraintsInIndex_should_return_1_for_invalid_venue(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,MONDAY, _8_to_9am};
+  
+  // lecture hall
+  newClass[1][MONDAY][_8_to_9am] = clazzList[14];
+  
+  TEST_ASSERT_EQUAL(1, possibleConstraintsInIndex(newClass, &classIndex));
+}
  
- 
+
+void test_possibleConstraintsInIndex_should_return_3_for_same_group_and_lecturer_in_different_venue(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,MONDAY, _8_to_9am};
+  
+  // lecture hall
+  newClass[0][MONDAY][_8_to_9am] = clazzList[2]; //group 0,1    ,lecture 0
+  newClass[1][MONDAY][_8_to_9am] = clazzList[0]; //group 0,1,2,3,lecture 0
+                                                 //total 1+1+            1 = 3
+  
+  TEST_ASSERT_EQUAL(3, possibleConstraintsInIndex(newClass, &classIndex));
+}
+
+void test_possibleConstraintsInIndex_should_return_2_for_same_group_diff_lecturer(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,MONDAY, _8_to_9am};
+  
+  // lecture hall
+  newClass[0][MONDAY][_8_to_9am] = clazzList[14]; //group 0,1    ,lecture 2
+  newClass[1][MONDAY][_8_to_9am] = clazzList[0]; //group 0,1,2,3,lecture 0
+                                                 //total 1+1 = 2
+  
+  TEST_ASSERT_EQUAL(2, possibleConstraintsInIndex(newClass, &classIndex));
+}
+
+void test_possibleConstraintsInIndex_should_return_1_for_same_lecturer_diff_group(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,MONDAY, _8_to_9am};
+  
+  // lecture hall
+  newClass[0][MONDAY][_8_to_9am] = clazzList[2]; //group 0,1    ,lecture 2
+  newClass[1][MONDAY][_8_to_9am] = clazzList[3]; //group 2,3    ,lecture 0
+                                                 //total 1
+  
+  TEST_ASSERT_EQUAL(1, possibleConstraintsInIndex(newClass, &classIndex));
+}

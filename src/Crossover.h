@@ -8,7 +8,7 @@ void performCrossover(Class father[][MAX_DAY][MAX_TIME_SLOT], \
                      Class mother[][MAX_DAY][MAX_TIME_SLOT], \
                      Class offspring[][MAX_DAY][MAX_TIME_SLOT],\
                      int totalVenue);
-void randomIndex(ClassIndex *classIndex);
+// extern void randomIndex(ClassIndex *classIndex);
 void getMidPoint(ClassIndex *classIndexLeft,\
                  ClassIndex *classIndexRight,\
                  int totalVenue);

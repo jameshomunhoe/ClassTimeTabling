@@ -2,10 +2,10 @@
 
 #include "unity.h"
 #include <stdio.h>
+#include "mock_Random.h"
 #include "Crossover.h"
 #include "Structure.h"
 #include "TestStructure.h"
-#include "mock_Random.h"
 
 
  

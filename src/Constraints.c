@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include "Constraints.h"
-#include "TestStructure.h"
 #include "Structure.h"
+#include "Random.h"
+#include "TestStructure.h"
 #include "CException.h"
 #include "ErrorCode.h"
 
@@ -33,7 +34,7 @@ void clearCounter(int size, int counter[size]){
 }
 
 /****************************************************************************
- *  Function name : groupCounterGetNumOfAppearing
+ *  Function name : groupCounterUpdateNumOfAppearing
  *  Inputs        : int size, int counter[size]
  *  Output/return : NONE
  *  Destroy       : counter[]
@@ -48,6 +49,7 @@ void groupCounterUpdateNumOfAppearing(int size, int counter[size]){
       counter[j] += classCount[i].groupCounter[j].lectureCounter;
       counter[j] += classCount[i].groupCounter[j].tutorialCounter;
       counter[j] += classCount[i].groupCounter[j].practicalCounter;
+      // printf("group %d = %d",j,counter[j]);
     }
   }
 }
@@ -130,8 +132,9 @@ int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
   for(venue = 0 ; venue < totalVenue ; venue++){
     updateGroupCounterFromClass(&(newClass[venue][dayToCheck][timeToCheck]));
   }
-
+  
   groupCounterUpdateNumOfAppearing(groupSize, groupCounter);
+  
   violation = generateViolationFromCounter(groupSize, groupCounter, 1);
 return violation;
 }
@@ -166,6 +169,7 @@ int venueOverloaded(Class *classToCheck, int venue){
  *                  the class
  *****************************************************************************/
 int wrongVenueType(Class *classToCheck, int venue){
+  
   if(classIsNull(classToCheck))
     return 0;
   else if(classToCheck->typeOfClass == Practical && venueList[venue].venueType != Practical)
@@ -257,17 +261,15 @@ return violation;
  *                  violation of same lecturer teach more than 6 hours
  *                  a day(for test, 4 hours)
  *****************************************************************************/
-int possibleConstraintsCausedHere(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
-                                 int venueIndex, int dayIndex, int timeIndex)
+int possibleConstraintsInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
+                               ClassIndex *classIndex)
 {
-
   int violations = 0;
   
-  
-  violations += lecturerInMultipleVenue(timeTable, dayIndex, timeIndex, MAX_VENUE);
-  violations += groupInMultipleVenue(timeTable, dayIndex, timeIndex, MAX_VENUE);
-  violations += venueOverloaded(&(timeTable[venueIndex][dayIndex][timeIndex]), venueIndex);
-  violations += wrongVenueType(&(timeTable[venueIndex][dayIndex][timeIndex]), venueIndex);
+  violations += lecturerInMultipleVenue(timeTable, classIndex->day, classIndex->time, MAX_VENUE);
+  violations += groupInMultipleVenue(timeTable, classIndex->day, classIndex->time, MAX_VENUE);
+  violations += venueOverloaded(&(timeTable[classIndex->venue][classIndex->day][classIndex->time]), classIndex->venue);
+  violations += wrongVenueType(&(timeTable[classIndex->venue][classIndex->day][classIndex->time]), classIndex->venue);
 
-  
+  return violations;
 }

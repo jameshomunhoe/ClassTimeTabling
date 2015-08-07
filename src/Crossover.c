@@ -80,11 +80,11 @@ for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
  *                  values of venue,day and time index to pick an offset
  *                  for crossover purpose
  *****************************************************************************/
-void randomIndex(ClassIndex *classIndex){
-  classIndex->venue = randomVenue();
-  classIndex->day = randomDay();
-  classIndex->time = randomTime();
-}
+// void randomIndex(ClassIndex *classIndex){
+  // classIndex->venue = randomVenue();
+  // classIndex->day = randomDay();
+  // classIndex->time = randomTime();
+// }
 
 /****************************************************************************
  *  Function name : getMidPoint

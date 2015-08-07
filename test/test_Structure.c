@@ -4,6 +4,7 @@
 #include "unity.h"
 #include <stdio.h>
 #include "Structure.h"
+#include "mock_Random.h"
 #include "TestStructure.h"
 #include "ErrorCode.h"
 #include "CException.h"

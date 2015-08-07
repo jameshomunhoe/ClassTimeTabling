@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "Random.h"
 #include "Structure.h"
 #include "TestStructure.h"
 #include "CException.h"
@@ -518,4 +519,19 @@ int updateGroupCounterFromClass(Class *classToCheck){
     returnValue = updateGroupPracticalCounterFromClass(classToCheck);
   
   return returnValue;
+}
+
+/****************************************************************************
+ *  Function name : randomIndex
+ *  Inputs        : ClassIndex *classIndex
+ *  Output/return : NONE
+ *  Destroy       : classIndex
+ *  Description   : The purpose of this function is to randomize the
+ *                  values of venue,day and time index to pick an offset
+ *                  for crossover purpose
+ *****************************************************************************/
+void randomIndex(ClassIndex *classIndex){
+  classIndex->venue = randomVenue();
+  classIndex->day = randomDay();
+  classIndex->time = randomTime();
 }
