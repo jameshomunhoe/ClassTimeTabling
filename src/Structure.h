@@ -225,11 +225,11 @@ extern void indexBackward(ClassIndex *classIndex);
 
 //Histogram of groups in the classes
 extern void initClassCounter();
-extern int updateCounter(Class *classToCheck);
-extern int updateEmptyCounter(int emptyIndex, int totalEmptySlots); //sub-function
-extern int updateLectureCounter(Class *classToCheck); //sub-function
-extern int updateTutorialCounter(Class *classToCheck); //sub-function
-extern int updatePracticalCounter(Class *classToCheck); //sub-function
+extern int updateGroupCounterFromClass(Class *classToCheck);
+extern int updateEmptyCounterFromClass(int emptyIndex, int totalEmptySlots); //sub-function
+extern int updateGroupLectureCounterFromClass(Class *classToCheck); //sub-function
+extern int updateGroupTutorialCounterFromClass(Class *classToCheck); //sub-function
+extern int updateGroupPracticalCounterFromClass(Class *classToCheck); //sub-function
 
 
 #endif // Structure_H

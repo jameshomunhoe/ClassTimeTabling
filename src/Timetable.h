@@ -10,4 +10,6 @@ int fillClassIntoTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT], \
                            
 void createTimeTable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
 
+int successfulAddWithoutConstraint(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT], \
+                                   ClassIndex *ttIndex, int numOfClass, int tolerance);
 #endif // Timetable_H

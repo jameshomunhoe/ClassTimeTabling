@@ -125,7 +125,7 @@ int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
   int groupSize = getGroupSize();
   int groupCounter[groupSize];
   clearCounter(groupSize,groupCounter);
-
+  initClassCounter();
   if(timeToCheck >= MAX_TIME_SLOT || dayToCheck >= MAX_DAY)
     Throw(ERR_EXCEEDED_INDEX);
  
@@ -253,18 +253,20 @@ return violation;
 }
 
 /****************************************************************************
- *  Function name : teachingHourOverloaded
- *  Inputs        : Class sourceClass[][][], dayToCheck, totalVenue
- *  Output/return : number of violation
- *  Destroy       : NONE
+ *  Function name : possibleConstraintsInIndex
+ *  Inputs        : Class sourceClass[][][], ClassIndex *index
+ *  Output/return : possible violation caused by the class of this index
+ *  Destroy       : violations
  *  Description   : The purpose of this function is to calculate the
- *                  violation of same lecturer teach more than 6 hours
- *                  a day(for test, 4 hours)
+ *                  possible violation caused by the class at this indexf
  *****************************************************************************/
 int possibleConstraintsInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
                                ClassIndex *classIndex)
 {
   int violations = 0;
+  
+  if(classIsNull(&(timeTable[classIndex->venue][classIndex->day][classIndex->time])))
+    return 0;
   
   violations += lecturerInMultipleVenue(timeTable, classIndex->day, classIndex->time, MAX_VENUE);
   violations += groupInMultipleVenue(timeTable, classIndex->day, classIndex->time, MAX_VENUE);
