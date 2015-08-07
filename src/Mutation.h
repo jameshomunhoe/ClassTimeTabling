@@ -4,7 +4,7 @@
 #define FOR_TEST
 #include "Structure.h"
 
-void performMutation(Class classToMutate);
+void performMutation(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
 
 
 

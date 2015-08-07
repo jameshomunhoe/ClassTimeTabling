@@ -207,6 +207,8 @@ extern int checkEqualClass(Class *newClass, Class *newClass2);
 extern int classIsNull(Class *sourceClass);
 extern int classGetTotalStudent(Class *classToCheck);
 extern int classGetTotalStudentInLecture(Class *classToCheck); //sub-function
+extern void swapTwoClassesInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT],\
+                              ClassIndex *source, ClassIndex *goal);
 
 //functions of course & programme
 extern int courseGetNumberOfCombinedGroups(Course *course);

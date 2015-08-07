@@ -115,6 +115,25 @@ int classIsNull(Class *sourceClass){
 }
 
 /****************************************************************************
+ *  Function name : swapTwoClassesInTimetable
+ *  Inputs        : Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT],
+ *                  ClassIndex *source, ClassIndex *goal
+ *  Output/return : NONE
+ *  Destroy       : timeTable[source] and timeTable[goal]
+ *  Description   : The purpose of this function is to perform 
+ *                  class swapping between two classes in the timetable
+ *****************************************************************************/
+void swapTwoClassesInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT],\
+                              ClassIndex *source, ClassIndex *goal)
+{
+  Class temporaryClass;
+  
+  temporaryClass = timeTable[source->venue][source->day][source->time];
+  timeTable[source->venue][source->day][source->time] = timeTable[goal->venue][goal->day][goal->time];
+  timeTable[goal->venue][goal->day][goal->time] = temporaryClass;
+}
+
+/****************************************************************************
  *  Function name : classGetTotalStudent
  *  Inputs        : Class classToCheck
  *  Output/return : totalStudents

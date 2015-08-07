@@ -201,6 +201,7 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
   int groupSize = getGroupSize();
   int groupCounter[groupSize];
   clearCounter(groupSize,groupCounter);
+  initClassCounter();
 
   if(dayToCheck >= MAX_DAY)
     Throw(ERR_EXCEEDED_INDEX);
@@ -258,7 +259,7 @@ return violation;
  *  Output/return : possible violation caused by the class of this index
  *  Destroy       : violations
  *  Description   : The purpose of this function is to calculate the
- *                  possible violation caused by the class at this indexf
+ *                  possible violation caused by the class at this index
  *****************************************************************************/
 int possibleConstraintsInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
                                ClassIndex *classIndex)
@@ -273,5 +274,27 @@ int possibleConstraintsInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
   violations += venueOverloaded(&(timeTable[classIndex->venue][classIndex->day][classIndex->time]), classIndex->venue);
   violations += wrongVenueType(&(timeTable[classIndex->venue][classIndex->day][classIndex->time]), classIndex->venue);
 
+  return violations;
+}
+
+/****************************************************************************
+ *  Function name : possibleFitnessLossInIndex
+ *  Inputs        : Class sourceClass[][][], ClassIndex *index
+ *  Output/return : possible violation caused by the class of this index
+ *  Destroy       : violations
+ *  Description   : The purpose of this function is to calculate the
+ *                  possible fitness loss caused by the class at this index
+ *****************************************************************************/
+int possibleFitnessLossInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
+                               ClassIndex *classIndex)
+{
+  int violations = 0;
+  
+  if(classIsNull(&(timeTable[classIndex->venue][classIndex->day][classIndex->time])))
+    return 0;
+  
+  violations += studyHourOverloaded(timeTable, classIndex->day, MAX_VENUE);
+  violations += teachingHourOverloaded(timeTable, classIndex->day, MAX_VENUE);
+                        
   return violations;
 }

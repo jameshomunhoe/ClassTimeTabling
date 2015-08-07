@@ -672,3 +672,59 @@ void test_getIndexInList_should_return_venueList_index_1(){
   TEST_ASSERT_EQUAL(1, index);
 
 }
+
+/************************************************************************
+ *  TEST of getIndexInList
+ ************************************************************************/
+void test_swapTwoClassesInTimetable_both_class_should_remain_null(){
+  
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(timeTable);
+  ClassIndex source = {0,0,0};
+  ClassIndex goal = {1,2,5};
+  
+  
+  swapTwoClassesInTimetable(timeTable, &source, &goal);
+  
+  TEST_ASSERT_EQUAL(1, classIsNull(&timeTable[0][0][0]));
+  TEST_ASSERT_EQUAL(1,classIsNull(&timeTable[1][2][5]));
+}
+
+void test_swapTwoClassesInTimetable_swap_1_element_with_NULL(){
+  
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(timeTable);
+  ClassIndex source = {0,0,0};
+  ClassIndex goal = {1,2,5};
+  
+  timeTable[0][0][0] = clazzList[0];
+  
+  
+  swapTwoClassesInTimetable(timeTable, &source, &goal);
+  
+  TEST_ASSERT_EQUAL(1, classIsNull(&timeTable[0][0][0]));
+  TEST_ASSERT_EQUAL(0,classIsNull(&timeTable[1][2][5]));
+  TEST_ASSERT_EQUAL(1, checkEqualClass(&timeTable[1][2][5], &clazzList[0]));
+}
+
+void test_swapTwoClassesInTimetable_swap_2_elements(){
+  
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(timeTable);
+  ClassIndex source = {0,0,0};
+  ClassIndex goal = {1,2,5};
+  
+  timeTable[0][0][0] = clazzList[0];
+  timeTable[1][2][5] = clazzList[5];
+  
+  
+  swapTwoClassesInTimetable(timeTable, &source, &goal);
+  
+  TEST_ASSERT_EQUAL(0,classIsNull(&timeTable[1][2][5]));
+  TEST_ASSERT_EQUAL(0,classIsNull(&timeTable[1][2][5]));
+  TEST_ASSERT_EQUAL(1, checkEqualClass(&timeTable[1][2][5], &clazzList[0]));
+  TEST_ASSERT_EQUAL(1, checkEqualClass(&timeTable[0][0][0], &clazzList[5]));
+}
+ 
+ 
+ 

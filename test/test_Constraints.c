@@ -628,6 +628,9 @@ void test_teachingHourOverloaded_should_return_2_if_5_hour_a_day_2_lecturer(){
   TEST_ASSERT_EQUAL(2,teachingHourOverloaded(exampleClass, MONDAY, MAX_VENUE));
 }
  
+ /************************************************************************
+ *  TEST of possibleConstraintsInIndex
+ ************************************************************************/
 void test_possibleConstraintsInIndex_should_return_0_for_empty_timeTable_0_0_0(){
   Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
   clearTimeTable(newClass);
@@ -693,4 +696,55 @@ void test_possibleConstraintsInIndex_should_return_1_for_same_lecturer_diff_grou
                                                  //total 1
   
   TEST_ASSERT_EQUAL(1, possibleConstraintsInIndex(newClass, &classIndex));
+}
+
+ /************************************************************************
+ *  TEST of possibleFitnessLossInIndex
+ ************************************************************************/
+ 
+ void test_possibleFitnessLossInIndex_should_return_0_for_empty_timeTable_0_0_0(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {0,MONDAY,_8_to_9am};
+  
+  TEST_ASSERT_EQUAL(0, possibleFitnessLossInIndex(newClass, &classIndex));
+}
+
+void test_possibleFitnessLossInIndex_should_return_0_for_empty_timeTable_1_2_5(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,WEDNESDAY,_1_to_2pm};
+  
+  TEST_ASSERT_EQUAL(0, possibleFitnessLossInIndex(newClass, &classIndex));
+}
+
+void test_possibleFitnessLossInIndex_should_return_2_for_2_groups_of_students_overstresed(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,MONDAY, _8_to_9am};
+  
+  // lecture hall
+  newClass[1][MONDAY][_8_to_9am] = clazzList[0];
+  newClass[1][MONDAY][_9_to_10am] = clazzList[1];
+  newClass[1][MONDAY][_10_to_11am] = clazzList[2];
+  newClass[1][MONDAY][_11_to_12pm] = clazzList[10];
+  newClass[1][MONDAY][_12_to_1pm] = clazzList[11];
+  
+  TEST_ASSERT_EQUAL(2, possibleFitnessLossInIndex(newClass, &classIndex));
+}
+
+void test_possibleFitnessLossInIndex_should_return_2_for_1_lecturer_overstresed(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  clearTimeTable(newClass);
+  ClassIndex classIndex = {1,MONDAY, _8_to_9am};
+  
+  // lecture hall
+  newClass[1][MONDAY][_8_to_9am] = clazzList[4];
+  newClass[1][MONDAY][_9_to_10am] = clazzList[5];
+  newClass[1][MONDAY][_10_to_11am] = clazzList[6];
+  newClass[1][MONDAY][_11_to_12pm] = clazzList[7];
+  newClass[1][MONDAY][_12_to_1pm] = clazzList[8];
+  newClass[1][MONDAY][_1_to_2pm] = clazzList[9];
+  
+  TEST_ASSERT_EQUAL(2, possibleFitnessLossInIndex(newClass, &classIndex));
 }
