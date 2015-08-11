@@ -409,14 +409,14 @@ void initClassCounter(){
 }
 
 /****************************************************************************
- *  Function name : updateEmptyCounterFromClass
+ *  Function name : updateEmptyCounterFromClassWithSignal
  *  Inputs        : int emptyIndex, int totalEmptySlots
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[emptyIndex].forEmptyClasses
  *  Description   : The purpose of this function is to plot the amount of empty
  *                  classes had scan through
  *****************************************************************************/
-int updateEmptyCounterFromClass(int emptyIndex, int totalEmptySlots){
+int updateEmptyCounterFromClassWithSignal(int emptyIndex, int totalEmptySlots){
   if(classCount[emptyIndex].forEmptyClasses < totalEmptySlots){
     classCount[emptyIndex].forEmptyClasses++;
     return 1;
@@ -426,14 +426,14 @@ int updateEmptyCounterFromClass(int emptyIndex, int totalEmptySlots){
 }
 
 /****************************************************************************
- *  Function name : updateGroupLectureCounterFromClass
+ *  Function name : updateGroupLectureCounterFromClassWithSignal
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[courseIndex].lectureCounter
  *  Description   : The purpose of this function is to plot the histogram of 
  *                  each group to keep track the Lecture classes taken by them
  *****************************************************************************/
-int updateGroupLectureCounterFromClass(Class *classToCheck){
+int updateGroupLectureCounterFromClassWithSignal(Class *classToCheck){
   int gSize, cgSize, courseIndex, groupIndex, i, j;
   Group **receivedGroup;
   cgSize = courseGetNumberOfCombinedGroups(classToCheck->course);
@@ -457,14 +457,14 @@ int updateGroupLectureCounterFromClass(Class *classToCheck){
 }
 
 /****************************************************************************
- *  Function name : updateGroupTutorialCounterFromClass
+ *  Function name : updateGroupTutorialCounterFromClassWithSignal
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[courseIndex].tutorialCounter
  *  Description   : The purpose of this function is to plot the histogram of 
  *                  each group to keep track the Tutorial classes taken by them
  *****************************************************************************/
-int updateGroupTutorialCounterFromClass(Class *classToCheck){
+int updateGroupTutorialCounterFromClassWithSignal(Class *classToCheck){
   int gSize, courseIndex, groupIndex, i;
   Group **receivedGroup;
   
@@ -484,14 +484,14 @@ int updateGroupTutorialCounterFromClass(Class *classToCheck){
 }
 
 /****************************************************************************
- *  Function name : updateGroupPracticalCounterFromClass
+ *  Function name : updateGroupPracticalCounterFromClassWithSignal
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if able to update counter, 0 otherwise
  *  Destroy       : classCount[courseIndex].practicalCounter
  *  Description   : The purpose of this function is to plot the histogram of 
  *                  each group to keep track the practical classes taken by them
  *****************************************************************************/
-int updateGroupPracticalCounterFromClass(Class *classToCheck){
+int updateGroupPracticalCounterFromClassWithSignal(Class *classToCheck){
   int gSize, courseIndex, groupIndex, i;
   Group **receivedGroup;
   
@@ -511,14 +511,14 @@ int updateGroupPracticalCounterFromClass(Class *classToCheck){
 }
     
 /****************************************************************************
- *  Function name : updateGroupCounterFromClass
+ *  Function name : updateGroupCounterFromClassWithSignal
  *  Inputs        : Class classToCheck
  *  Output/return : 1 if valid to extract, 0 otherwise
  *  Destroy       : NONE
  *  Description   : The purpose of this function is to plot the histogram of 
  *                  each group to keep track of classes taken by them
  *****************************************************************************/
-int updateGroupCounterFromClass(Class *classToCheck){
+int updateGroupCounterFromClassWithSignal(Class *classToCheck){
   int i;
   int size = getCourseSize();
   int emptyIndex = size;
@@ -526,16 +526,16 @@ int updateGroupCounterFromClass(Class *classToCheck){
   int returnValue;
   
   if(classIsNull(classToCheck))
-    returnValue = updateEmptyCounterFromClass(emptyIndex, emptyClasses);
+    returnValue = updateEmptyCounterFromClassWithSignal(emptyIndex, emptyClasses);
   
   else if(classToCheck->typeOfClass == Lecture)
-    returnValue = updateGroupLectureCounterFromClass(classToCheck);
+    returnValue = updateGroupLectureCounterFromClassWithSignal(classToCheck);
   
   else if(classToCheck->typeOfClass == Tutorial)
-    returnValue = updateGroupTutorialCounterFromClass(classToCheck);
+    returnValue = updateGroupTutorialCounterFromClassWithSignal(classToCheck);
   
   else if(classToCheck->typeOfClass == Practical)
-    returnValue = updateGroupPracticalCounterFromClass(classToCheck);
+    returnValue = updateGroupPracticalCounterFromClassWithSignal(classToCheck);
   
   return returnValue;
 }

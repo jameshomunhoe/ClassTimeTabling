@@ -24,32 +24,32 @@ void test_alele(){
 }
 
 /************************************************************************
- *  TEST of updateEmptyCounterFromClass
+ *  TEST of updateEmptyCounterFromClassWithSignal
  ************************************************************************/
-void test_updateEmptyCounterFromClass_should_return_1_when_update_from_0_to_1(){
+void test_updateEmptyCounterFromClassWithSignal_should_return_1_when_update_from_0_to_1(){
   
-  TEST_ASSERT_EQUAL(1, updateEmptyCounterFromClass(3, 1));
+  TEST_ASSERT_EQUAL(1, updateEmptyCounterFromClassWithSignal(3, 1));
   TEST_ASSERT_EQUAL(1, classCount[3].forEmptyClasses);
   
 }
 
-void test_updateEmptyCounterFromClass_should_return_0_when_empty_counter_overload(){
+void test_updateEmptyCounterFromClassWithSignal_should_return_0_when_empty_counter_overload(){
   
-  TEST_ASSERT_EQUAL(1, updateEmptyCounterFromClass(3, 1));
-  TEST_ASSERT_EQUAL(0, updateEmptyCounterFromClass(3, 1));
+  TEST_ASSERT_EQUAL(1, updateEmptyCounterFromClassWithSignal(3, 1));
+  TEST_ASSERT_EQUAL(0, updateEmptyCounterFromClassWithSignal(3, 1));
   
 }
 
 /************************************************************************
- *  TEST of updateGroupLectureCounterFromClass
+ *  TEST of updateGroupLectureCounterFromClassWithSignal
  ************************************************************************/
-void test_updateGroupLectureCounterFromClass_should_return_1_when_filling_2_lecture(){
+void test_updateGroupLectureCounterFromClassWithSignal_should_return_1_when_filling_2_lecture(){
   
   Class newClass;
   newClass = clazzList[0]; //2 Lecture
   
-  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClassWithSignal(&newClass));
   TEST_ASSERT_EQUAL(2, classCount[0].groupCounter[0].lectureCounter);
   TEST_ASSERT_EQUAL(2, classCount[0].groupCounter[1].lectureCounter);
   TEST_ASSERT_EQUAL(2, classCount[0].groupCounter[2].lectureCounter);
@@ -57,14 +57,14 @@ void test_updateGroupLectureCounterFromClass_should_return_1_when_filling_2_lect
   
 }
 
-void test_updateGroupLectureCounterFromClass_should_return_0_when_filling_3rd_lecture(){
+void test_updateGroupLectureCounterFromClassWithSignal_should_return_0_when_filling_3rd_lecture(){
   
   Class newClass;
   newClass = clazzList[0]; //2 Lecture
   
-  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(0, updateGroupLectureCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(0, updateGroupLectureCounterFromClassWithSignal(&newClass));
   TEST_ASSERT_EQUAL(2, classCount[0].groupCounter[0].lectureCounter);
   TEST_ASSERT_EQUAL(2, classCount[0].groupCounter[1].lectureCounter);
   TEST_ASSERT_EQUAL(2, classCount[0].groupCounter[2].lectureCounter);
@@ -72,7 +72,7 @@ void test_updateGroupLectureCounterFromClass_should_return_0_when_filling_3rd_le
  
 }
 
-void test_updateGroupLectureCounterFromClass_should_update_3_different_course_and_return_1(){
+void test_updateGroupLectureCounterFromClassWithSignal_should_update_3_different_course_and_return_1(){
   
   Class newClass;
   Class newClass2;
@@ -81,9 +81,9 @@ void test_updateGroupLectureCounterFromClass_should_update_3_different_course_an
   newClass2 = clazzList[4]; //2 Lecture
   newClass3 = clazzList[10]; //2 Lecture
   
-  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClass(&newClass2));
-  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClass(&newClass3));
+  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClassWithSignal(&newClass2));
+  TEST_ASSERT_EQUAL(1, updateGroupLectureCounterFromClassWithSignal(&newClass3));
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[0].lectureCounter);
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[1].lectureCounter);
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[2].lectureCounter);
@@ -107,39 +107,39 @@ void test_updateGroupLectureCounterFromClass_should_update_3_different_course_an
 
 }
 /************************************************************************
- *  TEST of updateGroupTutorialCounterFromClass
+ *  TEST of updateGroupTutorialCounterFromClassWithSignal
  ************************************************************************/
-void test_updateGroupTutorialCounterFromClass_should_return_1_when_filling_1_tutorial(){
+void test_updateGroupTutorialCounterFromClassWithSignal_should_return_1_when_filling_1_tutorial(){
   
   Class newClass;
   newClass = clazzList[2]; //1 Tutorial
   
-  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClassWithSignal(&newClass));
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[0].tutorialCounter);
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[1].tutorialCounter);
   
 }
 
-void test_updateGroupTutorialCounterFromClass_should_return_0_when_filling_2nd_Tutorial(){
+void test_updateGroupTutorialCounterFromClassWithSignal_should_return_0_when_filling_2nd_Tutorial(){
   
   Class newClass;
   newClass = clazzList[2]; //1 Tutorial
   
-  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(0, updateGroupTutorialCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(0, updateGroupTutorialCounterFromClassWithSignal(&newClass));
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[0].tutorialCounter);
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[1].tutorialCounter);
   
 }
 
-void test_updateGroupTutorialCounterFromClass_should_return_1_when_filling_tutorial_seperately(){
+void test_updateGroupTutorialCounterFromClassWithSignal_should_return_1_when_filling_tutorial_seperately(){
   
   Class newClass, newClass2;
   newClass = clazzList[2]; //1 Tutorial
   newClass2 = clazzList[3]; //1 Tutorial
   
-  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClass(&newClass2));
+  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupTutorialCounterFromClassWithSignal(&newClass2));
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[0].tutorialCounter);
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[1].tutorialCounter);
   TEST_ASSERT_EQUAL(1, classCount[0].groupCounter[2].tutorialCounter);
@@ -148,14 +148,14 @@ void test_updateGroupTutorialCounterFromClass_should_return_1_when_filling_tutor
 }
 
 /************************************************************************
- *  TEST of updateGroupPracticalCounterFromClass
+ *  TEST of updateGroupPracticalCounterFromClassWithSignal
  ************************************************************************/
 void test_updateGroupPracticalCounterFromClass_should_return_1_when_filling_1_Practical(){
   
   Class newClass;
   newClass = clazzList[14]; //1 Practical
   
-  TEST_ASSERT_EQUAL(1, updateGroupPracticalCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupPracticalCounterFromClassWithSignal(&newClass));
   TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[0].practicalCounter);
   TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[1].practicalCounter);
   
@@ -166,39 +166,26 @@ void test_updateGroupPracticalCounterFromClass_should_return_0_when_filling_2nd_
   Class newClass;
   newClass = clazzList[10]; //1 Practical
   
-  TEST_ASSERT_EQUAL(1, updateGroupPracticalCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(0, updateGroupPracticalCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupPracticalCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(0, updateGroupPracticalCounterFromClassWithSignal(&newClass));
   TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[0].practicalCounter);
   TEST_ASSERT_EQUAL(1, classCount[2].groupCounter[1].practicalCounter);
   
 }
 
 /************************************************************************
- *  TEST of updateGroupCounterFromClass
+ *  TEST of updateGroupCounterFromClassWithSignal
  ************************************************************************/
-void test_updateGroupCounterFromClass_should_return_1_with_one_empty_class(){
+void test_updateGroupCounterFromClassWithSignal_should_return_1_with_one_empty_class(){
   
   Class newClass;
   
   clearClass(&newClass);
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_return_1_with_25_empty_classes(){
-  
-  Class newClass;
-  int i;
-  
-  clearClass(&newClass);
-  
-  for(i = 0 ; i < 20 ; i++){
-    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-    TEST_ASSERT_EQUAL(i+1, classCount[3].forEmptyClasses);
-  }
-}
-
-void test_updateGroupCounterFromClass_should_return_0_with_26_empty_classes(){
+void test_updateGroupCounterFromClassWithSignal_should_return_1_with_25_empty_classes(){
   
   Class newClass;
   int i;
@@ -206,87 +193,100 @@ void test_updateGroupCounterFromClass_should_return_0_with_26_empty_classes(){
   clearClass(&newClass);
   
   for(i = 0 ; i < 20 ; i++){
-    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
+    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
     TEST_ASSERT_EQUAL(i+1, classCount[3].forEmptyClasses);
   }
-  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_return_1_with_lecture_class(){
+void test_updateGroupCounterFromClassWithSignal_should_return_0_with_26_empty_classes(){
+  
+  Class newClass;
+  int i;
+  
+  clearClass(&newClass);
+  
+  for(i = 0 ; i < 20 ; i++){
+    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+    TEST_ASSERT_EQUAL(i+1, classCount[3].forEmptyClasses);
+  }
+  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&newClass));
+}
+
+void test_updateGroupCounterFromClassWithSignal_should_return_1_with_lecture_class(){
   
   //clazzList[0] = 2L, 1T, 0P
   //clazzList[0] is lecture
   Class newClass = clazzList[0];
   int i;
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_return_0_with_exceeding_lecture_class(){
+void test_updateGroupCounterFromClassWithSignal_should_return_0_with_exceeding_lecture_class(){
   
   //clazzList[0] = 2L, 1T, 0P
   //clazzList[0] is lecture
   Class newClass = clazzList[0];
   int i;
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_return_1_with_tutorial_class(){
+void test_updateGroupCounterFromClassWithSignal_should_return_1_with_tutorial_class(){
   
   //clazzList[2] = 2L, 1T, 0P
   //clazzList[2] is tutorial
   Class newClass = clazzList[2];
   int i;
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_return_0_with_exceeding_tutorial_class(){
+void test_updateGroupCounterFromClassWithSignal_should_return_0_with_exceeding_tutorial_class(){
   
   //clazzList[2] = 2L, 1T, 0P
   //clazzList[2] is tutorial
   Class newClass = clazzList[2];
   int i;
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_return_1_with_practical_class(){
+void test_updateGroupCounterFromClassWithSignal_should_return_1_with_practical_class(){
   
   //clazzList[14] = 2L, 1T, 1P
   //clazzList[14] is practical
   Class newClass = clazzList[14];
   int i;
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_return_0_with_exceeded_practical_class(){
+void test_updateGroupCounterFromClassWithSignal_should_return_0_with_exceeded_practical_class(){
   
   //clazzList[14] = 2L, 1T, 1P
   //clazzList[14] is practical
   Class newClass = clazzList[14];
   int i;
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&newClass));
 }
 
-void test_updateGroupCounterFromClass_should_able_to_run_with_different_class(){
+void test_updateGroupCounterFromClassWithSignal_should_able_to_run_with_different_class(){
   
   Class newClass = clazzList[0];
   Class newClass2 = clazzList[14];
   int i;
   
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass));
-  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&newClass2));
-  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&newClass2));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
+  TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass2));
+  TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&newClass2));
 }
 
 /************************************************************************
@@ -400,57 +400,56 @@ void test_performCrossover_mother_ascending_order_father_reversed(){
  randomVenue_ExpectAndReturn(1);
  randomDay_ExpectAndReturn(2);
  randomTime_ExpectAndReturn(5);
- randomVenue_ExpectAndReturn(0);
- randomDay_ExpectAndReturn(0);
- randomTime_ExpectAndReturn(0);
  performCrossover(father,mother,offspring,2);
  
  
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][0],&father[1][2][5]));
- //starting point for father ^, mother v
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&mother[0][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&mother[0][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&mother[0][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&mother[0][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&mother[0][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&mother[0][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&mother[0][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&mother[0][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&mother[0][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&mother[0][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&mother[0][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&mother[0][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&mother[0][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&mother[0][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&mother[0][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&mother[0][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&mother[0][2][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][0],&mother[1][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][1],&mother[1][0][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][2],&mother[1][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][3],&mother[1][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][4],&mother[1][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][5],&mother[1][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][0],&mother[1][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][1],&mother[1][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][2],&mother[1][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][3],&mother[1][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][4],&mother[1][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][5],&mother[1][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][0],&mother[1][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][1],&mother[1][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][2],&mother[1][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][3],&mother[1][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][4],&mother[1][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][5],&mother[1][2][5]));
+
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&father[1][2][5]));
+ // starting point for father ^, mother v
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][0],&mother[0][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][1],&mother[0][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][2],&mother[0][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][3],&mother[0][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][4],&mother[0][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][5],&mother[0][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][0],&mother[0][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][1],&mother[0][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][2],&mother[0][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][3],&mother[0][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][4],&mother[0][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][5],&mother[0][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][0],&mother[0][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][1],&mother[0][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][2],&mother[0][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][3],&mother[0][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][4],&mother[0][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][5],&mother[1][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][0],&mother[1][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&mother[1][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&mother[1][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&mother[1][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&mother[1][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&mother[1][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&mother[1][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&mother[1][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&mother[1][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&mother[1][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&mother[1][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&mother[1][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&mother[1][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&mother[1][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&mother[1][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&mother[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&mother[1][2][5]));
+ 
 
 
  setUp();
   for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
-   TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+   TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
    indexForward(&offSpringIndex);
  }
-   TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&offspring[0][0][0])); 
+   TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&offspring[0][0][0])); 
 }
 
 
@@ -475,57 +474,54 @@ void test_performCrossover_both_parents_are_identical(){
    indexForward(&index);
  }
  
- randomVenue_ExpectAndReturn(1);
- randomDay_ExpectAndReturn(2);
- randomTime_ExpectAndReturn(5);
+
  randomVenue_ExpectAndReturn(0);
  randomDay_ExpectAndReturn(0);
  randomTime_ExpectAndReturn(0);
  performCrossover(father,mother,offspring,2);
  
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][1],&father[1][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][2],&father[1][0][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][3],&father[1][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][4],&father[1][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][5],&father[1][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][0],&father[1][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][1],&father[1][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][2],&father[1][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][3],&father[1][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][4],&father[1][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][5],&father[1][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][0],&father[1][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][1],&father[1][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][2],&father[1][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][3],&father[1][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][4],&father[1][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][5],&father[1][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][0],&father[1][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&father[1][0][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&father[1][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&father[1][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&father[1][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&father[1][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&father[1][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&father[1][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&father[1][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&father[1][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&father[1][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&father[1][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&father[1][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&father[1][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&father[1][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&father[1][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&father[1][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&father[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][0],&father[0][0][0]));
  //starting point for father ^, mother v
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&mother[0][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&mother[0][0][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&mother[0][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&mother[0][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&mother[0][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&mother[0][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&mother[0][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&mother[0][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&mother[0][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&mother[0][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&mother[0][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&mother[0][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&mother[0][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&mother[0][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&mother[0][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&mother[0][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&mother[0][2][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][0],&mother[0][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][1],&mother[0][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][2],&mother[0][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][3],&mother[0][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][4],&mother[0][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][5],&mother[0][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][0],&mother[0][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][1],&mother[0][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][2],&mother[0][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][3],&mother[0][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][4],&mother[0][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][1][5],&mother[0][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][0],&mother[0][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][1],&mother[0][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][2],&mother[0][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][3],&mother[0][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][4],&mother[0][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][5],&mother[0][2][5]));
 
  setUp();
  
   for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
-   TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+   TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
    indexForward(&offSpringIndex);
  }
-   TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
+   TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&offspring[offSpringIndex.venue][offSpringIndex.day][offSpringIndex.time]));
 }

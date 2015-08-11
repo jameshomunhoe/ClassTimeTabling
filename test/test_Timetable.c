@@ -162,7 +162,6 @@ void test_createTimeTable_should_able_to_create_timeTable(){
   // class[9]  = group 4,5.     lecturer = 1. lecture. size = 20
   // class[10] = group 0,1,4,5. lecturer = 2. lecture. size = 52
   // class[11] = group 0,1,4,5. lecturer = 2. lecture. size = 52
-  
   // class[12] = group 0,1.     lecturer = 2. lecture. size = 32
   // class[13] = group 4,5.     lecturer = 2. lecture. size = 20
   // class[14] = group 0,1.     lecturer = 2. lecture. size = 32
@@ -239,11 +238,11 @@ void test_createTimeTable_should_able_to_create_timeTable(){
   initClassCounter();
   for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
     
-    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
+    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
     
     indexForward(&classIndex);
   }
-    TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
+    TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
   
 }
 
@@ -268,7 +267,6 @@ void test_createTimeTable_should_able_to_create_timeTable_with_few_clash(){
   // class[9]  = group 4,5.     lecturer = 1. lecture. size = 20
   // class[10] = group 0,1,4,5. lecturer = 2. lecture. size = 52
   // class[11] = group 0,1,4,5. lecturer = 2. lecture. size = 52
-  
   // class[12] = group 0,1.     lecturer = 2. lecture. size = 32
   // class[13] = group 4,5.     lecturer = 2. lecture. size = 20
   // class[14] = group 0,1.     lecturer = 2. lecture. size = 32
@@ -365,11 +363,11 @@ void test_createTimeTable_should_able_to_create_timeTable_with_few_clash(){
   initClassCounter();
   for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
     
-    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClass(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
+    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
     
     indexForward(&classIndex);
   }
-    TEST_ASSERT_EQUAL(0, updateGroupCounterFromClass(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
+    TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
   
 }
 

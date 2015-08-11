@@ -8,8 +8,8 @@
 #include "Random.h"
 
 
-#define offpringLeftArr     offpringLeft.venue][offpringLeft.day][offpringLeft.time
-#define offpringRightArr    offpringRight.venue][offpringRight.day][offpringRight.time
+#define offspringLeftArr     offspringLeft.venue][offspringLeft.day][offspringLeft.time
+#define offspringRightArr    offspringRight.venue][offspringRight.day][offspringRight.time
 #define toRightIndexArr     toRightIndex.venue][toRightIndex.day][toRightIndex.time
 #define toLeftIndexArr      toLeftIndex.venue][toLeftIndex.day][toLeftIndex.time
 #define counterCourseIndex  classToCheck.course->courseIndex
@@ -35,20 +35,24 @@
                      Class offspring[][MAX_DAY][MAX_TIME_SLOT],\
                      int totalVenue){
 int stopIndexLeft = 0, stopIndexRight = 0, i = 0;
+ClassIndex referenceIndex;
 ClassIndex toLeftIndex;
 ClassIndex toRightIndex;
-ClassIndex offpringLeft;
-ClassIndex offpringRight;
+ClassIndex offspringLeft;
+ClassIndex offspringRight;
 
-randomIndex(&toLeftIndex);
-randomIndex(&toRightIndex);
-getMidPoint(&offpringLeft,&offpringRight,totalVenue);
+randomIndex(&referenceIndex);
+toLeftIndex = referenceIndex;
+offspringLeft = referenceIndex;
+indexForward(&referenceIndex);
+toRightIndex = referenceIndex;
+offspringRight = referenceIndex;
 
 for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
   if(stopIndexLeft != 1){
-    if(updateGroupCounterFromClass(&father[toLeftIndexArr])){
-      offspring[offpringLeftArr] = father[toLeftIndexArr];
-      indexBackward(&offpringLeft);
+    if(updateGroupCounterFromClassWithSignal(&father[toLeftIndexArr])){
+      offspring[offspringLeftArr] = father[toLeftIndexArr];
+      indexBackward(&offspringLeft);
     }
     else
       updateStopFlag(&stopIndexLeft, &stopIndexRight);
@@ -56,9 +60,9 @@ for( i = 0 ; i < (totalVenue*MAX_DAY*MAX_TIME_SLOT) ; i++){
     indexBackward(&toLeftIndex);
   }
   if(stopIndexRight != 1){
-    if(updateGroupCounterFromClass(&mother[toRightIndexArr])){
-      offspring[offpringRightArr] = mother[toRightIndexArr];
-      indexForward(&offpringRight);
+    if(updateGroupCounterFromClassWithSignal(&mother[toRightIndexArr])){
+      offspring[offspringRightArr] = mother[toRightIndexArr];
+      indexForward(&offspringRight);
     }
     else
       updateStopFlag(&stopIndexRight, &stopIndexLeft);

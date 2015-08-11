@@ -34,6 +34,6 @@ void test_performMutation(){
   randomDay_ExpectAndReturn(0);
   randomTime_ExpectAndReturn(1);
   
-  performMutation(classToMutate);
+  mutationSwapOnce(classToMutate);
   
 }

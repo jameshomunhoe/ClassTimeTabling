@@ -10,7 +10,7 @@
 #include "Random.h"
 
 
-void performMutation(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
+void mutationSwapOnce(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
   
   ClassIndex source;
   ClassIndex goal;
@@ -22,26 +22,40 @@ void performMutation(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
   randomIndex(&source);
   randomIndex(&goal);
   
-  printf("%s\n",classToMutate[0][0][0].course->courseName);
-  constraintsBefore = possibleConstraintsInIndex(classToMutate, &source);
-  fitnessBefore = possibleFitnessLossInIndex(classToMutate, &source);
+  
+  constraintsBefore += possibleConstraintsInIndex(classToMutate, &source);
+  constraintsBefore += possibleConstraintsInIndex(classToMutate, &goal);
+  fitnessBefore += possibleFitnessLossInIndex(classToMutate, &source);
+  fitnessBefore += possibleFitnessLossInIndex(classToMutate, &goal);
   totalWeaknessBefore = constraintsBefore + fitnessBefore;
-  constraintsBefore = possibleConstraintsInIndex(classToMutate, &goal);
-  fitnessBefore = possibleFitnessLossInIndex(classToMutate, &goal);
-  totalWeaknessBefore += constraintsBefore + fitnessBefore;
+  
   printf("fitness score before : %d\n", totalWeaknessBefore);
   
   swapTwoClassesInTimetable(classToMutate, &source, &goal);
   
   
-  constraintsAfter = possibleConstraintsInIndex(classToMutate, &source);
-  fitnessAfter = possibleFitnessLossInIndex(classToMutate, &source);
-  totalWeaknessAfter = constraintsBefore + fitnessBefore;
-  constraintsAfter = possibleConstraintsInIndex(classToMutate, &goal);
-  fitnessAfter = possibleFitnessLossInIndex(classToMutate, &goal);
-  totalWeaknessAfter += constraintsBefore + fitnessBefore;
+  constraintsAfter += possibleConstraintsInIndex(classToMutate, &source);
+  constraintsAfter += possibleConstraintsInIndex(classToMutate, &goal);
+  fitnessAfter += possibleFitnessLossInIndex(classToMutate, &source);
+  fitnessAfter += possibleFitnessLossInIndex(classToMutate, &goal);
+  totalWeaknessAfter = constraintsAfter + fitnessAfter;
   printf("fitness score after : %d\n", totalWeaknessAfter);
   
+  if(!shouldMutate(constraintsBefore, constraintsAfter, totalWeaknessBefore, totalWeaknessAfter))
+    swapTwoClassesInTimetable(classToMutate, &source, &goal);
   
+}
+
+int shouldMutate(int constraintBefore, int constraintAfter,\
+                        int totalBefore, int totalAfter)
+{
+  if(constraintAfter < constraintBefore)
+    return 1;
+  
+  else if(constraintAfter == constraintBefore && totalAfter <= totalBefore)
+    return 1;
+  
+  else
+    return 0;
 }
 

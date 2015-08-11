@@ -674,7 +674,7 @@ void test_getIndexInList_should_return_venueList_index_1(){
 }
 
 /************************************************************************
- *  TEST of getIndexInList
+ *  TEST of swapTwoClassesInTimetable
  ************************************************************************/
 void test_swapTwoClassesInTimetable_both_class_should_remain_null(){
   

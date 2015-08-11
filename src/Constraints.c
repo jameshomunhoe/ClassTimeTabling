@@ -130,7 +130,7 @@ int groupInMultipleVenue(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
     Throw(ERR_EXCEEDED_INDEX);
  
   for(venue = 0 ; venue < totalVenue ; venue++){
-    updateGroupCounterFromClass(&(newClass[venue][dayToCheck][timeToCheck]));
+    updateGroupCounterFromClassWithSignal(&(newClass[venue][dayToCheck][timeToCheck]));
   }
   
   groupCounterUpdateNumOfAppearing(groupSize, groupCounter);
@@ -208,7 +208,7 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
  
   for(venue = 0 ; venue < totalVenue ; venue++){
     for(time = 0 ; time < MAX_TIME_SLOT ; time++){
-      updateGroupCounterFromClass(&(newClass[venue][dayToCheck][time]));
+      updateGroupCounterFromClassWithSignal(&(newClass[venue][dayToCheck][time]));
     }
   }
 

@@ -4,8 +4,9 @@
 #define FOR_TEST
 #include "Structure.h"
 
-void performMutation(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
-
+void mutationSwapOnce(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
+int shouldMutate(int constraintBefore, int constraintAfter,\
+                        int totalBefore, int totalAfter);
 
 
 #endif // Mutation_H
