@@ -748,3 +748,159 @@ void test_possibleFitnessLossInIndex_should_return_2_for_1_lecturer_overstresed(
   
   TEST_ASSERT_EQUAL(2, possibleFitnessLossInIndex(newClass, &classIndex));
 }
+
+ /************************************************************************
+ *  TEST of calculateTotalConstraintsInTimetable
+ ************************************************************************/
+void test_calculateTotalConstraintsInTimetable_should_return_0_with_empty_class(){
+  int violation = 0;
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  violation = calculateTotalConstraintsInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(0, violation);
+}
+
+void test_calculateTotalConstraintsInTimetable_should_return_0_without_violation(){
+  int violation = 0;
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  timeTable[1][0][0] = clazzList[0];
+  
+  violation = calculateTotalConstraintsInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(0, violation);
+}
+
+void test_calculateTotalConstraintsInTimetable_should_return_17_student_overload(){
+  int violation = 0;
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  timeTable[0][0][0] = clazzList[0]; //student overload 17
+  
+  violation = calculateTotalConstraintsInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(17, violation);
+}
+
+void test_calculateTotalConstraintsInTimetable_should_return_2_venue_lecturer_wrong(){
+  int violation = 0;
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  timeTable[0][0][0] = clazzList[14]; // lecturer conflict 1
+  timeTable[1][0][0] = clazzList[15]; // wrong venue 1
+  
+  violation = calculateTotalConstraintsInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(2, violation);
+}
+
+void test_calculateTotalConstraintsInTimetable_should_return_21_venueOV_groupClash_lecturerClash(){
+  int violation = 0;
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  timeTable[0][0][0] = clazzList[0]; // venue overload  = 17
+  timeTable[1][0][0] = clazzList[1]; // group 0,1,2,3  =  4 + 1(lecturer)
+                                                //total = 22
+  
+  violation = calculateTotalConstraintsInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(22, violation);
+}
+
+ /************************************************************************
+ *  TEST of calculateTotalFitnessInTimetable
+ ************************************************************************/
+void test_calculateTotalFitnessInTimetable_should_return_0_with_empty_timeTable(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+   
+  violation = calculateTotalFitnessInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(0, violation);
+}
+
+void test_calculateTotalFitnessInTimetable_should_return_0_with_constraints(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+  timeTable[0][0][0] = clazzList[0];
+  timeTable[1][0][0] = clazzList[1];
+  timeTable[0][0][1] = clazzList[2];
+  timeTable[1][0][1] = clazzList[3];
+  
+  violation = calculateTotalFitnessInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(0, violation);
+}
+
+void test_calculateTotalFitnessInTimetable_should_return_2_with_student_overload(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+  timeTable[0][0][0] = clazzList[0];
+  timeTable[1][0][1] = clazzList[1];
+  timeTable[0][0][2] = clazzList[2];
+  timeTable[1][0][3] = clazzList[10];
+  timeTable[1][0][4] = clazzList[11]; //2 Group exceed 4 hours study = 2
+  
+  violation = calculateTotalFitnessInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(2, violation);
+}
+
+void test_calculateTotalFitnessInTimetable_should_return_4_with_student_overload_2_different_day(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+  timeTable[0][0][0] = clazzList[0];
+  timeTable[1][0][1] = clazzList[1];
+  timeTable[0][0][2] = clazzList[2];
+  timeTable[1][0][3] = clazzList[10];
+  timeTable[1][0][4] = clazzList[11]; //2 Group exceed 4 hours study = 2
+  
+  timeTable[0][1][0] = clazzList[3];
+  timeTable[1][1][1] = clazzList[4];
+  timeTable[0][1][2] = clazzList[5];
+  timeTable[1][1][3] = clazzList[6];
+  timeTable[1][1][4] = clazzList[7]; //2 Group exceed 4 hours study = 2
+  
+  violation = calculateTotalFitnessInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(4, violation);
+}
+
+void test_calculateTotalFitnessInTimetable_should_return_1_with_lecturerOV(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+  timeTable[0][0][0] = clazzList[11];
+  timeTable[1][0][1] = clazzList[12];
+  timeTable[0][0][2] = clazzList[13];
+  timeTable[1][0][3] = clazzList[14];
+  timeTable[1][0][4] = clazzList[15]; //1 lecturer OV
+  
+  violation = calculateTotalFitnessInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(1, violation);
+}
+
+ /************************************************************************
+ *  TEST of calculateTotalViolationInTimetable
+ ************************************************************************/
+void test_calculateTotalViolationInTimetable_should_return_0_with_empty_timeTable(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+  
+  violation = calculateTotalViolationInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(0, violation);
+}
+
+void test_calculateTotalViolationInTimetable_should_return_17_when_venue_too_small(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+  
+  timeTable[0][0][0] = clazzList[0]; //student overload 17
+  violation = calculateTotalViolationInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(17, violation);
+}
+
+void test_calculateTotalViolationInTimetable_should_return_19_when_2_fitness_17_constraints(){
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  int violation = 0;
+  
+  timeTable[0][0][0] = clazzList[0];//student overload 17
+  timeTable[1][0][1] = clazzList[1];
+  timeTable[0][0][2] = clazzList[2];
+  timeTable[1][0][3] = clazzList[10];
+  timeTable[1][0][4] = clazzList[11]; //2 Group exceed 4 hours study = 2
+  
+  violation = calculateTotalViolationInTimetable(timeTable);
+  TEST_ASSERT_EQUAL(19, violation);
+}

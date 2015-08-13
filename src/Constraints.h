@@ -38,4 +38,10 @@ int possibleConstraintsInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
                                
 int possibleFitnessLossInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
                                ClassIndex *classIndex);
-#endif // Constraints_H
+
+                               
+int calculateTotalConstraintsInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
+int calculateTotalFitnessInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
+
+int calculateTotalViolationInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
+                               #endif // Constraints_H

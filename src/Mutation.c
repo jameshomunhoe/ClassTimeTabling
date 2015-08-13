@@ -9,45 +9,74 @@
 #include "TestStructure.h"
 #include "Random.h"
 
-
+/****************************************************************************
+ *  Function name : mutationSwapOnce
+ *  Inputs        : Class timeTable[][][]
+ *  Output/return : NONE
+ *  Destroy       : timeTable[][][]
+ *  Description   : The purpose of this function is to swap to random classes
+ *                  to reduce the constraints 
+ *****************************************************************************/
 void mutationSwapOnce(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
   
   ClassIndex source;
   ClassIndex goal;
   int constraintsBefore = 0, constraintsAfter = 0;
   int fitnessBefore = 0, fitnessAfter = 0;
-  int totalWeaknessBefore = 0, totalWeaknessAfter = 0;
-  
+  int totalViolationBefore = 0, totalViolationAfter = 0;
   
   randomIndex(&source);
   randomIndex(&goal);
   
-  
-  constraintsBefore += possibleConstraintsInIndex(classToMutate, &source);
-  constraintsBefore += possibleConstraintsInIndex(classToMutate, &goal);
-  fitnessBefore += possibleFitnessLossInIndex(classToMutate, &source);
-  fitnessBefore += possibleFitnessLossInIndex(classToMutate, &goal);
-  totalWeaknessBefore = constraintsBefore + fitnessBefore;
-  
-  printf("fitness score before : %d\n", totalWeaknessBefore);
+  totalViolationBefore = getTotalViolationsFromTwoClass(classToMutate, &source, &goal, \
+                                                       &constraintsBefore, &fitnessBefore);
   
   swapTwoClassesInTimetable(classToMutate, &source, &goal);
   
+  totalViolationAfter = getTotalViolationsFromTwoClass(classToMutate, &source, &goal, \
+                                                       &constraintsAfter, &fitnessAfter);
   
-  constraintsAfter += possibleConstraintsInIndex(classToMutate, &source);
-  constraintsAfter += possibleConstraintsInIndex(classToMutate, &goal);
-  fitnessAfter += possibleFitnessLossInIndex(classToMutate, &source);
-  fitnessAfter += possibleFitnessLossInIndex(classToMutate, &goal);
-  totalWeaknessAfter = constraintsAfter + fitnessAfter;
-  printf("fitness score after : %d\n", totalWeaknessAfter);
-  
-  if(!shouldMutate(constraintsBefore, constraintsAfter, totalWeaknessBefore, totalWeaknessAfter))
+  if(!shouldMutate(constraintsBefore, constraintsAfter, totalViolationBefore, totalViolationAfter))
     swapTwoClassesInTimetable(classToMutate, &source, &goal);
-  
 }
 
+
+/****************************************************************************
+ *  Function name : getTotalViolationsFromTwoClass
+ *  Inputs        : Class timeTable[][][], \
+ *                  ClassIndex *source, ClassIndex *goal, \
+ *                  int *constraints, int *fitness
+ *  Output/return : totalViolation (add both fitness and violation from both)
+ *  Destroy       : *constraints, *fitness
+ *  Description   : The purpose of this function is to get the possible total
+ *                  violation caused by two classes
+ *****************************************************************************/
+int getTotalViolationsFromTwoClass(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT],\
+                                   ClassIndex *source, ClassIndex *goal, \
+                                   int *constraints, int *fitness)
+{
+  int totalViolation;
+  
+  *constraints += possibleConstraintsInIndex(classToMutate, source);
+  *constraints += possibleConstraintsInIndex(classToMutate, goal);
+  *fitness += possibleFitnessLossInIndex(classToMutate, source);
+  *fitness += possibleFitnessLossInIndex(classToMutate, goal);
+  totalViolation = *constraints + *fitness;
+  
+  return totalViolation;
+}
+
+/****************************************************************************
+ *  Function name : shouldMutate
+ *  Inputs        : int constraintBefore, int constraintAfter,\
+ *                  int totalBefore, int totalAfter
+ *  Output/return : 1 if should swap, 0 otherwise
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to decide whether to swap
+ *                  after evaluating the constraints and totalViolation
+ *****************************************************************************/
 int shouldMutate(int constraintBefore, int constraintAfter,\
-                        int totalBefore, int totalAfter)
+                 int totalBefore, int totalAfter)
 {
   if(constraintAfter < constraintBefore)
     return 1;

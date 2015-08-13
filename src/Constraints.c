@@ -13,11 +13,6 @@
 #define Practical           'p'
 
 
-//  Formula to get totalVenue
-//  (sizeof(exampleClass)/sizeof(Class))/(sizeof(exampleClass[0])/sizeof(Class)));
-
-
-
 /****************************************************************************
  *  Function name : clearCounter
  *  Inputs        : int size, int counter[size]
@@ -297,4 +292,66 @@ int possibleFitnessLossInIndex(Class timeTable[][MAX_DAY][MAX_TIME_SLOT], \
   violations += teachingHourOverloaded(timeTable, classIndex->day, MAX_VENUE);
                         
   return violations;
+}
+
+/****************************************************************************
+ *  Function name : calculateTotalConstraintsInTimetable
+ *  Inputs        : Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]
+ *  Output/return : total constraints in the timeTable
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to calculate the
+ *                  total constraints in the timeTable
+ *****************************************************************************/
+int calculateTotalConstraintsInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
+  
+  int constraints = 0, i;
+  ClassIndex index = {0,0,0};
+  
+  for( i = 0 ; i < (MAX_VENUE)*(MAX_DAY)*(MAX_TIME_SLOT) ; i++){
+    constraints += venueOverloaded(&timeTable[index.venue][index.day][index.time], index.venue);
+    constraints += wrongVenueType(&timeTable[index.venue][index.day][index.time], index.venue);
+    
+    if(index.venue == 0){
+      constraints += lecturerInMultipleVenue(timeTable, index.day, index.time, MAX_VENUE);
+      constraints += groupInMultipleVenue(timeTable, index.day, index.time, MAX_VENUE);
+    }
+    
+    indexForward(&index);
+  }
+  return constraints;
+}
+
+/****************************************************************************
+ *  Function name : calculateTotalFitnessInTimetable
+ *  Inputs        : Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]
+ *  Output/return : total fitness in the timeTable
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to calculate the
+ *                  total fitness in the timeTable
+ *****************************************************************************/
+int calculateTotalFitnessInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
+  int constraints = 0, day;
+  
+  for( day = 0 ; day < MAX_DAY ; day++){
+    constraints += studyHourOverloaded(timeTable, day, MAX_VENUE);
+    constraints += teachingHourOverloaded(timeTable, day, MAX_VENUE);
+  }
+  return constraints;
+}
+
+/****************************************************************************
+ *  Function name : calculateTotalFitnessInTimetable
+ *  Inputs        : Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]
+ *  Output/return : total violation in the timeTable(constraints + fitness)
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to calculate the
+ *                  total violation in the timeTable
+ *****************************************************************************/
+int calculateTotalViolationInTimetable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
+  int constraints = 0;
+  
+  constraints += calculateTotalConstraintsInTimetable(timeTable);
+  constraints += calculateTotalFitnessInTimetable(timeTable);
+  
+  return constraints;
 }

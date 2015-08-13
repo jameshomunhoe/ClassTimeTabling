@@ -27,6 +27,10 @@ void tearDown(void){}
   #define teachingHourLimit 4
 */
 
+
+/************************************************************************
+ *  TEST of fillClassIntoTimetable
+ ************************************************************************/
 void test_fillClassIntoTimetable_should_throw_when_venue_index_exceeded(void){
   ClassIndex classIndex = {2,0,0};
   Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
@@ -95,6 +99,9 @@ void test_fillClassIntoTimetable_should_fill_in_2_classes_to_000_and_111(void){
   
 }
 
+/************************************************************************
+ *  TEST of successfulAddWithoutConstraint
+ ************************************************************************/
 void test_successfulAddWithoutConstraints_should_return_1_and_fill(){
   
   Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
@@ -142,6 +149,10 @@ void test_successfulAddWithoutConstraints_should_add_2nd_class_and_return_1(){
   TEST_ASSERT_EQUAL(1, checkEqualClass(&newClass[1][0][1], &clazzList[0]));
 }
 
+
+/************************************************************************
+ *  TEST of createTimeTable
+ ************************************************************************/
 void test_createTimeTable_should_able_to_create_timeTable(){
   
   Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
