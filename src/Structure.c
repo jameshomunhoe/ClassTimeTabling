@@ -5,6 +5,7 @@
 #include "CException.h"
 #include "ErrorCode.h"
 #include "malloc.h"
+#include "time.h"
 
 #define FOR_TEST
 
@@ -553,4 +554,17 @@ void randomIndex(ClassIndex *classIndex){
   classIndex->venue = randomVenue();
   classIndex->day = randomDay();
   classIndex->time = randomTime();
+}
+
+/****************************************************************************
+ *  Function name : initRandom
+ *  Inputs        : NONE
+ *  Output/return : NONE
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to randomize the
+ *                  values of venue,day and time index to initialize random
+ *****************************************************************************/
+void initRandom(){
+  int seed = time(NULL);
+  srand(seed);
 }

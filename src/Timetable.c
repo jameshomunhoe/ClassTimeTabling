@@ -89,6 +89,7 @@ void createTimeTable(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]){
       loopEffort = 0;
     }
   }
+  initClassCounter();
 }
   
 

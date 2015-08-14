@@ -209,6 +209,7 @@ int studyHourOverloaded(Class newClass[][MAX_DAY][MAX_TIME_SLOT], \
 
   groupCounterUpdateNumOfAppearing(groupSize, groupCounter);
   violation = generateViolationFromCounter(groupSize, groupCounter, studyHourLimit);
+  initClassCounter();
 return violation;
 }
 

@@ -7,7 +7,7 @@
 #include "Constraints.h"
 #include "Structure.h"
 #include "TestStructure.h"
-#include "TimeTable.h"
+#include "Timetable.h"
 #include "Random.h"
 
 
