@@ -233,5 +233,7 @@ extern int updateGroupLectureCounterFromClassWithSignal(Class *classToCheck); //
 extern int updateGroupTutorialCounterFromClassWithSignal(Class *classToCheck); //sub-function
 extern int updateGroupPracticalCounterFromClassWithSignal(Class *classToCheck); //sub-function
 
+//intialize seed to generate different random number
+extern void initRandom();
 
 #endif // Structure_H

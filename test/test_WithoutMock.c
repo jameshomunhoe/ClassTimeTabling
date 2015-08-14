@@ -16,10 +16,13 @@ void setUp(void){
   initClassList();
   initClassCounter();
   initVenueList();
+  initRandom();
 }
 void tearDown(void){}
 
-
+/************************************************************************
+ *  TEST of performMutation
+ ************************************************************************/
 void test_performMutation_should_able_to_reduce_violation_of_a_timeTable(){
   
   Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
@@ -29,21 +32,25 @@ void test_performMutation_should_able_to_reduce_violation_of_a_timeTable(){
   ClassIndex osIndex = {0,0,0};
   
   createTimeTable(classToMutate);
-  initClassCounter();
   
   violationBefore = calculateTotalViolationInTimetable(classToMutate);
   printf("Violation before %d\n",violationBefore);
+  
   performMutation(classToMutate,100);
+  
   violationAfter = calculateTotalViolationInTimetable(classToMutate);
   printf("Violation after  %d\n",violationAfter);
-  initClassCounter();
+  
   for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
     TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&classToMutate[osIndex.venue][osIndex.day][osIndex.time]));
     indexForward(&osIndex);
   }
 }
 
-void xtest_mutationSwapOnce_should_change_both_element_and_reduce_total_violation(){
+/************************************************************************
+ *  TEST of performCrossover
+ ************************************************************************/
+void test_performCrossover_should_retain_elements(){
   
   Class father[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
   Class mother[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
@@ -69,24 +76,10 @@ void xtest_mutationSwapOnce_should_change_both_element_and_reduce_total_violatio
   printf("Violation of offSpring %d\n",violationOffSpring);
   
   
-  
-    for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
-    // if(classIsNull(&father[osIndex.venue][osIndex.day][osIndex.time]))
-      // printf("EMPTY!\n");
-    // else
-      // printf("%s\n", father[osIndex.venue][osIndex.day][osIndex.time].course->courseName);
-    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&father[osIndex.venue][osIndex.day][osIndex.time]));
+  for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
+    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&offSpring[osIndex.venue][osIndex.day][osIndex.time]));
     indexForward(&osIndex);
   }
-  
-  // for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
-    // TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&offSpring[osIndex.venue][osIndex.day][osIndex.time]));
-    // if(classIsNull(&offSpring[osIndex.venue][osIndex.day][osIndex.time]))
-      // printf("EMPTY!\n");
-    // else
-      // printf("%s\n", offSpring[osIndex.venue][osIndex.day][osIndex.time].course->courseName);
-    // indexForward(&osIndex);
-  // }
   
 }
 
