@@ -5,9 +5,6 @@
 #include <math.h>
 #include "Structure.h"
 #include "Random.h"
-#include "Time.h"
-
-
 
 int randomVenue(){
   int randomVenue = rand() % MAX_VENUE;
