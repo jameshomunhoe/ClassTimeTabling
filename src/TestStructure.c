@@ -19,7 +19,7 @@
                         .numOfSpecificCourse = 1
                       },
                       { .nameOfVenue = "K102",
-                        .sizeOfVenue = 80,
+                        .sizeOfVenue = 95,
                         .venueType = 'l'
                       },
                       { .nameOfVenue = "Q301",
@@ -32,13 +32,13 @@
  *  List of Lecturer
  ************************************************************************/
  Lecturer lecturerList[] = {{ .lecturerName = "LeeFhyanSeng",
-                              .department = "Pelita"
+                              .department = "CDED"
                             },
-                            { .lecturerName = "ChiewXingBuan",
-                              .department = "FAMA"
+                            { .lecturerName = "AuLheeCiang",
+                              .department = "EG"
                             },
                             { .lecturerName = "YapMenKun",
-                              .department = "FCBK"
+                              .department = "LGD"
                             }};
                             
 /************************************************************************
@@ -105,6 +105,15 @@
                           .hoursOfPractical = 1,
                           .numOfProgramme = 2,
                           .numOfCombinedGroups = 2
+                        },
+                        {
+                          .courseCode = "ROLF4854",
+                          .courseName = "TamadunIslam",
+                          .hoursOfLecture = 2,
+                          .hoursOfTutorial = 2,
+                          .hoursOfPractical = 0,
+                          .numOfProgramme = 3,
+                          .numOfCombinedGroups = 3
                         }};
                         
 /************************************************************************
@@ -206,6 +215,46 @@
                           .lecturer = &lecturerList[2],
                           .typeOfClass = 'p',
                           .groupIndexInClass = 1
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[0],
+                          .typeOfClass = 'l',
+                          .groupIndexInClass = 0
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[0],
+                          .typeOfClass = 'l',
+                          .groupIndexInClass = 0
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[0],
+                          .typeOfClass = 't',
+                          .groupIndexInClass = 0
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[0],
+                          .typeOfClass = 't',
+                          .groupIndexInClass = 0
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[1],
+                          .typeOfClass = 't',
+                          .groupIndexInClass = 1
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[1],
+                          .typeOfClass = 't',
+                          .groupIndexInClass = 1
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[1],
+                          .typeOfClass = 't',
+                          .groupIndexInClass = 2
+                        },
+                        { .course = &courseList[3],
+                          .lecturer = &lecturerList[1],
+                          .typeOfClass = 't',
+                          .groupIndexInClass = 2
                         }};
                         
                         
@@ -266,6 +315,24 @@ void initCourseList(){
   courseList[2].combinedGroups[0].groups[1] = &groupList[1];
   courseList[2].combinedGroups[1].groups[0] = &groupList[4];
   courseList[2].combinedGroups[1].groups[1] = &groupList[5];
+  
+  courseList[3].programme = malloc(courseList[3].numOfProgramme*sizeof(Programme*));
+  courseList[3].programme[0] = &programmeList[0];
+  courseList[3].programme[1] = &programmeList[1];
+  courseList[3].programme[2] = &programmeList[2];
+  courseList[3].combinedGroups = malloc(courseList[3].numOfCombinedGroups*sizeof(CombinedGroups));
+  courseList[3].combinedGroups[0].size = 2;
+  courseList[3].combinedGroups[1].size = 2;
+  courseList[3].combinedGroups[2].size = 2;
+  courseList[3].combinedGroups[0].groups = malloc(courseList[3].combinedGroups[0].size*sizeof(Group*));
+  courseList[3].combinedGroups[1].groups = malloc(courseList[3].combinedGroups[1].size*sizeof(Group*));
+  courseList[3].combinedGroups[2].groups = malloc(courseList[3].combinedGroups[2].size*sizeof(Group*));
+  courseList[3].combinedGroups[0].groups[0] = &groupList[0];
+  courseList[3].combinedGroups[0].groups[1] = &groupList[1];
+  courseList[3].combinedGroups[1].groups[0] = &groupList[2];
+  courseList[3].combinedGroups[1].groups[1] = &groupList[3];  
+  courseList[3].combinedGroups[2].groups[0] = &groupList[4];
+  courseList[3].combinedGroups[2].groups[1] = &groupList[5];
 }
 
 void initClassList(){
@@ -290,6 +357,16 @@ void initClassList(){
   clazzList[13].groupInClass = &(clazzList[13].course->combinedGroups[clazzList[13].groupIndexInClass]);
   clazzList[14].groupInClass = &(clazzList[14].course->combinedGroups[clazzList[14].groupIndexInClass]);
   clazzList[15].groupInClass = &(clazzList[15].course->combinedGroups[clazzList[15].groupIndexInClass]);
+  
+  //Tamadun Islam
+  clazzList[16].groupInClass = NULL;
+  clazzList[17].groupInClass = NULL;
+  clazzList[18].groupInClass = &(clazzList[18].course->combinedGroups[clazzList[18].groupIndexInClass]);
+  clazzList[19].groupInClass = &(clazzList[19].course->combinedGroups[clazzList[19].groupIndexInClass]);
+  clazzList[20].groupInClass = &(clazzList[20].course->combinedGroups[clazzList[20].groupIndexInClass]);
+  clazzList[21].groupInClass = &(clazzList[21].course->combinedGroups[clazzList[21].groupIndexInClass]);
+  clazzList[22].groupInClass = &(clazzList[22].course->combinedGroups[clazzList[22].groupIndexInClass]);
+  clazzList[23].groupInClass = &(clazzList[23].course->combinedGroups[clazzList[23].groupIndexInClass]);
   
 }           
 

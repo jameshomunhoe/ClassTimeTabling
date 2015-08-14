@@ -42,8 +42,10 @@ ClassIndex offspringLeft;
 ClassIndex offspringRight;
 
 randomIndex(&referenceIndex);
+
 toLeftIndex = referenceIndex;
 offspringLeft = referenceIndex;
+
 indexForward(&referenceIndex);
 toRightIndex = referenceIndex;
 offspringRight = referenceIndex;

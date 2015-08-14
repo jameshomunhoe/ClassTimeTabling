@@ -192,9 +192,9 @@ void test_updateGroupCounterFromClassWithSignal_should_return_1_with_25_empty_cl
   
   clearClass(&newClass);
   
-  for(i = 0 ; i < 20 ; i++){
+  for(i = 0 ; i < 12 ; i++){
     TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
-    TEST_ASSERT_EQUAL(i+1, classCount[3].forEmptyClasses);
+    TEST_ASSERT_EQUAL(i+1, classCount[4].forEmptyClasses);
   }
 }
 
@@ -205,9 +205,9 @@ void test_updateGroupCounterFromClassWithSignal_should_return_0_with_26_empty_cl
   
   clearClass(&newClass);
   
-  for(i = 0 ; i < 20 ; i++){
+  for(i = 0 ; i < 12 ; i++){
     TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&newClass));
-    TEST_ASSERT_EQUAL(i+1, classCount[3].forEmptyClasses);
+    TEST_ASSERT_EQUAL(i+1, classCount[4].forEmptyClasses);
   }
   TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&newClass));
 }
@@ -480,25 +480,25 @@ void test_performCrossover_both_parents_are_identical(){
  randomTime_ExpectAndReturn(0);
  performCrossover(father,mother,offspring,2);
  
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&father[1][0][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&father[1][0][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&father[1][0][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&father[1][0][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&father[1][0][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&father[1][0][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&father[1][1][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&father[1][1][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&father[1][1][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&father[1][1][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&father[1][1][4]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&father[1][1][5]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&father[1][2][0]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&father[1][2][1]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&father[1][2][2]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&father[1][2][3]));
- TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&father[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][1],&father[1][0][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][2],&father[1][0][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][3],&father[1][0][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][4],&father[1][0][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][0][5],&father[1][0][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][0],&father[1][1][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][1],&father[1][1][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][2],&father[1][1][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][3],&father[1][1][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][4],&father[1][1][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][1][5],&father[1][1][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][0],&father[1][2][0]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][1],&father[1][2][1]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][2],&father[1][2][2]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][3],&father[1][2][3]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][4],&father[1][2][4]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&father[1][2][5]));
  TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][0],&father[0][0][0]));
- //starting point for father ^, mother v
+ // starting point for father ^, mother v
  TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][1],&mother[0][0][1]));
  TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][2],&mother[0][0][2]));
  TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][0][3],&mother[0][0][3]));
@@ -516,6 +516,7 @@ void test_performCrossover_both_parents_are_identical(){
  TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][3],&mother[0][2][3]));
  TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][4],&mother[0][2][4]));
  TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[0][2][5],&mother[0][2][5]));
+ TEST_ASSERT_EQUAL(1,checkEqualClass(&offspring[1][2][5],&mother[1][2][5]));
 
  setUp();
  

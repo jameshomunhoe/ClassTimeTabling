@@ -7,7 +7,27 @@
 #include "Constraints.h"
 #include "Structure.h"
 #include "TestStructure.h"
+#include "TimeTable.h"
 #include "Random.h"
+
+
+/****************************************************************************
+ *  Function name : performMutation
+ *  Inputs        : Class timeTable[][][], int effort
+ *  Output/return : NONE
+ *  Destroy       : timeTable[][][]
+ *  Description   : The purpose of this function is to swap to random classes
+ *                  to reduce the constraints, the number of performing will
+ *                  decided by the user
+ *****************************************************************************/
+void performMutation(Class classToMutate[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT], int effort){
+  int i;
+  
+  for(i = 0 ; i < effort ; i++){
+    mutationSwapOnce(classToMutate);
+  }
+  
+}
 
 /****************************************************************************
  *  Function name : mutationSwapOnce
