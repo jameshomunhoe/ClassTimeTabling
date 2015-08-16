@@ -5,6 +5,7 @@
 #include "Node.h"
 #include "ErrorCode.h"
 #include "CException.h"
+#include "malloc.h"
 
 /**
 * Important notes / information
@@ -54,10 +55,10 @@ void _addRedBlackTree(Node **rootPtr, Node *newNode){
     _addRedBlackTree(&((*rootPtr)->right), newNode);
   
   else{
-    Element oneTimeTable;
-    oneTimeTable.next = NULL;
-    oneTimeTable.timeTable = newNode->timeTable;
-		listAddLast(&(*rootPtr)->list, &oneTimeTable);
+    Element *oneTimeTable = malloc(sizeof(Element));
+    oneTimeTable->next = NULL;
+    oneTimeTable->timeTable = newNode->timeTable;
+		listAddLast(&(*rootPtr)->list, oneTimeTable);
 	}
     
   checkViolationAndRotate(rootPtr);
@@ -194,9 +195,11 @@ void restructureTree(Node **rootPtr, Node *removedNode){
 }
 
 Node *removeNextLargerSuccessor(Node **rootPtr){
-  Node *removedNode;
+  Node *removedNode = NULL;
 
-  if(leftChild){
+  if(*rootPtr == NULL);
+  
+  else if(leftChild){
     removedNode = removeNextLargerSuccessor(&leftChild);
     restructureTree(rootPtr, removedNode);
   }

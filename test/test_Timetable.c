@@ -241,8 +241,8 @@ void test_insertPopulationIntoRBT__should_add_3_populations_2nd_3rd_same_violati
   TEST_ASSERT_EQUAL(1, root->left->list.length);
   TEST_ASSERT_EQUAL(5, root->left->list.head->timeTable->violations);
   TEST_ASSERT_NULL(root->left->list.head->next);
-
 }
+
 
 
 

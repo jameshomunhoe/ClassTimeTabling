@@ -132,5 +132,25 @@ void insertPopulationIntoRBT(TTPopulation *onePopulation){
   
   setNode(newNode, NULL, NULL, 'b');
 	newNode->timeTable = onePopulation;
+  newNode->list.head = NULL;
+  newNode->list.tail = NULL;
+  newNode->list.length = 0;
 	addRedBlackTree(&root, newNode);
+}
+
+/****************************************************************************
+ *  Function name : createPopulationsOfTimetable
+ *  Inputs        : TTPopulation *onePopulation
+ *  Output/return : NONE
+ *  Destroy       : NONE
+ *  Description   : The purpose of this function is to put the TTPopulation into
+ *                  RedBlackTree
+ *****************************************************************************/
+void createPopulationsOfTimeTable(int numOfPopulations){
+  int i;
+  
+  for(i = 0 ; i < numOfPopulations ; i++){
+    Class newTimeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+    insertPopulationIntoRBT(createSinglePopulation(newTimeTable));
+  }
 }

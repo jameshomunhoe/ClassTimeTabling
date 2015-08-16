@@ -10,10 +10,12 @@
 #include "RedBlackTree.h"
 #include "Rotations.h"
 #include "LinkedList.h"
+#include "CustomAssertion.h"
 #include "Constraints.h"
 #include "TestStructure.h"
 #include "Timetable.h"
 #include "Random.h"
+#include "malloc.h"
 
 void setUp(void){
   initProgrammeList();
@@ -110,7 +112,10 @@ void test_createTimeTable_should_able_to_create_timeTable(){
   
 }
 
-void test_createSInglePopulation_should_fill_in_class_and_violation(){
+/************************************************************************
+ *  TEST of createSinglePopulation
+ ************************************************************************/
+void test_createSinglePopulation_should_fill_in_class_and_violation(){
   
   Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
 
@@ -125,5 +130,35 @@ void test_createSInglePopulation_should_fill_in_class_and_violation(){
   for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
     TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&(noob->timeTable[ttIndex.venue][ttIndex.day][ttIndex.time])));
     indexForward(&ttIndex);
+  }
+}
+
+/************************************************************************
+ *  TEST of createPopulationsOfTimeTable
+ ************************************************************************/
+void test_createPopulationsOfTimeTable_should_not_gives_error(){
+  
+  root = NULL;
+  createPopulationsOfTimeTable(100);
+  
+  TEST_ASSERT_NOT_NULL(root);
+  TEST_ASSERT_NOT_NULL(root->left);
+  TEST_ASSERT_NOT_NULL(root->right);
+  
+  int i = 1;
+  
+  Node *node = malloc(sizeof(Node));
+  Element *elem = malloc(sizeof(Element));
+  
+  while(i<=100){
+    node = removeNextLargerSuccessor(&root);
+    
+    while(node->list.length > 0){
+      elem = listRemoveFirst(&node->list);
+      printf("node(list) %d : %d\n", i, elem->timeTable->violations);
+      i++;
+    }
+      printf("node(node) %d : %d\n", i, node->timeTable->violations );
+      i++;
   }
 }

@@ -18,4 +18,5 @@ int successfulAddWithoutConstraint(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_
 TTPopulation *createSinglePopulation(Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT]);
 
 void insertPopulationIntoRBT(TTPopulation *onePopulation);
+void createPopulationsOfTimeTable(int numOfPopulations);
 #endif // Timetable_H
