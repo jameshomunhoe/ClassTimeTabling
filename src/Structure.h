@@ -82,6 +82,7 @@ typedef struct Group Group;
 typedef struct Programme Programme;
 typedef struct Venue Venue;
 typedef struct Class Class;
+typedef struct TTPopulation TTPopulation;
 typedef struct ClassIndex ClassIndex;
 typedef struct CombinedGroups CombinedGroups;
 typedef struct ClassCounter ClassCounter;
@@ -157,6 +158,15 @@ struct Class
   int groupIndexInClass;
   CombinedGroups *groupInClass;
   
+};
+
+/************************************************************************
+ *	Struct of TTPopulation
+ ************************************************************************/
+struct TTPopulation 
+{
+  Class timeTable[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT];
+  int violations;
 };
 
 /************************************************************************

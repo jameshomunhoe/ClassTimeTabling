@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "Random.h"
 #include "Structure.h"
+#include "RedBlackTree.h"
 #include "TestStructure.h"
 #include "CException.h"
 #include "ErrorCode.h"

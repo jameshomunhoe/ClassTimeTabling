@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "RedBlackTree.h"
+#include "LinkedList.h"
 #include "Rotations.h"
 #include "Node.h"
 #include "ErrorCode.h"
@@ -46,14 +47,18 @@ void _addRedBlackTree(Node **rootPtr, Node *newNode){
     return;
   }
     
-  else if(newNode->data < (*rootPtr)->data)
+  else if(newNode->timeTable->violations < (*rootPtr)->timeTable->violations)
     _addRedBlackTree(&((*rootPtr)->left), newNode);
   
-  else if(newNode->data > (*rootPtr)->data)
+  else if(newNode->timeTable->violations > (*rootPtr)->timeTable->violations)
     _addRedBlackTree(&((*rootPtr)->right), newNode);
   
-  else
-    Throw(ERROR_EQUIVALENT_NODE);
+  else{
+    Element oneTimeTable;
+    oneTimeTable.next = NULL;
+    oneTimeTable.timeTable = newNode->timeTable;
+		listAddLast(&(*rootPtr)->list, &oneTimeTable);
+	}
     
   checkViolationAndRotate(rootPtr);
 }
@@ -111,9 +116,9 @@ Node *_delRedBlackTree(Node **rootPtr, Node *newNode){
   Node *successorNode;
   
   if(!*rootPtr || !newNode)
-    Throw(ERROR_NO_NODE);
+    Throw(ERR_NO_NODE);
     
-  else if((*rootPtr)->data == newNode->data){
+  else if((*rootPtr)->timeTable->violations == newNode->timeTable->violations){
     Node *temporaryLeftChild = NULL;
     Node *temporaryRightChild = NULL;
     
@@ -151,10 +156,10 @@ Node *_delRedBlackTree(Node **rootPtr, Node *newNode){
     return retNode;
   }
   
-  else if(newNode->data < (*rootPtr)->data)
+  else if(newNode->timeTable->violations < (*rootPtr)->timeTable->violations)
     retNode = _delRedBlackTree(&leftChild, newNode);
   
-  else if(newNode->data > (*rootPtr)->data)
+  else if(newNode->timeTable->violations > (*rootPtr)->timeTable->violations)
     retNode = _delRedBlackTree(&rightChild, newNode);
   
   restructureTree(rootPtr, retNode);

@@ -2,10 +2,15 @@
 
 #include "unity.h"
 #include <stdio.h>
+#include <string.h>
+#include "Structure.h"
 #include "Mutation.h"
 #include "Crossover.h"
+#include "InitNode.h"
+#include "RedBlackTree.h"
+#include "Rotations.h"
+#include "LinkedList.h"
 #include "Constraints.h"
-#include "Structure.h"
 #include "TestStructure.h"
 #include "Timetable.h"
 #include "Random.h"
@@ -103,4 +108,22 @@ void test_createTimeTable_should_able_to_create_timeTable(){
   }
     TEST_ASSERT_EQUAL(0, updateGroupCounterFromClassWithSignal(&timeTable[classIndex.venue][classIndex.day][classIndex.time]));
   
+}
+
+void test_createSInglePopulation_should_fill_in_class_and_violation(){
+  
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+
+  TTPopulation *noob = NULL;
+  ClassIndex ttIndex = {0,0,0};
+  int i;
+  
+  noob = createSinglePopulation(newClass);
+
+  printf("violations in population %d\n",noob->violations);
+  
+  for(i = 0 ; i < MAX_VENUE*MAX_DAY*MAX_TIME_SLOT ; i++){
+    TEST_ASSERT_EQUAL(1, updateGroupCounterFromClassWithSignal(&(noob->timeTable[ttIndex.venue][ttIndex.day][ttIndex.time])));
+    indexForward(&ttIndex);
+  }
 }

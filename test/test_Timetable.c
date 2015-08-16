@@ -2,12 +2,19 @@
 
 #include "unity.h"
 #include <stdio.h>
-#include "Timetable.h"
+#include <string.h>
 #include "Structure.h"
+#include "Timetable.h"
+#include "InitNode.h"
+#include "RedBlackTree.h"
+#include "Rotations.h"
+#include "LinkedList.h"
+#include "CustomAssertion.h"
 #include "TestStructure.h"
 #include "ErrorCode.h"
 #include "Constraints.h"
 #include "mock_Random.h"
+#include "malloc.h"
 
 void setUp(void){
   initProgrammeList();
@@ -15,6 +22,7 @@ void setUp(void){
   initClassList();
   initClassCounter();
   initVenueList();
+  root = NULL;
 }
 void tearDown(void){}
 
@@ -150,11 +158,91 @@ void test_successfulAddWithoutConstraints_should_add_2nd_class_and_return_1(){
 }
 
 
+/************************************************************************
+ *  TEST of insertPopulationIntoRBT
+ ************************************************************************/
+void test_insertPopulationIntoRBT__should_add_1_population(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  TTPopulation *population = malloc(sizeof(TTPopulation));
+  
+  memcpy(population->timeTable, newClass, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population->violations = 5;
+  
+  insertPopulationIntoRBT(population);
+  
+  TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', root);
+}
 
+void test_insertPopulationIntoRBT__should_add_2_population(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  Class newClass2[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  TTPopulation *population = malloc(sizeof(TTPopulation));
+  TTPopulation *population2 = malloc(sizeof(TTPopulation));
+  
+  memcpy(population->timeTable, newClass, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population->violations = 5;
+  memcpy(population2->timeTable, newClass2, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population2->violations = 10;
+  
+  insertPopulationIntoRBT(population);
+  insertPopulationIntoRBT(population2);
+  
+  TEST_ASSERT_EQUAL(5, root->timeTable->violations);
+  TEST_ASSERT_EQUAL(10, root->right->timeTable->violations);
+}
 
+void test_insertPopulationIntoRBT__should_add_2_same_violation_population_into_list(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  Class newClass2[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  TTPopulation *population = malloc(sizeof(TTPopulation));
+  TTPopulation *population2 = malloc(sizeof(TTPopulation));
+  
+  memcpy(population->timeTable, newClass, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population->violations = 5;
+  memcpy(population2->timeTable, newClass2, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population2->violations = 5;
+  
+  insertPopulationIntoRBT(population);
+  insertPopulationIntoRBT(population2);
+  
+  TEST_ASSERT_EQUAL(5, root->timeTable->violations);
+  TEST_ASSERT_EQUAL(1, root->list.length);
+  TEST_ASSERT_EQUAL(5, root->list.head->timeTable->violations);
+  TEST_ASSERT_NULL(root->list.head->next);
 
+}
 
+void test_insertPopulationIntoRBT__should_add_3_populations_2nd_3rd_same_violation(){
+  Class newClass[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  Class newClass2[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  Class newClass3[MAX_VENUE][MAX_DAY][MAX_TIME_SLOT] = {0};
+  
+  TTPopulation *population = malloc(sizeof(TTPopulation));
+  TTPopulation *population2 = malloc(sizeof(TTPopulation));
+  TTPopulation *population3 = malloc(sizeof(TTPopulation));
+  
+  memcpy(population->timeTable, newClass, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population->violations = 10;
+  memcpy(population2->timeTable, newClass2, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population2->violations = 5;
+  memcpy(population3->timeTable, newClass3, sizeof(Class)*MAX_VENUE*MAX_DAY*MAX_TIME_SLOT);
+  population3->violations = 5;
+  
+  insertPopulationIntoRBT(population);
+  insertPopulationIntoRBT(population2);
+  insertPopulationIntoRBT(population3);
+  
+  TEST_ASSERT_EQUAL(10, root->timeTable->violations);
+  TEST_ASSERT_NULL(root->list.head);
+  
+  TEST_ASSERT_EQUAL(5, root->left->timeTable->violations);
+  TEST_ASSERT_EQUAL(1, root->left->list.length);
+  TEST_ASSERT_EQUAL(5, root->left->list.head->timeTable->violations);
+  TEST_ASSERT_NULL(root->left->list.head->next);
 
+}
 
 
 

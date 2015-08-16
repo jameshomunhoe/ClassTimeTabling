@@ -1,6 +1,8 @@
 #ifndef __LINKED_LIST_H__
 #define __LINKED_LIST_H__
 
+#include "Structure.h"
+
 typedef struct Element_t Element;
 
 typedef struct {
@@ -11,7 +13,7 @@ typedef struct {
 
 typedef struct Element_t{
 	struct Element_t *next;
-	int data;
+	TTPopulation *timeTable;
 }Element;
 
 LinkedList *createLinkedList();
